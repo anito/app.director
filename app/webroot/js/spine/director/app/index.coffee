@@ -286,11 +286,6 @@ class Main extends Spine.Controller
 
   refreshAll: -> @sidebar.refreshAll()
 
-  fetchAll: ->
-    Photo.fetch(null, clear:true)
-    Album.fetch(null, clear:true)
-    Gallery.fetch(null, clear:true)
-    
   activateEditor: (e) ->
     el = $(e.currentTarget)
     test = el.prop('class')

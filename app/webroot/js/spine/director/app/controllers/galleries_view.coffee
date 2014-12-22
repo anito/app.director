@@ -40,6 +40,7 @@ class GalleriesView extends Spine.Controller
     @header.template = @headerTemplate
     @viewport = @list.el
     Gallery.one('refresh', @proxy @render)
+    
     Gallery.bind('beforeDestroy', @proxy @beforeDestroy)
     Gallery.bind('destroy', @proxy @destroy)
     Gallery.bind('refresh:gallery', @proxy @render)

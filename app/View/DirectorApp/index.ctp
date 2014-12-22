@@ -35,10 +35,7 @@
         </div>
         <ul class="items vbox flex autoflow"></ul>
         <footer class="footer">
-          <button class="opt-Refresh dark left">
-            <i class="glyphicon glyphicon-repeat" style="line-height: 1.5em;"></i>
-            <span></span>
-          </button>
+          <div id="refresh"></div>
           <button class="opt-CreateGallery dark">
             <i class="glyphicon glyphicon-plus"></i>
             <span>Gallery</span>
@@ -1004,6 +1001,13 @@
       </tr>
     </tbody>
   </table>
+</script>
+
+<script id="refreshTemplate" type="text/x-tmpl">
+  <button class="opt-Refresh dark left">
+    <i class="glyphicon glyphicon-${icon}" style="line-height: 1.5em;"></i>
+    <span></span>
+  </button>
 </script>
 
 <script id="fileuploadTemplate" type="text/x-jquery-tmpl">

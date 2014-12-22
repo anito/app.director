@@ -10,7 +10,6 @@
   
   "packages": {
     "js": {
-      "main": "./app/login",
       "libs"    : [
         "lib/jquery/jquery-1.9.1.js",
         "lib/jquery/jquery.tmpl.js",

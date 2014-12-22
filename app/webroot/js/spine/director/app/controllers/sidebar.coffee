@@ -8,6 +8,7 @@ AlbumsPhoto    = require('models/albums_photo')
 User           = require("models/user")
 Drag           = require("plugins/drag")
 SidebarList    = require('controllers/sidebar_list')
+RefreshView    = require('controllers/refresh_view')
 Extender       = require("plugins/controller_extender")
 SpineDragItem  = require('models/drag_item')
 
@@ -25,13 +26,13 @@ class Sidebar extends Spine.Controller
     '.opt-AllAlbums'        : 'albums'
     '.opt-AllPhotos'        : 'photos'
     '.expander'             : 'expander'
+    '#refresh'              : 'refreshEl'
 
 
   events:
     'keyup input'               : 'filter'
     'click .opt-CreateAlbum'    : 'createAlbum'
     'click .opt-CreateGallery'  : 'createGallery'
-    'click .opt-Refresh'        : 'fetchAll'
     'dblclick .draghandle'      : 'toggleDraghandle'
 
     'sortupdate .sublist'         : 'sortupdate'
@@ -61,8 +62,12 @@ class Sidebar extends Spine.Controller
       el: @items,
       template: @galleryTemplate
       parent: @
+    @refreshView = new RefreshView
+      el: @refreshEl
       
     Gallery.one('refresh', @proxy @refresh)
+    
+    Gallery.bind('refresh:one', @proxy @refreshOne)
     Gallery.bind("ajaxError", Gallery.errorHandler)
     Gallery.bind("ajaxSuccess", Gallery.successHandler)
     
@@ -100,17 +105,8 @@ class Sidebar extends Spine.Controller
   refresh: (items) ->
     @render()
     
-  fetchAll: (e) ->
-    @refreshAll()
-    e.preventDefault()
-    e.stopPropagation()
-    
-  refreshAll: ->
-    @refreshElements()
+  refreshOne: ->
     Gallery.one('refresh', @proxy @refresh)
-    Album.trigger('refresh:one')
-    Photo.trigger('refresh:one')
-    App.fetchAll()
     
   render: (selectType='searchSelect') ->
     model = Model[@model] or Model[@defaultModel]
@@ -118,6 +114,7 @@ class Sidebar extends Spine.Controller
     items = items.sort model.nameSort
     Gallery.trigger('refresh:gallery') #rerenders GalleryView
     @list.render items
+    @refreshView.render()
   
   newAttributes: ->
     if User.first()
