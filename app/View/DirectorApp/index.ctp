@@ -1005,7 +1005,7 @@
 
 <script id="refreshTemplate" type="text/x-tmpl">
   <button class="opt-Refresh dark left">
-    <i class="glyphicon glyphicon-${icon}" style="line-height: 1.5em;"></i>
+    <i class="glyphicon glyphicon-${icon}" style="line-height: 1.5em; padding-left: 8px;"></i>
     <span></span>
   </button>
 </script>
