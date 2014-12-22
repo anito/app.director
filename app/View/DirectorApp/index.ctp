@@ -528,7 +528,8 @@
         </ul>
       </span>
     </div>
-    <div class="title center">{{if title}}{{html title.slice(0, 15)}}{{else}}...{{/if}}</div>
+    <div class="title center none">{{if title}}{{html title.slice(0, 15)}}{{else}}...{{/if}}</div>
+    <div class="title center">{{if order}}${order}{{else}}...{{/if}}</div>
   </li>
 </script>
 

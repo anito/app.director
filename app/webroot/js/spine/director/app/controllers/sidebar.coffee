@@ -159,8 +159,8 @@ class Sidebar extends Spine.Controller
   destroyGallery: (id) ->
     @log 'destroy'
     return unless item = Gallery.find id
-    
     item.destroy()
+    Gallery.trigger('activate', null)
 
   edit: ->
     App.galleryEditView.render()

@@ -18,6 +18,7 @@ class RefreshView extends Spine.Controller
     
   constructor: ->
     super
+    Spine.bind('refresh:all', @proxy @refresh)
     
   refresh: ->
     @render 'cloud-download'

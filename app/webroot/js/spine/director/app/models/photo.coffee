@@ -106,7 +106,7 @@ class Photo extends Spine.Model
     if isValid
       target.save(done: cb)
     else
-      App.refreshAll()
+      Spine.trigger('refresh:all')
     ret
     
   @destroyJoin: (items=[], target, cb) ->

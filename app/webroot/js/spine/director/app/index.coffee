@@ -284,8 +284,6 @@ class Main extends Spine.Controller
   loadToolbars: ->
     Toolbar.load()
 
-  refreshAll: -> @sidebar.refreshAll()
-
   activateEditor: (e) ->
     el = $(e.currentTarget)
     test = el.prop('class')
