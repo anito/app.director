@@ -929,9 +929,6 @@ li .thumbnail.image {
   height: 240px;
   width: 320px;
 }
-.photo .thumbnail.image {
-  border: 2px dotted rgba(255, 255, 255, 0.7);
-}
 .active .thumbnail .name {
   color: rgba(250, 192, 150, 0.4);
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.7);
@@ -1139,8 +1136,12 @@ li .thumbnail.image {
   background: rgba(192, 152, 83, .95)
 }
 .all .view .thumbnail {
-  outline: 1px solid rgba(192, 152, 83, 0.8);
+  outline: 0px solid rgba(192, 152, 83, 0.8);
   background-color: rgba(250, 250, 250, 0.1);
+  padding: 0;
+}
+.all .photo .thumbnail {
+  border: 0 none;
 }
 .galleries .thumbnail {
   background-position: 0 -160px;

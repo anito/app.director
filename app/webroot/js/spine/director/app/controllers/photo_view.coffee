@@ -40,6 +40,7 @@ class PhotoView extends Spine.Controller
     
   constructor: ->
     super
+    @currentId = 0
     @bind('active', @proxy @active)
     @el.data('current',
       model: Album
@@ -48,6 +49,8 @@ class PhotoView extends Spine.Controller
     @list = new PhotoList
       el: @itemsEl
       parent: @
+    #listen to a different view
+    @list.listener = @parent.photosView.list
     @type = 'Photo'
     @info = new Info
       el: @infoEl
@@ -58,6 +61,13 @@ class PhotoView extends Spine.Controller
     Photo.bind('beforeDestroy', @proxy @back)
     Photo.one('refresh', @proxy @refresh)
     Album.bind('change:collection', @proxy @refresh)
+    Album.bind("change:selection", @proxy @change)
+    
+  change: (a, b) ->
+    changed = !(@currentId is b[0])
+    if changed
+      @currentId = b[0]
+      @render Photo.find(b) 
     
   render: (item=Photo.record) ->
     return unless @isActive()

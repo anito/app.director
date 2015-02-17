@@ -44,7 +44,7 @@ class PhotosList extends Spine.Controller
     AlbumsPhoto.bind('change', @proxy @changeRelated)
     
   changeRelated: (item, mode) ->
-    return unless @parent.isActive()
+#    return unless @parent.isActive()
     return unless Album.record
     return unless Album.record.id is item['album_id']
     return unless photo = Photo.find(item['photo_id'])
