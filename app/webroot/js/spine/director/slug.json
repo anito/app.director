@@ -10,6 +10,17 @@
   
   "packages": {
     "js": {
+      "modules": [
+        "es5-shimify", 
+        "json2ify",
+        "jqueryify",
+        "spine",
+        "spine/lib/local",
+        "spine/lib/ajax",
+        "spine/lib/route",
+        "spine/lib/manager",
+        "spine/lib/list"
+      ],
       "libs"    : [
         "lib/jquery/jquery-1.9.1.js",
         "lib/jquery/jquery.tmpl.js",
@@ -34,16 +45,6 @@
         "lib/blueimp/blueimp-helper.js",
         "lib/anito/array.js"
         
-      ],
-      "modules": [
-        "es5-shimify", 
-        "json2ify",
-        "spine",
-        "spine/lib/local",
-        "spine/lib/ajax",
-        "spine/lib/route",
-        "spine/lib/manager",
-        "spine/lib/list"
       ],
       "paths"  : ["./app"],
       "target" : "./public/application.js"

@@ -10,10 +10,7 @@
 
   "packages": {
     "appName": {
-      "libs"    : [
-        "lib/jade_runtime.js",
-        "lib/jquery.js"
-      ],
+      "libs"    : [],
       "modules" : [
         "spine",
         "spine/lib/local",

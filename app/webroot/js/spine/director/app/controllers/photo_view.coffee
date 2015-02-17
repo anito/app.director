@@ -99,29 +99,22 @@ class PhotoView extends Spine.Controller
 #    for item in items
     jsn = searchJSON item.id
     if jsn
-      img.parentEl = $('.thumbnail', @el)#.forItem(item)
+      tmb = $('.thumbnail', @el).css
+        'opacity' : 0.01
+      img.tmb = tmb
       img.src = jsn.src
   
   imageLoad: ->
-    parentEl = @parentEl
+    tmb = @tmb
     w = @width
     h = @height
     
     img = $(@)
-    parentEl.html img
-    .hide()
-    .css
-      'opacity'           : 0.01
-    parentEl.animate
+    tmb.html img
+    tmb.animate
+      'opacity'           : 1
       'width'             : w+'px'
       'height'            : h+'px'
-    , complete: =>
-      img.css
-        'opacity'         : 1
-      .fadeIn()
-      parentEl.css
-        'borderStyle'       : 'solid'
-        'backgroundColor'   : 'rgb(117, 117, 117)'
   
   dropdownToggle: (e) ->
     el = $(e.currentTarget)
