@@ -109,13 +109,13 @@ class PhotoView extends Spine.Controller
 #    for item in items
     jsn = searchJSON item.id
     if jsn
-      tmb = $('.thumbnail', @el).css
-        'opacity' : 0.01
-      img.tmb = tmb
+      img.tmb = $('.thumbnail', @el)
+      img.container = @itemsEl.removeClass('in')
       img.src = jsn.src
   
   imageLoad: ->
     tmb = @tmb
+    container = @container
     w = @width
     h = @height
     
@@ -125,8 +125,7 @@ class PhotoView extends Spine.Controller
     
     img = $(@)
     tmb.html img
-    tmb.animate
-      'opacity'           : 1
+    container.addClass('in')
   
   dropdownToggle: (e) ->
     el = $(e.currentTarget)

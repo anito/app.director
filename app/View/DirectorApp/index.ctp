@@ -80,7 +80,7 @@
           </div>
           <div tabindex="1" class="view photo content vbox flex data parent autoflow fadeelement" style="">
             <div class="hoverinfo fadeslow"></div>
-            <div class="items flex fadein">Photo</div>
+            <div class="items flex fade nopad">Photo</div>
           </div>
           <div tabindex="1" id="slideshow" class="view content vbox flex data parent autoflow">
             <div class="items flex" data-toggle="blueimp-gallery" data-target="#blueimp-gallery" data-selector="a.thumbnail"></div>
