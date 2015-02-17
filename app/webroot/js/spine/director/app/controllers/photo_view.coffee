@@ -119,12 +119,14 @@ class PhotoView extends Spine.Controller
     w = @width
     h = @height
     
+    if h > w
+      @height = '100%'
+      @width = 'auto'
+    
     img = $(@)
     tmb.html img
     tmb.animate
       'opacity'           : 1
-      'width'             : w+'px'
-      'height'            : h+'px'
   
   dropdownToggle: (e) ->
     el = $(e.currentTarget)
