@@ -285,7 +285,7 @@ class PhotosList extends Spine.Controller
     e.preventDefault()
     
   zoom: (e) ->
-    if Album.record
+    if Album.record?.nope# never get here
       index = @thumbEl.index($(e.target).parents('li').find('.thumbnail'))
       options =
         index         : index

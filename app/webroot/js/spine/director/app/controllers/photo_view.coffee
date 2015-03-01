@@ -61,13 +61,19 @@ class PhotoView extends Spine.Controller
     Photo.bind('beforeDestroy', @proxy @back)
     Photo.one('refresh', @proxy @refresh)
     Album.bind('change:collection', @proxy @refresh)
-    Album.bind("change:selection", @proxy @change)
+#    Album.bind("change:selection", @proxy @changeNavigation)
+    Photo.bind('change:current', @proxy @changeNavigation)
     
   change: (a, b) ->
     changed = !(@currentId is b[0])
     if changed
+      @log b[0]
       @currentId = b[0]
-      @render Photo.find(b) 
+      @render Photo.find(b)
+    
+  changeNavigation: (rec, changed) ->
+    return unless @isActive()
+    @navigate '/gallery', Gallery.record?.id or '', Album.record?.id or '', rec.id if changed
     
   render: (item=Photo.record) ->
     return unless @isActive()
@@ -148,7 +154,6 @@ class PhotoView extends Spine.Controller
     @photosView.list.rotate(e)
   
   back: ->
-    return unless @isActive()
     @navigate '/gallery', Gallery.record.id, Album.record.id
   
   zoom: (e) ->

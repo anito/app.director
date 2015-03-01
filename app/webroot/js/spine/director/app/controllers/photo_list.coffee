@@ -29,6 +29,7 @@ class PhotoList extends Spine.Controller
     e.preventDefault()
     
   back: (e) ->
-    @navigate '/gallery', Gallery.record.id or '', Album.record?.id or ''
+    @navigate '/gallery', Gallery.record?.id or '', Album.record?.id or ''
+    e.preventDefault()
     
 module?.exports = PhotoList

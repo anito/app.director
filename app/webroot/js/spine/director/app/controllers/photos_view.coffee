@@ -140,7 +140,6 @@ class PhotosView extends Spine.Controller
     
     Album.updateSelection(Album.record?.id, list)
     Photo.current(id)
-      
   
   click: (e) ->
     
