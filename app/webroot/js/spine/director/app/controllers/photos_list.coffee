@@ -88,7 +88,7 @@ class PhotosList extends Spine.Controller
         <p>Note: You can also drag existing photos to a sidebars folder</p>
         </span>
         <button class="opt-Upload dark large"><i class="glyphicon glyphicon-upload"></i><span>Upload</span></button>
-        <button class="opt-AddPhotos dark large"><div>import from</div><i class="glyphicon glyphicon-book"></i><span>Library</span></button>
+        <button class="opt-AddPhotos dark large"><span style="font-size: .6em; position: absolute; top: -18px;">import from</span><i class="glyphicon glyphicon-book"></i><span>Library</span></button>
         </label>'
       else
         @html '<label class="invite"><span class="enlightened">No photos here. &nbsp;

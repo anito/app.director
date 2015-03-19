@@ -30,10 +30,8 @@ class Gallery extends Spine.Model
 
   @fromJSON: (objects) ->
     @log 'fromJSON'
-    @log objects
     @log @className
     super
-    @log objects
     @createJoinTables objects
     key = @className
     json = @fromArray(objects, key) if @isArray(objects)# and objects[key]#test for READ or PUT !

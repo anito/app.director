@@ -76,7 +76,7 @@ class AlbumsList extends Spine.Controller
         if Album.count()
           @html '<label class="invite"><span class="enlightened">This Gallery has no albums. &nbsp;</span><br><br>
           <button class="opt-CreateAlbum dark large"><i class="glyphicon glyphicon-asterisk"></i><span>New Album</span></button>
-          <button class="opt-AddAlbums dark large"><div>import from</div><i class="glyphicon glyphicon-book"></i><span>Library</span></button>
+          <button class="opt-AddAlbums dark large"><span style="font-size: .6em; position: absolute; top: -18px;">import from</span><i class="glyphicon glyphicon-book"></i><span>Library</span></button>
           </label>'
         else
           @html '<label class="invite"><span class="enlightened">This Gallery has no albums.<br>It\'s time to create one.</span><br><br>
