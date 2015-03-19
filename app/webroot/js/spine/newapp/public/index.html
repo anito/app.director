@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset=utf-8>
+  <title>Spine App</title>
+  <link rel="stylesheet" href="/application.css" type="text/css" charset="utf-8">
+  <script src="/application.js" charset="utf-8"></script>
+  <script charset="utf-8">
+    var exports = this;
+    var tmodels = [
+      {firstname: 'Axel', lastname: 'Nitzschner'},
+      {firstname: 'Sandra', lastname: 'Prunzel'}
+    ];
+    
+    Tmodel = require('models/tmodel');
+    Tmodel.fetch();
+    
+    if(!Tmodel.count())
+      Tmodel.refresh(tmodels, {clear: true});
+    
+    jQuery(function(){
+      
+      var App = require("index");
+      exports.app = new App({el: $("body")});
+    });
+    
+  </script>
+</head>
+<body>
+	<p>loading...</p>
+</body>
+</html>

@@ -644,13 +644,13 @@ class ShowView extends Spine.Controller
     @navigate '/overview', ''
 
   showModal: (options) ->
-    opts =
-      header: 'New Header'
-      body  : Gallery.all()
-      footer: 'New Footer'
-      info  : 'Test Info'
-    opts = $.extend({}, opts, options)
-    @actionWindow.show(opts)
+#    opts =
+#      header: 'New Header'
+#      body  : Gallery.all()
+#      footer: 'New Footer'
+#      info  : 'Test Info'
+#    opts = $.extend({}, opts, options)
+#    @actionWindow.show(opts)
     
   showPhotosTrash: ->
     Photo.inactive()
