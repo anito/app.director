@@ -35,8 +35,8 @@
         </div>
         <ul class="items vbox flex autoflow"></ul>
         <footer class="footer">
-          <div id="refresh"></div>
           <div style="white-space: nowrap; overflow: hidden;">
+            <div id="refresh"></div>
             <button class="opt-CreateGallery dark">
               <i class="glyphicon glyphicon-plus"></i>
               <span>Gallery</span>
