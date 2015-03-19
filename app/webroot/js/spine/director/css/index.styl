@@ -1438,3 +1438,92 @@ section.addAction {
   height: 15px;
   width: 22px;
 }
+.bs {
+  -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  
+  background: linear-gradient(top, #e3e3e3, #f9f9f9);
+  background: -webkit-gradient(linear, left top, left bottom, from(#e3e3e3), to(#f9f9f9));
+  background: -moz-linear-gradient(center top , #00e3e3, #09f9f9);
+}
+button.puls {
+    -webkit-animation: pulsate 2s ease-out;
+    -webkit-animation-iteration-count: infinite;
+    -ms-animation: pulsate 2s ease-out;
+    -ms-animation-iteration-count: infinite;
+    -moz-animation: pulsate 2s ease-out;
+    -moz-animation-iteration-count: infinite;
+    -o-animation: pulsate 2s ease-out;
+    -o-animation-iteration-count: infinite;
+    animation: pulsate 2s ease-out;
+    animation-iteration-count: infinite;
+    z-index: 999;
+    color: white;
+    background-color: #7bb5db;
+}
+@-webkit-keyframes pulsate {
+    from {
+      color: #09f9f9;
+      opacity: 0.5;
+    }
+    50% {
+      opacity: 1.0;
+    }
+    to {
+      color: #09f9f9;
+      opacity: 0.5;
+    }
+}
+@-moz-keyframes pulsate {
+    0% {
+      color: #09f9f9;
+      opacity: 0.5;
+    }
+    50% {
+      opacity: 1.0;
+    }
+    100% {
+      color: #09f9f9;
+      opacity: 0.5;
+    }
+}
+@-ms-keyframes pulsate {
+    0% {
+      color: #09f9f9;
+      opacity: 0.5;
+    }
+    50% {
+      opacity: 1.0;
+    }
+    100% {
+      color: #09f9f9;
+      opacity: 0.5;
+    }
+}
+@-o-keyframes pulsate {
+    0% {
+      opacity: 0.5;
+      color: #09f9f9;
+    }
+    50% {
+        opacity: 1.0;
+    }
+    100% {
+      color: #09f9f9;
+      opacity: 0.5;
+    }
+}
+@keyframes pulsate {
+    from {
+      color: #09f9f9;
+      opacity: 0.5;
+    }
+    50% {
+      opacity: 1.0;
+    }
+    to {
+      color: #09f9f9;
+      opacity: 0.5;
+    }
+}

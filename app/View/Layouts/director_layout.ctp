@@ -29,7 +29,7 @@
     echo $this->Html->meta('icon');
     
     echo $this->Html->css('themes/jquery-ui/ui-darkness/jquery-ui-1.8.16.custom');
-    echo $this->Html->css('twitter/bootstrap/css/bootstrap');
+    echo $this->Html->css('bootstrap/css/bootstrap');
     echo $this->Html->css('blueimp/jquery.fileupload-ui');
     echo $this->Html->css('blueimp/blueimp-gallery');
     echo $this->Html->css('blueimp/blueimp-gallery-indicator');

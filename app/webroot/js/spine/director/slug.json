@@ -27,7 +27,7 @@
         "lib/jquery/jquery.tmpl.js",
         "lib/jquery/ui/jquery-ui-1.10.3.custom.js",
         "lib/html5sortable/jquery.sortable.js",
-        "lib/twitter/3.0.2/bootstrap.js",
+        "lib/bootstrap/js/bootstrap.js",
         "lib/blueimp/load-image.min.js",
         "lib/blueimp/locale.js",
         "lib/blueimp/tmpl.js",
