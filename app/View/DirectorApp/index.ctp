@@ -36,14 +36,16 @@
         <ul class="items vbox flex autoflow"></ul>
         <footer class="footer">
           <div id="refresh"></div>
-          <button class="opt-CreateGallery dark">
-            <i class="glyphicon glyphicon-plus"></i>
-            <span>Gallery</span>
-          </button>
-          <button class="opt-CreateAlbum dark">
-            <i class="glyphicon glyphicon-plus"></i>
-            <span>Album</span>
-          </button>
+          <div style="white-space: nowrap; overflow: hidden;">
+            <button class="opt-CreateGallery dark">
+              <i class="glyphicon glyphicon-plus"></i>
+              <span>Gallery</span>
+            </button>
+            <button class="opt-CreateAlbum dark">
+              <i class="glyphicon glyphicon-plus"></i>
+              <span>Album</span>
+            </button>
+          </div>
         </footer>
       </div>
       <div class="vdivide draghandle"></div>
