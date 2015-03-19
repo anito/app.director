@@ -11,8 +11,7 @@
   "packages": {
     "myApp": {
       "libs"    : [
-        "lib/jade_runtime.js",
-        "lib/jquery.js"
+        "lib/jade_runtime.js"
       ],
       "modules" : [
         "jqueryify",
