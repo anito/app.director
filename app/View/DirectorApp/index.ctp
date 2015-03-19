@@ -253,6 +253,14 @@
   </div>
 </script>
 
+<script id="modalSimpleHelpTemplate" type="text/x-jquery-tmpl">
+  <ul>
+    <li>Axel</li>
+    <li>Nitzschner</li>
+    <li>Test</li>
+  </ul>
+</script>
+  
 <script id="modalActionTemplate" type="text/x-jquery-tmpl">
   <form>
   <div class="modal-dialog">
@@ -299,25 +307,35 @@
   <a class="list-group-item item" id="${id}">{{if name}}${name}{{else}}${title}{{/if}}</a>
 </script>
 
+<script id="modalSmallTemplate" type="text/x-jquery-tmpl">
+  
+</script>
+
 <script id="modalSimpleTemplate" type="text/x-jquery-tmpl">
   <div class="modal-dialog {{if small}}modal-sm{{else}}modal-lg{{/if}}">
     <div class="modal-content bg-dark">
+      {{if header}}
       <div class="modal-header dark">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h3>${header}</h3>
       </div>
+      {{/if}}
+      {{if body}}
       <div class="modal-body dark" style="text-align: center;">
-        <img src="/img/keyboard.png">
+        {{html body}}
       </div>
       {{if info}}
       <div class="modal-header label-info dark">
         <div class="label label-info">${info}</div>
       </div>
       {{/if}}
+      {{/if}}
+      {{if footer}}
       <div class="modal-footer dark" style="position: relative">
-        <div class="left" style="text-align: left; max-width: 90%"> {{html footer}}</div>
+        <div class="" style="text-align: left; max-width: 90%"> {{html footer}}</div>
         <button class="btn btnClose dark" style="position: absolute; bottom: 20px; right: 20px;">Ok</button>
       </div>
+      {{/if}}
     </div>
   </div>
 </script>
@@ -907,7 +925,8 @@
 
 <script id="dropdownTemplate" type="text/x-jquery-tmpl">
   <li class="dropdown" {{if id}} id="${id}"{{/if}} >
-      <a class="dropdown-toggle" data-toggle="dropdown">
+    <a class="dropdown-toggle" data-toggle="dropdown">
+      {{if icon}}<i class="glyphicon glyphicon-${icon}  {{if iconcolor}}glyphicon glyphicon-${iconcolor}{{/if}}"></i>{{/if}}
       {{html name}}
       <b class="caret"></b>
     </a>

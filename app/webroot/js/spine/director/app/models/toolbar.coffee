@@ -20,6 +20,17 @@ class Toolbar extends Spine.Model
     val for key, val of @data
     
   @dropdownGroups:
+    group_help:
+      name: 'Help'
+      icon: 'question-sign'
+      content:
+        [
+          name: 'Shortcuts'
+          klass: 'opt-Help '
+        ,
+          name: 'Version'
+          klass: 'opt-Version '
+        ]
     group0:
       name: 'View'
       content:
@@ -253,15 +264,6 @@ class Toolbar extends Spine.Model
         ]
       
   @data:
-    package__0:
-      name: 'Help'
-      content:
-        [
-          name: '&nbsp;'
-          klass: 'opt-Help'
-          icon: 'question-sign'
-          innerklass: ''
-        ]
     package_00:
       name: 'Empty'
       content: []
@@ -269,6 +271,9 @@ class Toolbar extends Spine.Model
       name: 'Default'
       content:
         [
+          dropdown: true
+          itemGroup: @dropdownGroups.group_help
+        ,
           dropdown: true
           itemGroup: @dropdownGroups.group0
         ,

@@ -120,7 +120,7 @@ class PhotosView extends Spine.Controller
       if @options.slideshow
         @parent.slideshowView.play()
     
-    App.showView.trigger('change:toolbarOne', ['Default', 'Help', 'Slider', App.showView.initSlider])
+    App.showView.trigger('change:toolbarOne', ['Default', 'Slider', App.showView.initSlider])
     App.showView.trigger('change:toolbarTwo', ['Slideshow'])
     @refresh()
     @parent.scrollTo(@el.data('current').models.record)

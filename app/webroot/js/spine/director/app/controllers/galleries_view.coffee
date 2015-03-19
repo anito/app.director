@@ -56,7 +56,7 @@ class GalleriesView extends Spine.Controller
           
   active: ->
     return unless @isActive()
-    App.showView.trigger('change:toolbarOne', ['Default', 'Help'])
+    App.showView.trigger('change:toolbarOne', ['Default'])
     App.showView.trigger('change:toolbarTwo', ['Slideshow'])
     @render()
     
@@ -75,7 +75,7 @@ class GalleriesView extends Spine.Controller
     Album.trigger('activate', Gallery.selectionList())
 
   click: (e) ->
-    App.showView.trigger('change:toolbarOne', ['Default', 'Help'])
+    App.showView.trigger('change:toolbarOne', ['Default'])
     item = $(e.currentTarget).item()
     @select(item.id, true) #one gallery selected at a time
     

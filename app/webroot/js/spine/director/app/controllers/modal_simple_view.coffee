@@ -23,10 +23,10 @@ class ModalSimpleView extends Spine.Controller
       show: false
       keyboard: true
       
-    @defaults =
-      header  : 'Default Header Text'
-      body    : 'Default Body Text'
-      footer  : 'Default Footer Text'
+    @defaults = {}
+#      header  : 'Default Header Text'
+#      body    : 'Default Body Text'
+#      footer  : 'Default Footer Text'
       
   hiddenmodal: ->
   

@@ -119,6 +119,7 @@ class ShowView extends Spine.Controller
     'click .opt-CloseDraghandle'                      : 'toggleDraghandle'
     'click .deselector'                               : 'deselect'
     'click .opt-Help'                                 : 'help'
+    'click .opt-Version'                              : 'version'
     'click .opt-Prev'                                 : 'prev'
     
     'dblclick .draghandle'                            : 'toggleDraghandle'
@@ -198,7 +199,10 @@ class ShowView extends Spine.Controller
       el: @waitEl
       parent: @
     
-    @modalSimpleView = new ModalSimpleView
+    @modalHelpView = new ModalSimpleView
+      el: $('#modal-view')
+    
+    @modalVersionView = new ModalSimpleView
       el: $('#modal-view')
     
 #    @bind('canvas', @proxy @canvas)
@@ -810,18 +814,27 @@ class ShowView extends Spine.Controller
     Album.trigger('create:join', items, gallery, callback)
       
   help: (e) ->
-    @notify()
+    @modalHelpView.el.one('hidden.bs.modal', @proxy @hiddenmodal)
+    @modalHelpView.el.one('hide.bs.modal', @proxy @hidemodal)
+    @modalHelpView.el.one('show.bs.modal', @proxy @showmodal)
     
-  notify: ->
-    @modalSimpleView.el.one('hidden.bs.modal', @proxy @hiddenmodal)
-    @modalSimpleView.el.one('hide.bs.modal', @proxy @hidemodal)
-    @modalSimpleView.el.one('show.bs.modal', @proxy @showmodal)
-    
-#    template = (el) -> $('#modalSimpleTemplateBody').tmpl(el)
-    @modalSimpleView.show
+    @modalHelpView.show
       header: 'Keyboard Shortcuts'
-      footer: 'Most elements are draggable and sortable. Navigate through objects by using arrow keys.<br>For selecting multiple objects use arrow keys in combination with ctrl-key.
-        <br>To make images part of your albums, simply drag and drop photos from your desktop to your browser or interact between sidebar and main window.'
+      body  : '<img src="/img/keyboard.png">'
+      footer: -> require("views/help")
+        spine_version: Spine.version
+        app_version: App.version
+        
+  version: (e) ->
+    @modalVersionView.el.one('hidden.bs.modal', @proxy @hiddenmodal)
+    @modalVersionView.el.one('hide.bs.modal', @proxy @hidemodal)
+    @modalVersionView.el.one('show.bs.modal', @proxy @showmodal)
+    
+    @modalVersionView.show
+      small: true
+      body: -> require("views/version")
+        spine_version: Spine.version
+        app_version: App.version
       
   hidemodal: (e) ->
     @log 'hidemodal'

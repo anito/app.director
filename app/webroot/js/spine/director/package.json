@@ -1,5 +1,5 @@
 {
-  "name": "app",
+  "name": "Testapp",
   "version": "1.0.0",
   "dependencies": {
     "serveup": "~0.0.5",

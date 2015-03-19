@@ -77,6 +77,8 @@ class Main extends Spine.Controller
   constructor: ->
     super
     
+    @version = "2.0.0"
+    
     Spine.DragItem = SpineDragItem.create()
     
     @ALBUM_SINGLE_MOVE = @createImage('/img/cursor_folder_1.png')

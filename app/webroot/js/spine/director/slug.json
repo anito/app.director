@@ -2,7 +2,6 @@
   "server": {
     "port"  : 9294
   },
-
   "routes": [
     { ""        : "./public" },
     { "/test"    : "./test/public" }
@@ -23,6 +22,7 @@
         "spine/lib/list"
       ],
       "libs"    : [
+        "lib/jade_runtime.js",
         "lib/jquery/jquery-1.9.1.js",
         "lib/jquery/jquery.tmpl.js",
         "lib/jquery/ui/jquery-ui-1.10.3.custom.js",
@@ -48,7 +48,8 @@
         
       ],
       "paths"  : ["./app"],
-      "target" : "./public/application.js"
+      "target" : "./public/application.js",
+      "jsAfter": "jade.rethrow = function rethrow(err, filename, lineno){ throw err; } "
     },
     "css": {
       "paths"  : "./css",

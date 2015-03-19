@@ -37,7 +37,7 @@ class AlbumsView extends Spine.Controller
     'mouseleave .item'                : 'infoBye'
     
   albumsTemplate: (items, options) ->
-    templ = $("#albumsTemplate").tmpl items, options
+    $("#albumsTemplate").tmpl items, options
     
 #  toolsTemplate: (items) ->
 #    $("#toolsTemplate").tmpl items
