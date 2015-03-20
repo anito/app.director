@@ -884,7 +884,7 @@ class ShowView extends Spine.Controller
       body: -> require("views/carousel")
         slides: slides
         id: carousel_id
-      footer: '<div></div>'
+      footerButtonText: 'Close'
       
       @carousel = $('#'+carousel_id)
       @carousel.carousel options

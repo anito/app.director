@@ -230,13 +230,13 @@
 <script id="addTemplate" type="text/x-jquery-tmpl">
   <div class="modal-dialog ${type}" style="width: 55%;">
     <div class="bg-dark content modal-content">
-      <div class="modal-header">
+      <div class="modal-header dark">
         <h4 class="modal-title">${title}</h4>
       </div>
       <div class="modal-body autoflow">
         <div class="items flex fadein in"></div>
       </div>
-      <div class="modal-footer">
+      <div class="modal-footer dark">
         {{tmpl() "#footerTemplate"}}
       </div>
     </div><!-- /.modal-content -->
@@ -267,7 +267,7 @@
   <form>
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header dark">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <ul class="pager">
           <li class="refresh previous {{if min}}disabled{{/if}}"><a href="#">Refresh List</a></li>
@@ -288,7 +288,7 @@
           </div>
         </div>
       </div>
-      <div class="modal-footer">
+      <div class="modal-footer dark">
         <button type="button" class="opt-CreateGallery btn-default">New Gallery</button>
         <button type="button" class="opt-CreateAlbum btn-default" {{if type == 'Gallery'}}disabled{{/if}}>New Album</button>
         <button type="button" class="btn-default" data-dismiss="modal">Close</button>
@@ -334,8 +334,8 @@
       {{/if}}
       {{if footer}}
       <div class="modal-footer dark" style="position: relative">
-        <div class="" style="text-align: left; max-width: 90%"> {{html footer}}</div>
-        <button class="btn btnClose dark" style="">Ok</button>
+        <div class="" style="text-align: left; max-width: 90%">{{if footer}}{{html footer}}{{/if}} </div>
+        <button class="btn btnClose dark" style="">{{if footerButtonText}}${footerButtonText}{{else}}Ok{{/if}}</button>
       </div>
       {{/if}}
     </div>
@@ -349,7 +349,7 @@
 <script id="modal2ButtonTemplate" type="text/x-jquery-tmpl">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header dark">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h3>${header}</h3>
       </div>
@@ -359,11 +359,11 @@
         </ul>
       </div>
       {{if info}}
-      <div class="modal-header">
+      <div class="modal-header dark">
         <div class="label label-warning">${info}</div>
       </div>
       {{/if}}
-      <div class="modal-footer">
+      <div class="modal-footer dark">
         <button class="btn btnOk" data-dismiss="modal" aria-hidden="true">${button_1_text}</button>
         <button type="button" class="btn btnAlt">${button_2_text}</button>
       </div>
@@ -440,7 +440,7 @@
 </script>
 
 <script id="modalGalleriesActionTemplate" type="text/x-jquery-tmpl">
-  <div class="modal-header">
+  <div class="modal-header dark">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
     <h3>${header}</h3>
   </div>
@@ -449,7 +449,7 @@
       {{tmpl($item.data.body) "#galleryActionTemplate"}}
     </div>
   </div>
-  <div class="modal-footer">
+  <div class="modal-footer dark">
     {{if info}}
     <div class="left label label-warning">${info}</div>
     {{/if}}
@@ -465,7 +465,7 @@
 </script>
 
 <script id="defaultActionTemplate" type="text/x-jquery-tmpl">
-  <div class="modal-header">
+  <div class="modal-header dark">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
     <h3>${header}</h3>
   </div>
@@ -475,11 +475,11 @@
   {{/if}}
   </div>
   {{if info}}
-  <div class="modal-header">
+  <div class="modal-header dark">
     <div class="label label-warning">${info}</div>
   </div>
   {{/if}}
-  <div class="modal-footer">
+  <div class="modal-footer dark">
     <button class="btn btnOk" data-dismiss="modal" aria-hidden="true">OK</button>
     <button type="button" class="btn btnAlt">Save changes</button>
   </div>
