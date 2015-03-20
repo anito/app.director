@@ -16,6 +16,6 @@ div.carousel.slide(tabindex="3", data-ride="", id=id)
   a.right.carousel-control(href='#'+id, data-slide="next")
     span.glyphicon.glyphicon-chevron-right
 
-  ol.carousel-indicators
+  ol.carousel-indicators.top
     each val, index in slides
       li(data-target='#'+id, data-slide-to=index, class=index==0 ? 'active' : '')
