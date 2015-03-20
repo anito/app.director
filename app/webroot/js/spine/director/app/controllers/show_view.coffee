@@ -517,14 +517,14 @@ class ShowView extends Spine.Controller
 #    active = !@isAutoUpload()
 #    console.log first = Setting.first()
 #    active = !first.autoupload
-    @settings = Settings.findByAttribute('user_id', User.first().id)
+    @settings = Settings.findUserSettings()
     active = @settings.autoupload = !@settings.autoupload
     $('#fileupload').data('blueimpFileupload').options['autoUpload'] = active
     @settings.save()
     @refreshToolbars()
   
   refreshSettings: (records) ->
-    @changeSettings first if first = Settings.first()
+    @changeSettings settings if settings = Settings.findUserSettings()
   
   changeSettings: (rec) ->
     active = rec.autoupload
@@ -764,7 +764,7 @@ class ShowView extends Spine.Controller
       cut = Clipboard.last().cut
       origin = Clipboard.last().origin
       if cut
-        Clipboard.deleteAll()
+        Clipboard.destroyAll()
         options =
           photos: items
           album: cut

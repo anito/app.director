@@ -53,7 +53,6 @@
       
       var isProduction = true
       
-      var route = location.hash || localStorage.hash
       var galleries = <?php echo $this->Js->object($galleries); ?>;
       var albums = <?php echo $this->Js->object($albums); ?>;
       var photos = <?php echo $this->Js->object($photos); ?>;
@@ -72,12 +71,13 @@
       User    = require("models/user");
       Main    = require("index");
       Spine.Route = require('spine/lib/route');
+      
       Gallery= require('models/gallery')
       Album = require('models/album')
       Photo= require('models/photo')
       
-      User.ping();
       exports.App = new Main({el: $("body")});
+      User.ping();
       
       
       Photo.refresh(photos, {clear: true});
@@ -85,8 +85,6 @@
       Gallery.refresh(galleries, {clear: true});
       
       Spine.Route.setup()
-      App.navigate();
-      App.navigate(route || '/overview/');
       startScript()
       
     });

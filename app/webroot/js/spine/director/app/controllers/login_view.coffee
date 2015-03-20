@@ -20,11 +20,12 @@ class LoginView extends Spine.Controller
       trace: !Spine.isProduction
     
   logout: ->
-    User.redirect 'logout'
+    User.logout()
     
   toggleTrace: ->
     Spine.isProduction = localStorage.isProduction = localStorage.isProduction is 'false'
     alert 'Trace: ' + (if Spine.isProduction then 'Off' else 'On') + '\nApplication will now restart'
+    $(window).off()
     User.redirect('director_app')
     
   render: ->

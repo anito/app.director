@@ -3,6 +3,7 @@ $         = Spine.$
 Log       = Spine.Log
 Model     = Spine.Model
 Settings  = require("models/settings")
+Clipboard = require("models/clipboard")
 
 require('spine/lib/local')
 
@@ -24,6 +25,8 @@ class User extends Spine.Model
     
   @logout: ->
     @destroyAll()
+    Clipboard.destroyAll()
+    $(window).off()
     @redirect 'logout'
   
   @redirect: (url='', hash='') ->

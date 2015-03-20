@@ -57,10 +57,8 @@ class Login extends Spine.Controller
     user = new User @newAttributes(json)
     user.save()
     @render(@flashEl, @flashTemplate, json)
-    if hash = location.hash
-      localStorage['hash'] = hash
     delayedFunc = ->
-      User.redirect 'director_app' + hash
+      User.redirect 'director_app'
     @contentEl.addClass('fade500')
     @delay delayedFunc, 500
 

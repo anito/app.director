@@ -5,12 +5,15 @@ Log     = Spine.Log
 require('spine/lib/local')
 
 class Settings extends Spine.Model
-  @configure 'Settings', 'id', 'user_id', 'autoupload'
+  @configure 'Settings', 'id', 'user_id', 'autoupload', 'hash', 'previousHash'
   
   @extend Model.Local
   @include Log
   
   init: (instance) ->
+  
+  @findUserSettings: ->
+    Settings.findByAttribute('user_id', User.first().id)
   
   @isAutoUpload: ->
     return unless user = User.first()

@@ -8,6 +8,7 @@ Gallery                 = require('models/gallery')
 Toolbar                 = require("models/toolbar")
 Settings                = require('models/settings')
 SpineError              = require("models/spine_error")
+Clipboard               = require("models/clipboard")
 MainView                = require("controllers/main_view")
 LoginView               = require("controllers/login_view")
 LoaderView              = require("controllers/loader_view")
@@ -80,6 +81,9 @@ class Main extends Spine.Controller
     
     @version = "2.0.0"
     
+    # default user settings if none found
+    @autoupload = true
+    
     Spine.DragItem = SpineDragItem.create()
     
     @ALBUM_SINGLE_MOVE = @createImage('/img/cursor_folder_1.png')
@@ -87,14 +91,21 @@ class Main extends Spine.Controller
     @IMAGE_SINGLE_MOVE = @createImage('/img/cursor_images_1.png')
     @IMAGE_DOUBLE_MOVE = @createImage('/img/cursor_images_3.png')
     
-    # default user settings if none found
-    @autoupload = true
     
     $(window).bind('hashchange', @proxy @storeHash)
     $(window).bind('focus', @proxy @focus)
     
+    @ignoredHashes = ['slideshow', 'overview', 'preview', 'flickr', 'logout']
     
-    @ignoredHashes = ['slideshow', 'overview', 'preview', 'flickr']
+    User.bind('pinger', @proxy @validate)
+    
+    Clipboard.fetch()
+    Clipboard.destroyAll()
+    
+    Settings.one('refresh', @proxy @refreshSettings)
+    Settings.one('change', @proxy @changeSettings)
+    
+    $('#modal-gallery').bind('hidden', @proxy @hideSlideshow)
     
     @modalSimpleView = new ModalSimpleView
       el: @modalEl
@@ -224,13 +235,12 @@ class Main extends Spine.Controller
     
     @loadToolbars()
     
-    User.bind('pinger', @proxy @validate)
-    $('#modal-gallery').bind('hidden', @proxy @hideSlideshow)
-    
   storeHash: ->
+    return unless settings = Settings.findUserSettings()
     if !@ignoredHashes.contains(location.hash)
-      localStorage.previousHash = location.hash
-    localStorage.hash = location.hash
+      settings.previousHash = location.hash
+    settings.hash = location.hash
+    settings.save()
     
   fullscreen: ->
     Spine.trigger('chromeless', true)
@@ -264,12 +274,21 @@ class Main extends Spine.Controller
       
   loadUserSettings: (id) ->
     Settings.fetch()
-    unless Settings.findByAttribute('user_id', id)
+    
+    unless settings = Settings.findByAttribute('user_id', id)
       @notify 'You seem to be using this App for the first time.<br>The Auto Upload will be set to '+ @autoupload + '.<br>To change this setting<br>go to Photo->Auto Upload'
-#      alert 'No settings found, your Autoupload will be set to '+ @autoupload + '!\nYou can change this in Photo->Autoupload'
+      
       Settings.create
         user_id   : id
         autoupload: @autoupload
+        hash: '#/overview/'
+        previousHash: '#/overview/'
+        
+  refreshSettings: (records) ->
+    @navigate settings.hash  if settings = Settings.findUserSettings()
+    
+  changeSettings: (rec) ->
+    @navigate rec.hash
     
   setupView: ->
     Spine.unbind('uri:alldone')
