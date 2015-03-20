@@ -4,6 +4,7 @@ Model     = Spine.Model
 Gallery   = require('models/gallery')
 Album     = require('models/album')
 Clipboard = require('models/clipboard')
+Settings  = require('models/settings')
 Filter    = require("plugins/filter")
 
 class Toolbar extends Spine.Model
@@ -240,8 +241,8 @@ class Toolbar extends Spine.Model
           devider: true
         ,
           name: 'Auto Upload'
-          icon: -> if App.showView.isQuickUpload() then 'ok' else ''
-          klass: 'opt-QuickUpload'
+          icon: -> if Settings.isAutoUpload() then 'ok' else ''
+          klass: 'opt-AutoUpload'
           disabled: -> false
         ]
     group4:

@@ -27,8 +27,12 @@ class UploadEditView extends Spine.Controller
   constructor: ->
     super
     @bind('active', @proxy @active)
-    @data = fileslist: []
+    Album.bind('change:selection', @proxy @changeDataLink)
+    @data = fileslist: [link: false]
     @queue = []
+    
+  changeDataLink: (album) ->
+    @data.link = album?.id
     
   change: (item) ->
     @render()
@@ -55,7 +59,7 @@ class UploadEditView extends Spine.Controller
 
   add: (e, data) ->
     @data.fileslist.push file for file in data.files
-    @data.link = Album.record.id
+    
     @c = App.hmanager.hasActive()
     @trigger('active')
         

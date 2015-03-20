@@ -8,6 +8,7 @@ Photo           = require('models/photo')
 AlbumsPhoto     = require('models/albums_photo')
 GalleriesAlbum  = require('models/galleries_album')
 Clipboard       = require("models/clipboard")
+Settings        = require("models/settings")
 ToolbarView     = require("controllers/toolbar_view")
 WaitView        = require("controllers/wait_view")
 AlbumsView      = require("controllers/albums_view")
@@ -44,14 +45,14 @@ class ShowView extends Spine.Controller
     '.header .photo'          : 'photoHeaderEl'
     '.header .overview'       : 'overviewHeaderEl'
     '.header .slideshow'      : 'slideshowHeaderEl'
-    '.opt-Overview'            : 'btnOverview'
-    '.opt-EditGallery'         : 'btnEditGallery'
-    '.opt-Gallery .ui-icon'    : 'btnGallery'
-    '.opt-QuickUpload'         : 'btnQuickUpload'
-    '.opt-Previous'            : 'btnPrevious'
-    '.opt-Sidebar'             : 'btnSidebar'
-    '.opt-FullScreen'          : 'btnFullScreen'
-    '.opt-SlideshowPlay'       : 'btnSlideshowPlay'
+    '.opt-Overview'           : 'btnOverview'
+    '.opt-EditGallery'        : 'btnEditGallery'
+    '.opt-Gallery .ui-icon'   : 'btnGallery'
+    '.opt-AutoUpload'         : 'btnAutoUpload'
+    '.opt-Previous'           : 'btnPrevious'
+    '.opt-Sidebar'            : 'btnSidebar'
+    '.opt-FullScreen'         : 'btnFullScreen'
+    '.opt-SlideshowPlay'      : 'btnSlideshowPlay'
     '.toolbarOne'             : 'toolbarOneEl'
     '.toolbarTwo'             : 'toolbarTwoEl'
     '.props'                  : 'propsEl'
@@ -73,7 +74,7 @@ class ShowView extends Spine.Controller
     '.opt-Upload'              : 'btnUpload'
     
   events:
-    'click .opt-QuickUpload:not(.disabled)'           : 'toggleQuickUpload'
+    'click .opt-AutoUpload:not(.disabled)'            : 'toggleAutoUpload'
     'click .opt-Overview:not(.disabled)'              : 'showOverview'
     'click .opt-Previous:not(.disabled)'              : 'back'
     'click .opt-ShowModal:not(.disabled)'             : 'showModal'
@@ -97,8 +98,8 @@ class ShowView extends Spine.Controller
     'click .opt-DestroyPhoto:not(.disabled)'          : 'destroyPhoto'
     'click .opt-EditGallery:not(.disabled)'           : 'editGallery' # for the large edit view
     'click .opt-Gallery:not(.disabled)'               : 'toggleGalleryShow'
-    'click .opt-Rotate-cw:not(.disabled)'              : 'rotatePhotoCW'
-    'click .opt-Rotate-ccw:not(.disabled)'             : 'rotatePhotoCCW'
+    'click .opt-Rotate-cw:not(.disabled)'             : 'rotatePhotoCW'
+    'click .opt-Rotate-ccw:not(.disabled)'            : 'rotatePhotoCCW'
     'click .opt-Album:not(.disabled)'                 : 'toggleAlbumShow'
     'click .opt-Photo:not(.disabled)'                 : 'togglePhotoShow'
     'click .opt-Upload:not(.disabled)'                : 'toggleUploadShow'
@@ -249,6 +250,9 @@ class ShowView extends Spine.Controller
     Gallery.bind('change:current', @proxy @scrollTo)
     Album.bind('change:current', @proxy @scrollTo)
     Photo.bind('change:current', @proxy @scrollTo)
+    
+    Settings.bind('change', @proxy @changeSettings)
+    Settings.bind('refresh', @proxy @refreshSettings)
     
   active: (controller, params) ->
     # preactivate controller
@@ -509,17 +513,26 @@ class ShowView extends Spine.Controller
   toggleDraghandle: ->
     @animateView()
     
-  toggleQuickUpload: ->
-    @quickUpload !@isQuickUpload()
+  toggleAutoUpload: ->
+#    active = !@isAutoUpload()
+#    console.log first = Setting.first()
+#    active = !first.autoupload
+    @settings = Settings.findByAttribute('user_id', User.first().id)
+    active = @settings.autoupload = !@settings.autoupload
+    $('#fileupload').data('blueimpFileupload').options['autoUpload'] = active
+    @settings.save()
     @refreshToolbars()
   
-  quickUpload: (active) ->
-#    @log $('#fileupload').data()
+  refreshSettings: (records) ->
+    @changeSettings first if first = Settings.first()
+  
+  changeSettings: (rec) ->
+    active = rec.autoupload
     $('#fileupload').data('blueimpFileupload').options['autoUpload'] = active
-    
-  isQuickUpload: ->
+  
+  isAutoUpload: ->
     $('#fileupload').data('blueimpFileupload').options['autoUpload']
-    
+  
   activateEditView: (controller) ->
     App[controller].trigger('active')
     @openView()

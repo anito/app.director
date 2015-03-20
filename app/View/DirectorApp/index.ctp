@@ -105,7 +105,7 @@
                   <div class="vbox flex">
                     <!-- The table listing the files available for upload/download -->
                     <div class="footer fileupload-buttonbar" style="">
-                      <div class="span6 left" style="margin: 10px;">
+                      <div class="span6 left" style="margin: 10px; white-space: nowrap; overflow: hidden;">
                             <!-- The fileinput-button span is used to style the file input field as button -->
                             <span class="btn dark fileinput-button">
                                 <i class="glyphicon glyphicon-plus"></i>
@@ -128,7 +128,7 @@
                             <span class="fileupload-loading"></span>
                         </div>
                         <!-- The global progress information -->
-                        <div class="span3 fileupload-progress fade left" style="width: 260px; margin: 14px;">
+                        <div class="span3 fileupload-progress fade" style="width: 260px; padding: 24px 0; display: table-cell;">
                             <!-- The global progress bar -->
                             <div class="progress progress-success progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
                                 <div class="progress-bar" style="width:0%;"></div>

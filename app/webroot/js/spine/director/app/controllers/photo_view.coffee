@@ -61,7 +61,6 @@ class PhotoView extends Spine.Controller
     Photo.bind('beforeDestroy', @proxy @back)
     Photo.one('refresh', @proxy @refresh)
     Album.bind('change:collection', @proxy @refresh)
-#    Album.bind("change:selection", @proxy @changeNavigation)
     Photo.bind('change:current', @proxy @changeNavigation)
     
   change: (a, b) ->

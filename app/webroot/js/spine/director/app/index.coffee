@@ -6,6 +6,7 @@ Config                  = require('models/config')
 Album                   = require('models/album')
 Gallery                 = require('models/gallery')
 Toolbar                 = require("models/toolbar")
+Settings                = require('models/settings')
 SpineError              = require("models/spine_error")
 MainView                = require("controllers/main_view")
 LoginView               = require("controllers/login_view")
@@ -85,6 +86,9 @@ class Main extends Spine.Controller
     @ALBUM_DOUBLE_MOVE = @createImage('/img/cursor_folder_3.png')
     @IMAGE_SINGLE_MOVE = @createImage('/img/cursor_images_1.png')
     @IMAGE_DOUBLE_MOVE = @createImage('/img/cursor_images_3.png')
+    
+    # default user settings if none found
+    @autoupload = true
     
     $(window).bind('hashchange', @proxy @storeHash)
     $(window).bind('focus', @proxy @focus)
@@ -235,6 +239,7 @@ class Main extends Spine.Controller
     unless valid
       User.logout()
     else
+      @loadUserSettings(user.id)
       @delay @setupView, 1000
       
   drop: (e) ->
@@ -248,6 +253,14 @@ class Main extends Spine.Controller
     # clean up placeholders, jquery-sortable-plugin sometimes leaves alone
     $('.sortable-placeholder').detach()
       
+  loadUserSettings: (id) ->
+    Settings.fetch()
+    unless Settings.findByAttribute('user_id', id)
+      alert 'No settings found, your Autoupload will be set to '+ @autoupload + '!\nYou can change this in Photo->Autoupload'
+      Settings.create
+        user_id   : id
+        autoupload: @autoupload
+    
   setupView: ->
     Spine.unbind('uri:alldone')
     @mainView.trigger('active')

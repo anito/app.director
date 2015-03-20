@@ -39,8 +39,8 @@ class PhotosList extends Spine.Controller
     Spine.bind('slider:change', @proxy @size)
     Spine.bind('rotate', @proxy @rotate)
     Photo.bind('update', @proxy @update)
-    Album.bind("ajaxError", Album.errorHandler)
-    Album.bind("change:selection", @proxy @exposeSelection)
+    Album.bind('ajaxError', Album.errorHandler)
+    Album.bind('change:selection', @proxy @exposeSelection)
     AlbumsPhoto.bind('change', @proxy @changeRelated)
     
   changeRelated: (item, mode) ->
@@ -245,11 +245,10 @@ class PhotosList extends Spine.Controller
   #  ****** END ***** 
   
   exposeSelection: (item, sel) ->
-    @log 'exposeSelection'
     return unless item?.id is Album.record?.id
     item = item or Album
-    selection = sel or item.selectionList()
-      
+    selection = item.selectionList()
+
     @deselect()
     for id in selection
       $('#'+id, @el).addClass("active")

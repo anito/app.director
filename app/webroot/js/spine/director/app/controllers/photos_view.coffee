@@ -142,12 +142,9 @@ class PhotosView extends Spine.Controller
     Photo.current(id)
   
   click: (e) ->
-    
-    @log 'click'
     App.showView.trigger('change:toolbarOne')
     
     item = $(e.currentTarget).item()
-    
     @select item.id, @isCtrlClick(e) if item
     
   select: (items = [], exclusive) ->

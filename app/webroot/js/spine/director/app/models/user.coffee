@@ -2,6 +2,7 @@ Spine     = require("spine")
 $         = Spine.$
 Log       = Spine.Log
 Model     = Spine.Model
+Settings  = require("models/settings")
 
 require('spine/lib/local')
 
@@ -29,7 +30,6 @@ class User extends Spine.Model
     location.href = base_url + url + hash
 
   init: (instance) ->
-    return unless instance
     
   confirm: ->
     $.ajax
