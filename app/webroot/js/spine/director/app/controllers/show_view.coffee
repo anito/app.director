@@ -823,12 +823,56 @@ class ShowView extends Spine.Controller
     slides =
       [
         items: [
-            'Photos within albums and albums within galleries are draggable and sortable',
-            'Drag and drop photos from the desktop to your browser',
-            'Interact between sidebar and main window',
-            'Navigate through objects using arrow keys',
-            'Select multiple objects using both ctrl-key and arrow key(s)',
-            'Start slideshows for one or more selected albums by hitting the spacebar'
+            'What is Photo Director?',
+            'Photo Director is a content manager tool for your photos',
+            'Manage your photo content using different types of containers, such as albums and galleries',
+            'As a result albums can than be used to present your content in slideshows'
+          ]
+      ,
+        items: [
+            'Importing content';
+            'To import your content, you can:',
+            'Drag photos from the desktop to your browser, or',
+            'Use the appropriate upload menu item',
+            'Director currently supports JPG, JPE, GIF and PNG'
+          ]
+      ,
+        items: [
+            'Arrange your content',
+            'Host your photo content in albums'
+            'On the other hand, albums are supposed to be hosted in galleries'
+            'This also gives you the flexibility to reuse identical albums in different places (galleries)'
+          ]
+      ,
+        items: [
+            'Bring order to your content'
+            'After the content is wrapped (part of an container), it will become sortable'
+          ]
+      ,
+        items: [
+            'Interaction'
+            'Move around your albums or photos'
+            'Drag your content from your main view to your sidebar or vice versa'
+            'You can also quickly reorder albums within the sidebar only, without opening another gallery'
+          ]
+      ,
+        items: [
+            'Navigation'
+            'You can navigate through objects using arrow keys'
+            'To open the main selected object (dark blue border) just hit Enter'
+            'To close it again hit Esc'
+          ]
+      ,
+        items: [
+            'Selecting content'
+            'You can easily select one or more items. To do this, either...'
+            'Select multiple objects using both ctrl-key and arrow key(s), or'
+            'Single click multiple objects'
+          ]
+      ,
+        items: [
+            'Clipboard'
+            'You can copy, paste or cut objects just as you would do on a regular PC (by keybord or mouse)'
           ]
       ,
         img: "/img/keyboard.png"
@@ -836,7 +880,7 @@ class ShowView extends Spine.Controller
       ]
     
     @modalHelpView.show
-      header: 'Documentation'
+      header: 'Quick Help'
       body: -> require("views/carousel")
         slides: slides
         id: carousel_id

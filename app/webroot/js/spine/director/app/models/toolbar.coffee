@@ -25,7 +25,7 @@ class Toolbar extends Spine.Model
       icon: 'question-sign'
       content:
         [
-          name: 'Documentation'
+          name: 'Quick Help'
           klass: 'opt-Help '
         ,
           name: 'Version'

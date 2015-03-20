@@ -5,8 +5,9 @@ div.carousel.slide(tabindex="3", data-ride="", id=id)
       .item(class=index==0 ? 'active' : '')
         if vals.items
           ul.liststyle
-            each val in vals.items
+            each val, index in vals.items
               li=val
+                
         else if vals.img
           img(src=vals.img width=vals.width)
         
