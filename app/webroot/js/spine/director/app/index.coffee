@@ -93,12 +93,12 @@ class Main extends Spine.Controller
     $(window).bind('hashchange', @proxy @storeHash)
     $(window).bind('focus', @proxy @focus)
     
-    User.bind('pinger', @proxy @validate)
-    $('#modal-gallery').bind('hidden', @proxy @hideSlideshow)
     
     @ignoredHashes = ['slideshow', 'overview', 'preview', 'flickr']
     
     @modalSimpleView = new ModalSimpleView
+      el: @modalEl
+    @modalNotifyView = new ModalSimpleView
       el: @modalEl
     @modal2ButtonView = new Modal2ButtonView
       el: @modalEl
@@ -224,6 +224,9 @@ class Main extends Spine.Controller
     
     @loadToolbars()
     
+    User.bind('pinger', @proxy @validate)
+    $('#modal-gallery').bind('hidden', @proxy @hideSlideshow)
+    
   storeHash: ->
     if !@ignoredHashes.contains(location.hash)
       localStorage.previousHash = location.hash
@@ -253,10 +256,17 @@ class Main extends Spine.Controller
     # clean up placeholders, jquery-sortable-plugin sometimes leaves alone
     $('.sortable-placeholder').detach()
       
+  notify: (text) ->
+    @modalNotifyView.show
+      small: true
+      body: -> require("views/notify")
+        text: text
+      
   loadUserSettings: (id) ->
     Settings.fetch()
     unless Settings.findByAttribute('user_id', id)
-      alert 'No settings found, your Autoupload will be set to '+ @autoupload + '!\nYou can change this in Photo->Autoupload'
+      @notify 'You seem to be using this App for the first time.<br>The Auto Upload will be set to '+ @autoupload + '.<br>To change this setting<br>go to Photo->Auto Upload'
+#      alert 'No settings found, your Autoupload will be set to '+ @autoupload + '!\nYou can change this in Photo->Autoupload'
       Settings.create
         user_id   : id
         autoupload: @autoupload
