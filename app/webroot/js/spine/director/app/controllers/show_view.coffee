@@ -824,7 +824,7 @@ class ShowView extends Spine.Controller
       [
         items: [
             'What is Photo Director?',
-            'Photo Director is a content manager tool for your photos',
+            'Photo Director is a content management tool for your photos',
             'Manage your photo content using different types of containers, such as albums and galleries',
             'As a result albums can than be used to present your content in slideshows'
           ]
