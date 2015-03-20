@@ -818,12 +818,32 @@ class ShowView extends Spine.Controller
     @modalHelpView.el.one('hide.bs.modal', @proxy @hidemodal)
     @modalHelpView.el.one('show.bs.modal', @proxy @showmodal)
     
+    carousel_id = 'help-carousel'
+    options = interval: false
+    slides =
+      [
+        items: [
+            'Photos within albums and albums within galleries are draggable and sortable',
+            'Drag and drop photos from the desktop to your browser',
+            'Interact between sidebar and main window',
+            'Navigate through objects using arrow keys',
+            'Select multiple objects using both ctrl-key and arrow key(s)',
+            'Start slideshows for one or more selected albums by hitting the spacebar'
+          ]
+      ,
+        img: "/img/keyboard.png"
+        width: '700px'
+      ]
+    
     @modalHelpView.show
-      header: 'Keyboard Shortcuts'
-      body  : '<img src="/img/keyboard.png">'
-      footer: -> require("views/help")
-        spine_version: Spine.version
-        app_version: App.version
+      header: 'Documentation'
+      body: -> require("views/carousel")
+        slides: slides
+        id: carousel_id
+      footer: '<div></div>'
+      
+      @carousel = $('#'+carousel_id)
+      @carousel.carousel options
         
   version: (e) ->
     @modalVersionView.el.one('hidden.bs.modal', @proxy @hiddenmodal)

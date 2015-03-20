@@ -335,7 +335,7 @@
       {{if footer}}
       <div class="modal-footer dark" style="position: relative">
         <div class="" style="text-align: left; max-width: 90%"> {{html footer}}</div>
-        <button class="btn btnClose dark" style="position: absolute; bottom: 20px; right: 20px;">Ok</button>
+        <button class="btn btnClose dark" style="">Ok</button>
       </div>
       {{/if}}
     </div>
