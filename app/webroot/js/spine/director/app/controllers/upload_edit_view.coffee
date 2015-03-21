@@ -1,6 +1,7 @@
-Spine = require("spine")
-Album = require("models/album")
-$      = Spine.$
+Spine     = require("spine")
+$         = Spine.$
+Album     = require("models/album")
+Settings  = require("models/settings")
 
 class UploadEditView extends Spine.Controller
 
@@ -60,8 +61,8 @@ class UploadEditView extends Spine.Controller
   add: (e, data) ->
     @data.fileslist.push file for file in data.files
     
-    @c = App.hmanager.hasActive()
     @trigger('active')
+    App.showView.openView(200) unless Settings.isAutoUpload()
         
   notify: ->
     App.modal2ButtonView.show

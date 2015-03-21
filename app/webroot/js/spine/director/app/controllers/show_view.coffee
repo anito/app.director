@@ -525,10 +525,12 @@ class ShowView extends Spine.Controller
   
   refreshSettings: (records) ->
     @changeSettings settings if settings = Settings.findUserSettings()
+    @refreshToolbars()
   
   changeSettings: (rec) ->
     active = rec.autoupload
     $('#fileupload').data('blueimpFileupload').options['autoUpload'] = active
+    @refreshToolbars()
   
   isAutoUpload: ->
     $('#fileupload').data('blueimpFileupload').options['autoUpload']
@@ -541,19 +543,23 @@ class ShowView extends Spine.Controller
     return unless App.hmanager.el.hasClass('open')
     @animateView()
   
-  openView: ->
+  openView: (val='300') ->
     return if App.hmanager.el.hasClass('open')
-    @animateView()
+    @animateView(open: val)
     
-  animateView: ->
+  animateView: (options) ->
     min = 20
+    
+    options = $().extend {open: false}, options
+    if options.open
+      App.hmanager.el.removeClass('open')
     
     isOpen = ->
       App.hmanager.el.hasClass('open')
     
     height = ->
       h = unless isOpen()
-        parseInt(App.hmanager.currentDim)
+        parseInt(options.open or App.hmanager.currentDim)
       else
         parseInt(min)
       h
