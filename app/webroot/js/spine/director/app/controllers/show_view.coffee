@@ -540,25 +540,29 @@ class ShowView extends Spine.Controller
     @openView()
     
   closeView: ->
-    return unless App.hmanager.el.hasClass('open')
-    @animateView()
+    return if !App.hmanager.el.hasClass('open')
+    @animateView(close: true)
   
-  openView: (val='300') ->
-    return if App.hmanager.el.hasClass('open')
+  openView: (val) ->
+    return if !(App.hmanager.el.hasClass('open') or val)
     @animateView(open: val)
     
   animateView: (options) ->
     min = 20
     
     options = $().extend {open: false}, options
+    speed = if options.close or options.open then 600 else 400
+    
     if options.open
       App.hmanager.el.removeClass('open')
+      App.hmanager.el.addClass('forcedopen')
+      
     
     isOpen = ->
       App.hmanager.el.hasClass('open')
     
     height = ->
-      h = unless isOpen()
+      h = if !isOpen()# and !options.close
         parseInt(options.open or App.hmanager.currentDim)
       else
         parseInt(min)
@@ -566,10 +570,10 @@ class ShowView extends Spine.Controller
     
     @views.animate
       height: height()+'px'
-      400
+      speed
       (args...) ->
         if $(@).height() is min
-          $(@).removeClass('open')
+          $(@).removeClass('open forcedopen')
         else
           $(@).addClass('open')
     

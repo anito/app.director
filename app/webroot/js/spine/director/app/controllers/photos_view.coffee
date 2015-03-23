@@ -102,11 +102,11 @@ class PhotosView extends Spine.Controller
   
   refresh: ->
     @updateBuffer()
-    @render @buffer, 'html'
+    @render @buffer, 'html', true
   
-  render: (items, mode='html') ->
+  render: (items, mode='html', force) ->
     # render only if necessary
-    return unless @isActive()
+    return unless @isActive() or force
     # if view is dirty but inactive we'll use the buffer next time
     @list.render(items || @updateBuffer(), mode)
     @list.sortable('photo') if Album.record

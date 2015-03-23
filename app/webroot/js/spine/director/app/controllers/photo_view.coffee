@@ -76,6 +76,7 @@ class PhotoView extends Spine.Controller
     
   render: (item=Photo.record) ->
     return unless @isActive()
+    App.showView.photosView.refresh() unless App.showView.photosView.list.el.children().length
     @itemsEl.html @template item
     $('.dropdown-toggle', @el).dropdown()
     @uri item
@@ -84,7 +85,7 @@ class PhotoView extends Spine.Controller
   active: ->
     return unless @isActive()
     App.showView.trigger('change:toolbarOne', ['Default'])
-    App.showView.trigger('change:toolbarTwo', ['Test'])
+    App.showView.trigger('change:toolbarTwo', ['Slideshow'])
     @render()
     
   refresh: ->

@@ -62,7 +62,8 @@ class UploadEditView extends Spine.Controller
     @data.fileslist.push file for file in data.files
     
     @trigger('active')
-    App.showView.openView(200) unless Settings.isAutoUpload()
+    if Settings.isAutoUpload()
+      App.showView.openView(300)
         
   notify: ->
     App.modal2ButtonView.show
@@ -79,6 +80,7 @@ class UploadEditView extends Spine.Controller
   alldone: (e, data) ->
     
   done: (e, data) ->
+      
     album = Album.find(@data.link)
     raws = $.parseJSON(data.jqXHR.responseText)
     selection = []
@@ -102,6 +104,9 @@ class UploadEditView extends Spine.Controller
     Spine.trigger('loading:done', album)
     Photo.trigger('activate', selection.last())
     
+    if Settings.isAutoUpload()
+      App.showView.closeView()
+      
     e.preventDefault()
     
   progress: (e, data) ->
@@ -111,6 +116,7 @@ class UploadEditView extends Spine.Controller
     @drop(e, data)
     
   submit: (e, data) ->
+    App.showView.openView() if Settings.isAutoUpload()
     
   changedSelected: (album) ->
     album = Album.find(album.id)
