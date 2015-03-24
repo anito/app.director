@@ -543,8 +543,8 @@ class ShowView extends Spine.Controller
     return if !App.hmanager.el.hasClass('open')
     @animateView(close: true)
   
-  openView: (val) ->
-    return if !(App.hmanager.el.hasClass('open') or val)
+  openView: (val='300') ->
+    return if App.hmanager.el.hasClass('open')
     @animateView(open: val)
     
   animateView: (options) ->

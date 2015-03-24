@@ -62,8 +62,10 @@ class UploadEditView extends Spine.Controller
     @data.fileslist.push file for file in data.files
     
     @trigger('active')
-    if Settings.isAutoUpload()
+    if !Settings.isAutoUpload()
       App.showView.openView()
+      
+    @clearEl.click()
         
   notify: ->
     App.modal2ButtonView.show
@@ -80,7 +82,6 @@ class UploadEditView extends Spine.Controller
   alldone: (e, data) ->
     
   done: (e, data) ->
-      
     album = Album.find(@data.link)
     raws = $.parseJSON(data.jqXHR.responseText)
     selection = []
