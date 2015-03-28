@@ -872,7 +872,7 @@ class ShowView extends Spine.Controller
       ,
         items: [
             'Bring order to your content'
-            'After the content is wrapped (part of a set), it will become sortable'
+            'After the content is part of a set, it will become sortable'
           ]
       ,
         items: [
