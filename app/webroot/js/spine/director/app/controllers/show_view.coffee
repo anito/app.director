@@ -861,8 +861,8 @@ class ShowView extends Spine.Controller
               'To import your content, you can:',
               'Drag photos from the desktop to your browser, or',
               'Use the appropriate upload menu item',
-              'Director currently supports JPG, JPE, GIF and PNG'
-            ]
+            ],
+            'Director currently supports JPG, JPE, GIF and PNG'
           ]
       ,
         items: [
