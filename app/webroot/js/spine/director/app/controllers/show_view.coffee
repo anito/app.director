@@ -845,10 +845,13 @@ class ShowView extends Spine.Controller
     options = interval: false
     slides =
       [
+        img: "/img/keyboard.png"
+        width: '700px'
+      ,
         items: [
             'What is Photo Director?',
             'Photo Director is a content management tool for your photos',
-            'Manage your photo content using different types of containers, such as albums and galleries',
+            'Manage your photo content using different types of sets, such as albums and galleries',
             'As a result albums can than be used to present your content in slideshows'
           ]
       ,
@@ -869,12 +872,12 @@ class ShowView extends Spine.Controller
       ,
         items: [
             'Bring order to your content'
-            'After the content is wrapped (part of an container), it will become sortable'
+            'After the content is wrapped (part of a set), it will become sortable'
           ]
       ,
         items: [
             'Interaction'
-            'Move around your albums or photos'
+            'Organize around your albums or photos in sets'
             'Drag your content from your main view to your sidebar or vice versa'
             'You can also quickly reorder albums within the sidebar only, without opening another gallery'
           ]
@@ -894,12 +897,9 @@ class ShowView extends Spine.Controller
           ]
       ,
         items: [
-            'Clipboard'
+            'Clipboard support'
             'You can copy, paste or cut objects just as you would do on a regular PC (by keybord or mouse)'
           ]
-      ,
-        img: "/img/keyboard.png"
-        width: '700px'
       ]
     
     @modalHelpView.show
