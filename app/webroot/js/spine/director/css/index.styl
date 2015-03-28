@@ -63,8 +63,14 @@ body {
 }
 ul.liststyle > li{
   list-style: inside;
-  max-width: 450px;
+  max-width: 550px;
   text-align: left;
+}
+.liststyle > li > ul {
+    margin-left: 30px;
+}
+.liststyle > li > ul > li {
+    list-style-type: square;
 }
 ul.liststyle > li:first-child {
   list-style: none;

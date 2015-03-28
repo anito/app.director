@@ -842,7 +842,7 @@ class ShowView extends Spine.Controller
     @modalHelpView.el.one('show.bs.modal', @proxy @showmodal)
     
     carousel_id = 'help-carousel'
-    options = interval: false
+    options = interval: 30000000000
     slides =
       [
         img: "/img/keyboard.png"
@@ -856,11 +856,13 @@ class ShowView extends Spine.Controller
           ]
       ,
         items: [
-            'Importing content';
-            'To import your content, you can:',
-            'Drag photos from the desktop to your browser, or',
-            'Use the appropriate upload menu item',
-            'Director currently supports JPG, JPE, GIF and PNG'
+            'Importing content',
+            items: [
+              'To import your content, you can:',
+              'Drag photos from the desktop to your browser, or',
+              'Use the appropriate upload menu item',
+              'Director currently supports JPG, JPE, GIF and PNG'
+            ]
           ]
       ,
         items: [
@@ -876,24 +878,30 @@ class ShowView extends Spine.Controller
           ]
       ,
         items: [
-            'Interaction'
-            'Organize around your albums or photos in sets'
-            'Drag your content from your main view to your sidebar or vice versa'
-            'You can also quickly reorder albums within the sidebar only, without opening another gallery'
+            'Interaction',
+            items: [
+              'Organize your albums or photos in sets'
+              'Drag your content from your main view to your sidebar or vice versa'
+              'You can also quickly reorder albums within the sidebar only, without opening another gallery'
+            ]
           ]
       ,
         items: [
             'Navigation'
-            'You can navigate through objects using arrow keys'
-            'To open the main selected object (dark blue border) just hit Enter'
-            'To close it again hit Esc'
+            items: [
+              'You can navigate through objects using arrow keys:',
+              'To open the active object (dark blue border) hit Enter',
+              'To close it again hit Esc'
+            ]
           ]
       ,
         items: [
-            'Selecting content'
-            'You can easily select one or more items. To do this, either...'
-            'Select multiple objects using both ctrl-key and arrow key(s), or'
-            'Single click multiple objects'
+            'Selecting content',
+            items: [
+              'You can easily select one or more items. To do this, either...'
+              'Select multiple objects using both ctrl-key and arrow key(s), or'
+              'Single click multiple objects'
+            ]
           ]
       ,
         items: [
@@ -910,7 +918,7 @@ class ShowView extends Spine.Controller
       footerButtonText: 'Close'
       
       @carousel = $('#'+carousel_id)
-      @carousel.carousel options
+#      @carousel.carousel options
         
   version: (e) ->
     @modalVersionView.el.one('hidden.bs.modal', @proxy @hiddenmodal)
