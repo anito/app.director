@@ -151,6 +151,7 @@ class AlbumsView extends Spine.Controller
   activateRecord: (records) ->
     unless (records)
       records = Gallery.selectionList()
+      Album.current()
       noid = true
       
     unless Spine.isArray(records)
