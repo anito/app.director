@@ -42,6 +42,13 @@ class GalleriesAlbum extends Spine.Model
       sorted: 'sortByOrder'
     )
       
+  @photos: () ->
+    ret = []
+    @each (item) =>
+      photos = AlbumsPhoto.albumPhotos item.album_id
+      ret.push photo for photo in photos
+    ret
+      
   @c: 0
   
   validate: ->

@@ -61,14 +61,12 @@ class GalleriesView extends Spine.Controller
     @render()
     
   activateRecord: (records) ->
-    unless records
-      records = Root.selectionList()
-      Gallery.current()
-      noid = true
+    unless (records)
+      records = []
   
     unless Spine.isArray(records)
       records = [records]
-    
+
     list = []
     for id_ in records
       list.push gallery.id if gallery = Gallery.find(id_)
@@ -79,8 +77,6 @@ class GalleriesView extends Spine.Controller
     Gallery.current id
     if Gallery.record
       Album.trigger('activate', Gallery.selectionList())
-    else
-      @navigate '/galleries'
 
   click: (e) ->
     App.showView.trigger('change:toolbarOne', ['Default'])

@@ -120,7 +120,7 @@ class AlbumsAddView extends Spine.Controller
     list
       
   add: ->
-    Spine.trigger('albums:copy', @selectionList, Gallery.record)
+    Album.trigger('create:join', @selectionList, Gallery.record)
     @hide()
     
   keyup: (e) ->

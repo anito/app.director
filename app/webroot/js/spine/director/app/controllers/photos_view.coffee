@@ -233,11 +233,9 @@ class PhotosView extends Spine.Controller
     @list.el.sortable('destroy').sortable('photos')
       
   createJoin: (options, cb) ->
-    album = options.album
-    photos = options.photos.toID()
-    
-    Photo.createJoin photos, album, cb
-    album.updateSelection photos
+    Photo.createJoin options.photos, options.album, cb
+    Photo.trigger('activate', options.photos.last())
+    options.album.updateSelection options.photos
   
   destroyJoin: (options, callback) ->
     @log 'destroyJoin'

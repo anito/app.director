@@ -596,9 +596,9 @@
       Author:&nbsp;<span class="label label-default">${author}</span>
     </span>
     {{tmpl() "#gallerySpecsTemplate"}}
-    <br><br>
-    <h2>Galleries Overview</h2>
-    <span class="first right"><h3 class=""><i>Info</i></h3></span>
+    <div class="title">
+      <h2>Galleries Overview</h2>
+    </div>
   </section>
   <section class="">
     <span class="fadeelement breadcrumb">
@@ -619,10 +619,10 @@
       {{/if}}
     </span>
     {{tmpl() "#albumSpecsTemplate"}}
-    <br><br>
-    <h2>{{if model.record}}Albums in:&nbsp;{{else}}Album Library{{/if}}</h2>
-    {{if model.record}}<label class="h2 chopin">{{if model.record.name}}${model.record.name.slice(0, 25)}{{else}}...{{/if}}</label>{{/if}}
-    <span class="right"><h3 class=""><i>Info</i></h3></span>
+    <div class="title">
+      <h2>{{if model.record}}Albums in:&nbsp;{{else}}Album Library{{/if}}</h2>
+      {{if model.record}}<label class="h2 chopin">{{if model.record.name}}${model.record.name.slice(0, 25)}{{else}}...{{/if}}</label>{{/if}}
+    </div>
   </section>
   <section class="">
     <span class="fadeelement breadcrumb">
@@ -648,10 +648,10 @@
       {{/if}}
     </span>
     {{tmpl() "#photoSpecsTemplate"}}
-    <br><br>
-    <h2>{{if album}}Photos in:&nbsp;{{else}}Photo Library{{/if}}</h2>
-    {{if album}}<label class="h2 chopin">{{if album.title}}${album.title.slice(0, 25)}{{else}}...{{/if}}</label>{{/if}}
-    <span class="right"><h3 class=""><i>Info</i></h3></span>
+    <div class="title">
+      <h2>{{if album}}Photos in:&nbsp;{{else}}Photo Library{{/if}}</h2>
+      {{if album}}<label class="h2 chopin">{{if album.title}}${album.title.slice(0, 25)}{{else}}...{{/if}}</label>{{/if}}
+    </div>
   </section>
   {{if zoomed}}
   {{tmpl() "#photoBreadcrumbTemplate"}}
@@ -708,10 +708,9 @@
       {{/if}}
     </span>
     {{tmpl() "#photoSpecsTemplate"}}
-    <br><br>
+    <br>
     <h2>{{if album}}Photos in:&nbsp;{{else}}Photo Library{{/if}}</h2>
     {{if album}}<label class="h2 chopin">{{if album.title}}${album.title}{{else}}...{{/if}}</label>{{/if}}
-    <span class="right"><h3 class=""><i>Info</i></h3></span>
   </section>
   {{tmpl() "#photoBreadcrumbTemplate"}}
 </script>
@@ -719,13 +718,13 @@
 <script id="gallerySpecsTemplate" type="text/x-jquery-tmpl">
   <div class="right">
     <span class="">
-    <div class="btn btn-sm">Galleries<b><h5>${model.count()}</h5></b></div>
+    <div class="btn btn-sm">Galleries<b><div>${model.count()}</div></b></div>
     </span> 
     <span class="">
-    <div class="btn btn-sm">Connected Albums<b><h5>${modelGas.count()} (${modelAlbum.count()} Masters)</h5></b></div>
+    <div class="btn btn-sm">Albums<b><div>${modelGas.count()} of ${Album.count()}</div></b></div>
     </span> 
     <span class="">
-    <div class="btn btn-sm">Connected Images<b><h5>${modelAps.count()} (${modelPhoto.count()} Masters)</h5></b></div>
+    <div class="btn btn-sm">Images<b><div>${modelGas.photos().length} of ${Photo.count()}</div></b></div>
     </span>
   </div>
 </script>
@@ -733,13 +732,13 @@
 <script id="albumSpecsTemplate" type="text/x-jquery-tmpl">
   <div class="right">
     <span class="">
-      <div class="opt-Select{{if model.details().sCount>0}}None deselect{{else}}All select{{/if}} btn btn-sm {{if model.details().sCount>0}}btn-info{{/if}}"><b class=""><h5>${model.details().sCount}</h5></b></div>
+      <div class="opt-Select{{if model.details().sCount>0}}None deselect{{else}}All select{{/if}} btn btn-sm {{if model.details().sCount>0}}btn-info{{/if}}"><b class=""><div>${model.details().sCount}</div></b></div>
     </span> 
     <span class="">
-    <div class="btn btn-sm">Albums<b><h5>${model.details().aCount} (${modelAlbum.count()} Masters)</h5></b></div>
+    <div class="btn btn-sm">Albums<b><div>${model.details().aCount} of ${modelAlbum.count()}</div></b></div>
     </span> 
     <span class="">
-    <div class="btn btn-sm">Connected Images<b><h5>${model.details().iCount} (${modelPhoto.count()} Masters)</h5></b></div>
+    <div class="btn btn-sm">Images<b><div>${model.details().iCount} of ${modelPhoto.count()}</div></b></div>
     </span>
   </div>
 </script>
@@ -747,10 +746,10 @@
 <script id="photoSpecsTemplate" type="text/x-jquery-tmpl">
   <div class="right">
     <span class="">
-    <div class="opt-Select{{if model.details().sCount>0}}None deselect{{else}}All select{{/if}} btn btn-sm {{if model.details().sCount>0}}btn-info{{/if}}"><b class=""><h5>${model.details().sCount}</h5></b></div>
+    <div class="opt-Select{{if model.details().sCount>0}}None deselect{{else}}All select{{/if}} btn btn-sm {{if model.details().sCount>0}}btn-info{{/if}}"><b class=""><div>${model.details().sCount}</div></b></div>
     </span> 
     <span class="">
-    <div class="btn btn-sm">Images<b><h5>${model.details().iCount} (${modelPhoto.count()} Masters)</h5></b></div>
+    <div class="btn btn-sm">Images<b><div>${model.details().iCount} of ${modelPhoto.count()}</div></b></div>
     </span> 
   </div>
 </script>
@@ -785,7 +784,7 @@
 <script id="photosDetailsTemplate" type="text/x-jquery-tmpl">
   Author:  <span class="label label-default">${author}</span>
   Gallery:  <span class="label label-{{if gallery}}default{{else}}warning{{/if}}">{{if gallery}}{{if gallery.name}}${gallery.name}{{else}}no name{{/if}}{{else}}not found{{/if}}</span>
-  <br><br>
+  <br>
   <h2>Photos in Album: </h2>
   <label class="h2 chopin">{{if album.title}}${album.title}{{else}}no title{{/if}}</label>
   <span class="active cta right">
@@ -797,7 +796,7 @@
   Author:&nbsp;<span class="label label-default">{{if author}}${author}{{/if}}</span>
   Gallery:&nbsp;<span class="label label-{{if gallery}}default{{else}}warning{{/if}}">{{if gallery}}{{if gallery.name}}${gallery.name}{{else}}no name{{/if}}{{else}}not found{{/if}}</span>
   Album:&nbsp;<span class="label label-{{if album}}default{{else}}warning{{/if}}">{{if album}}{{if album.title}}${album.title}{{else}}no title{{/if}}{{else}}not found{{/if}}</span>
-  <br><br>
+  <br>
   <h2>Photo:</h2>
   <label class="h2 chopin">
     {{if photo}}
@@ -809,7 +808,7 @@
 </script>
 
 <script id="photosTemplate" type="text/x-jquery-tmpl">
-  <li  id="${id}" data-id="${id}" class="item data fade in pho-trigger-edit" draggable="true">
+  <li  id="${id}" data-id="${id}" class="item data fade in pho-trigger-edit">
     {{tmpl "#photosThumbnailTemplate"}}
     <div class="title center hide">{{if title}}${title.substring(0, 15)}{{else}}{{if src}}${src.substring(0, 15)}{{else}}no title{{/if}}{{/if}}</div>
   </li>

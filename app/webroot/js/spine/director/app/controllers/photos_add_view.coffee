@@ -132,7 +132,10 @@ class PhotosAddView extends Spine.Controller
     list
     
   add: ->
-    Spine.trigger('photos:copy', @selectionList, Album.record)
+    Photo.trigger('create:join',
+      album: Album.record
+      photos: @selectionList
+    )
     @hide()
     
   keyup: (e) ->

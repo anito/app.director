@@ -62,7 +62,7 @@ class Gallery extends Spine.Model
         photos = album.photos() or []
         phos.push pho for pho in photos
     phos
-  
+    
   @details: =>
     return @record.details() if @record
     albums = Album.all()

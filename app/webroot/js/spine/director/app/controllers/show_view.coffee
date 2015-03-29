@@ -348,14 +348,14 @@ class ShowView extends Spine.Controller
   
   copyAlbums: (albums, gallery) ->
     hash = location.hash
-    Album.trigger('create:join', albums, gallery, => @navigate hash)
+    Album.trigger('create:join', albums, gallery)
       
   copyPhotos: (photos, album) ->
     hash = location.hash
     options =
       photos: photos
       album: album
-    Photo.trigger('create:join', options, => @navigate hash)
+    Photo.trigger('create:join', options)
       
   copyAlbumsToNewGallery: ->
     @albumsToGallery Gallery.selectionList()[..]

@@ -36,7 +36,7 @@ Controller.Drag =
           el: el
           els: []
           source: record
-          originModel: parentModel.className
+          originModel: parentModel?.className
           originRecord: parentRecord
           selection: []
         

@@ -149,9 +149,8 @@ class AlbumsView extends Spine.Controller
       @navigate '/gallery', Gallery.record?.id or ''
       
   activateRecord: (records) ->
-    unless records
+    unless (records)
       records = Gallery.selectionList()
-      Album.current()
       noid = true
       
     unless Spine.isArray(records)
@@ -206,7 +205,6 @@ class AlbumsView extends Spine.Controller
         Photo.trigger('create:join', options, false)
         Photo.trigger('destroy:join', options.photos, options.deleteFromOrigin) if options.deleteFromOrigin
         
-      Album.trigger('change:collection', album)
       Album.trigger('activate', album.id)
       @navigate '/gallery', target?.id or ''
     
@@ -277,10 +275,10 @@ class AlbumsView extends Spine.Controller
     @render() unless Album.count()
       
   createJoin: (albums, gallery, callback) ->
-    @log 'createJoin'
-    albums = albums.toID()
+    @navigate '/gallery', gallery.id
     Album.createJoin albums, gallery, callback
-    gallery.updateSelection(albums)
+    Album.trigger('activate', albums.last())
+    gallery.updateSelection albums
     
   destroyJoin: (albums, gallery) ->
     @log 'destroyJoin'
