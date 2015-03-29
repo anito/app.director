@@ -279,7 +279,6 @@ class AlbumsView extends Spine.Controller
     @render() unless Album.count()
       
   createJoin: (albums, gallery, callback) ->
-    @navigate '/gallery', gallery.id
     Album.createJoin albums, gallery, callback
     Album.trigger('activate', albums.last())
     gallery.updateSelection albums
