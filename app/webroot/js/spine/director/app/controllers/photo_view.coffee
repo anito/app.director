@@ -154,6 +154,7 @@ class PhotoView extends Spine.Controller
     @photosView.list.rotate(e)
   
   back: ->
+    return unless @isActive()
     @navigate '/gallery', Gallery.record.id, Album.record.id
   
   zoom: (e) ->

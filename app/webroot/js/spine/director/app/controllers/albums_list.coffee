@@ -30,7 +30,7 @@ class AlbumsList extends Spine.Controller
     Album.bind('update', @proxy @updateTemplate)
     Album.bind("ajaxError", Album.errorHandler)
     GalleriesAlbum.bind('change', @proxy @changeRelated)
-    AlbumsPhoto.bind('beforeDestroy', @proxy @widowedAlbumsPhoto)
+#    AlbumsPhoto.bind('beforeDestroy', @proxy @widowedAlbumsPhoto)
     Gallery.bind('change:selection', @proxy @exposeSelection)
     
   changedAlbums: (gallery) ->
@@ -135,16 +135,18 @@ class AlbumsList extends Spine.Controller
   renderBackgrounds: (albums) ->
     @log 'renderBackgrounds'
     albums = [albums] unless Album.isArray(albums)
-    if @widows.length
-      Model.Uri.Ajax.cache = false
-      for widow in @widows
-        $.when(@processAlbumDeferred(widow)).done (xhr, rec) =>
-          @callback xhr, rec
-      @widows = []
-      Model.Uri.Ajax.cache = true
+    @removeWidows @widows
     for album in albums
       $.when(@processAlbumDeferred(album)).done (xhr, rec) =>
         @callback xhr, rec
+        
+  removeWidows: (widows=[]) ->
+    Model.Uri.Ajax.cache = false
+    for widow in widows
+      $.when(@processAlbumDeferred(widow)).done (xhr, rec) =>
+        @callback xhr, rec
+    @widows = []
+    Model.Uri.Ajax.cache = true
   
   processAlbum: (album) ->
     data = album.photos(4)

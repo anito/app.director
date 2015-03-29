@@ -82,11 +82,6 @@ class AlbumsView extends Spine.Controller
     Album.bind('destroy:join', @proxy @destroyJoin)
     Album.bind('activate', @proxy @activateRecord)
     Album.bind('change:collection', @proxy @renderBackgrounds)
-    
-    Photo.bind('refresh', @proxy @refreshBackgrounds)
-    
-    AlbumsPhoto.bind('destroy create', @proxy @updateBackgrounds)
-    
 #    GalleriesAlbum.bind('ajaxError', Album.errorHandler)
     
     Spine.bind('reorder', @proxy @reorder)
@@ -191,27 +186,35 @@ class AlbumsView extends Spine.Controller
     return proposal
   
   createAlbum: (target=Gallery.record, options={}) ->
-    cb = (album, ido) ->
+    cb = (record, ido) ->
       if target
-        album.createJoin(target)
-        target.updateSelection(album.id)
+        record.createJoin(target)
+        target.updateSelection(record.id)
       else
-        Gallery.updateSelection(Gallery.record?.id, album.id)
+        Gallery.updateSelection(Gallery.record?.id, record.id)
         
-      album.updateSelectionID()
+      record.updateSelectionID()
       
       # fill in / remove photos
-      $().extend options, album: album
+      $().extend options, album: record
+      
       if options.photos
         Photo.trigger('create:join', options, false)
         Photo.trigger('destroy:join', options.photos, options.deleteFromOrigin) if options.deleteFromOrigin
         
+      if options.deferred
+        options.deferred.notify(record)
+      if options.cb
+        options.cb.apply(@, [record, options.deferred])
+        
       Album.trigger('activate', album.id)
+      
       @navigate '/gallery', target?.id or ''
     
     album = new Album @newAttributes()
     album.one('ajaxSuccess', @proxy cb)
     album.save()
+    album
        
   beforeDestroyGalleriesAlbum: (ga) ->
     gallery = Gallery.find ga.gallery_id
@@ -309,7 +312,6 @@ class AlbumsView extends Spine.Controller
     el = @itemsEl.children().forItem(album)
     $('.glyphicon-set', el).removeClass('in')
     $('.downloading', el).removeClass('in').addClass('hide')
-#    el.data('queue').queue.splice(0, 1)
   
   loadingFail: (album, error) ->
     return unless @isActive()
@@ -321,18 +323,6 @@ class AlbumsView extends Spine.Controller
   renderBackgrounds: (albums) ->
     return unless @isActive()
     @list.renderBackgrounds albums
-    
-  updateBackgrounds: (ap, mode) ->
-    return unless @isActive()
-    @log 'updateBackgrounds'
-    albums = ap.albums()
-    @list.renderBackgrounds albums
-    
-  refreshBackgrounds: (photos) ->
-    return unless @isActive()
-    @log 'refreshBackgrounds'
-    album = App.upload.album
-    @list.renderBackgrounds [album] if album
     
   sortupdate: (e, o) ->
     return unless Gallery.record

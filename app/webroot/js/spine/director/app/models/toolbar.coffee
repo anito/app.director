@@ -122,7 +122,7 @@ class Toolbar extends Spine.Model
         ,
           name: 'Duplicate'
           icon: 'certificate'
-          klass: 'opt-DuplicateAlbum'
+          klass: 'opt-DuplicateAlbums'
           disabled: -> !Album.record
         ,
           devider: true

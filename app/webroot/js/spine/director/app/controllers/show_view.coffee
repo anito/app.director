@@ -82,7 +82,7 @@ class ShowView extends Spine.Controller
     'click .opt-FullScreen:not(.disabled)'            : 'toggleFullScreen'
     'click .opt-CreateGallery:not(.disabled)'         : 'createGallery'
     'click .opt-CreateAlbum:not(.disabled)'           : 'createAlbum'
-    'click .opt-DuplicateAlbum:not(.disabled)'        : 'duplicateAlbum'
+    'click .opt-DuplicateAlbums:not(.disabled)'       : 'duplicateAlbums'
     'click .opt-CopyAlbumsToNewGallery:not(.disabled)': 'copyAlbumsToNewGallery'
     'click .opt-CopyPhotosToNewAlbum:not(.disabled)'  : 'copyPhotosToNewAlbum'
     'click .opt-CopyPhoto'                            : 'copyPhoto'
@@ -363,10 +363,38 @@ class ShowView extends Spine.Controller
   copyPhotosToNewAlbum: ->
     @photosToAlbum Album.selectionList()[..]
       
-  duplicateAlbum: ->
-    return unless album = Album.record
+  duplicateStart: ->
+      
+  donecallback: (rec) ->
+    console.log 'DONE'
+      
+  failcallback: (t) ->
+    console.log 'FAIL'
+  
+  progresscallback: (rec) ->
+    console.log 'PROGRESS'
+    console.log @state()
+  
+  duplicateAlbums: ->
+    @deferred = $.Deferred()
+    $.when(@duplicateAlbumsDeferred()).then(@donecallback,@failcallback,@progresscallback)
+    
+      
+  duplicateAlbumsDeferred: ->
+    deferred = @deferred or @deferred = $.Deferred()
+    list = Gallery.selectionList()
+    for id in list
+      @duplicateAlbum id
+    
+    deferred.promise()
+    
+  duplicateAlbum: (id) ->
+    return unless album = Album.find(id)
+    callback = (a, def) => @deferred.always(->
+      console.log 'completed with success ' + a.id
+    )
     photos = album.photos().toID()
-    @photosToAlbum photos
+    @photosToAlbum photos, callback
       
   albumsToGallery: (albums, gallery) ->
     Spine.trigger('create:gallery',
@@ -376,13 +404,14 @@ class ShowView extends Spine.Controller
       relocate: true
     )
   
-  photosToAlbum: (photos, album) ->
+  photosToAlbum: (photos, callback) ->
     target = Gallery.record
     Spine.trigger('create:album', target,
       photos: photos
-      album:album
       deleteFromOrigin: false
       relocate: true
+      deferred: @deferred
+      cb: callback
     )
     
   createAlbumCopy: (albums=Gallery.selectionList(), target=Gallery.record) ->
@@ -834,7 +863,7 @@ class ShowView extends Spine.Controller
     for clb in clipboard
       items.push clb.item
       
-    Album.trigger('create:join', items, gallery, callback)
+    Album.trigger('create:join', items.toID(), gallery, callback)
       
   help: (e) ->
     @modalHelpView.el.one('hidden.bs.modal', @proxy @hiddenmodal)
