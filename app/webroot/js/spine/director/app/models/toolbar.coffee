@@ -29,7 +29,7 @@ class Toolbar extends Spine.Model
           name: 'Quick Help'
           klass: 'opt-Help '
         ,
-          name: 'Version'
+          name: 'About'
           klass: 'opt-Version '
         ]
     group0:

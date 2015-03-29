@@ -931,9 +931,10 @@ class ShowView extends Spine.Controller
     @modalVersionView.show
       small: true
       body: -> require("views/version")
-        spine_version: Spine.version
-        app_version: App.version
-        bs_version: $.fn.tooltip.Constructor.VERSION
+        copyright     : 'Axel Nitzschner'
+        spine_version : Spine.version
+        app_version   : App.version
+        bs_version    : $.fn.tooltip.Constructor.VERSION
       
   hidemodal: (e) ->
     @log 'hidemodal'
