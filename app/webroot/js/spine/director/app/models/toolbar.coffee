@@ -45,6 +45,18 @@ class Toolbar extends Spine.Model
         ,
           devider: true
         ,
+          name: -> 'Album Library'
+          klass: 'opt-ShowAllAlbums'
+          icon: 'book'
+          disabled: -> false
+        ,
+          name: -> 'Photo Library'
+          klass: 'opt-ShowAllPhotos'
+          icon: 'book'
+          disabled: -> false
+        ,
+          devider: true
+        ,
           name: 'Invert Selection'
           klass: 'opt-SelectInv'
           shortcut: 'Ctrl+I'
@@ -156,7 +168,7 @@ class Toolbar extends Spine.Model
         ,
           devider: true
         ,
-          name: -> 'Show Library'
+          name: -> 'Album Library'
           klass: 'opt-ShowAllAlbums'
           icon: 'book'
           disabled: -> false
@@ -233,7 +245,7 @@ class Toolbar extends Spine.Model
         ,
           devider: true
         ,
-          name: -> 'Show Library'
+          name: -> 'Photo Library'
           klass: 'opt-ShowAllPhotos'
           icon: 'book'
           disabled: -> false

@@ -247,13 +247,16 @@ class PhotosList extends Spine.Controller
   exposeSelection: (item, sel) ->
     return unless item?.id is Album.record?.id
     item = item or Album
-    selection = item.selectionList()
+    
+    selection = sel or item.selectionList()
 
     @deselect()
     for id in selection
       $('#'+id, @el).addClass("active")
     if first = selection.first()
       $('#'+first, @el).addClass("hot")
+      
+    @parent.focus()
       
   remove: (ap) ->
     item = Photo.find ap.photo_id

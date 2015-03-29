@@ -60,19 +60,27 @@ class GalleriesView extends Spine.Controller
     App.showView.trigger('change:toolbarTwo', ['Slideshow'])
     @render()
     
-  activateRecord: (ids=[]) ->
-    unless Spine.isArray(ids)
-      ids = [ids]
+  activateRecord: (records) ->
+    unless records
+      records = Root.selectionList()
+      Gallery.current()
+      noid = true
+  
+    unless Spine.isArray(records)
+      records = [records]
     
     list = []
-    for id_ in ids
+    for id_ in records
       list.push gallery.id if gallery = Gallery.find(id_)
 
     id = list[0]
     
     Root.updateSelection(null, list)
     Gallery.current id
-    Album.trigger('activate', Gallery.selectionList())
+    if Gallery.record
+      Album.trigger('activate', Gallery.selectionList())
+    else
+      @navigate '/galleries'
 
   click: (e) ->
     App.showView.trigger('change:toolbarOne', ['Default'])

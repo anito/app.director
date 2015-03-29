@@ -541,7 +541,7 @@
         <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
           <li role="presentation" class="zoom"><a role="menuitem" tabindex="-1" data-toggle="tooltip" title="Open" href="#"><i class="tooltips glyphicon glyphicon-folder-close"></i>Open</a></li>
           {{if Gallery.record}}
-          <li role="presentation" class="original"><a role="menuitem" tabindex="-1" data-toggle="tooltip" title="Show in Masters" href="#"><i class="glyphicon glyphicon glyphicon-file"></i>Show in Masters</a></li>
+          <li role="presentation" class="original"><a role="menuitem" tabindex="-1" data-toggle="tooltip" title="Show in Library" href="#"><i class="glyphicon glyphicon glyphicon-file"></i>Show in Library</a></li>
           {{/if}}
           <li class="divider"></li>
           <li role="presentation" class="delete"><a role="menuitem" tabindex="-1" data-toggle="tooltip" title="{{if Gallery.record}}Remove{{else}}Destroy{{/if}} " href="#"><i class="glyphicon glyphicon glyphicon-trash"></i>{{if Gallery.record}}Remove{{else}}Destroy{{/if}}</a></li>
@@ -620,7 +620,7 @@
     </span>
     {{tmpl() "#albumSpecsTemplate"}}
     <br><br>
-    <h2>{{if model.record}}Albums in:&nbsp;{{else}}Master Albums{{/if}}</h2>
+    <h2>{{if model.record}}Albums in:&nbsp;{{else}}Album Library{{/if}}</h2>
     {{if model.record}}<label class="h2 chopin">{{if model.record.name}}${model.record.name.slice(0, 25)}{{else}}...{{/if}}</label>{{/if}}
     <span class="right"><h3 class=""><i>Info</i></h3></span>
   </section>
@@ -649,7 +649,7 @@
     </span>
     {{tmpl() "#photoSpecsTemplate"}}
     <br><br>
-    <h2>{{if album}}Photos in:&nbsp;{{else}}Master Photos{{/if}}</h2>
+    <h2>{{if album}}Photos in:&nbsp;{{else}}Photo Library{{/if}}</h2>
     {{if album}}<label class="h2 chopin">{{if album.title}}${album.title.slice(0, 25)}{{else}}...{{/if}}</label>{{/if}}
     <span class="right"><h3 class=""><i>Info</i></h3></span>
   </section>
@@ -709,7 +709,7 @@
     </span>
     {{tmpl() "#photoSpecsTemplate"}}
     <br><br>
-    <h2>{{if album}}Photos in:&nbsp;{{else}}Master Photos{{/if}}</h2>
+    <h2>{{if album}}Photos in:&nbsp;{{else}}Photo Library{{/if}}</h2>
     {{if album}}<label class="h2 chopin">{{if album.title}}${album.title}{{else}}...{{/if}}</label>{{/if}}
     <span class="right"><h3 class=""><i>Info</i></h3></span>
   </section>
@@ -841,7 +841,7 @@
         <li role="presentation" class="rotate-ccw"><a role="menuitem" tabindex="-1" data-toggle="tooltip" title="Rotate ccw" href="#"><i class="tooltips glyphicon glyphicon glyphicon-circle-arrow-left"></i>ccw</a></li>
         <li class="divider"></li>
         {{if Album.record}}
-        <li role="presentation" class="original"><a role="menuitem" tabindex="-1" data-toggle="tooltip" title="Show in Masters" href="#"><i class="glyphicon glyphicon glyphicon-file"></i>Show in Masters</a></li>
+        <li role="presentation" class="original"><a role="menuitem" tabindex="-1" data-toggle="tooltip" title="Show in Library" href="#"><i class="glyphicon glyphicon glyphicon-file"></i>Show in Library</a></li>
         <li class="divider"></li>
         {{/if}}
         <li role="presentation" class="delete"><a role="menuitem" tabindex="-1" data-toggle="tooltip" title="{{if Album.record}}Remove{{else}}Destroy{{/if}}" href="#"><i class="glyphicon glyphicon glyphicon-trash"></i>{{if Album.record}}Remove{{else}}Destroy{{/if}}</a></li>

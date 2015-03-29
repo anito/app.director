@@ -21,13 +21,13 @@ class AlbumsAddView extends Spine.Controller
   events:
     'click .item'                            : 'click'
     'click .opt-AddExecute:not(.disabled)'   : 'add'
-    'click .opt-SelectInv:not(.disabled)'       : 'selectInv'
-    'click .opt-SelectAll:not(.disabled)'       : 'selectAll'
+    'click .opt-SelectInv:not(.disabled)'    : 'selectInv'
+    'click .opt-SelectAll:not(.disabled)'    : 'selectAll'
     'keyup'                                  : 'keyup'
 
   template: (items) ->
     $('#addTemplate').tmpl
-      title: 'Add albums to your gallery'
+      title: 'Select albums'
       type: 'albums'
       disabled: true
       contains: !!items.length

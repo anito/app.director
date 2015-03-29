@@ -109,9 +109,6 @@ class AlbumsList extends Spine.Controller
     @el.sortable()
   
   exposeSelection: (item, sel) ->
-    @log 'exposeSelection'
-#    console.log item
-    
     return unless item?.id is Gallery.record?.id
     item = item or Gallery
 

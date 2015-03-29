@@ -840,9 +840,10 @@ class ShowView extends Spine.Controller
     @modalHelpView.el.one('hidden.bs.modal', @proxy @hiddenmodal)
     @modalHelpView.el.one('hide.bs.modal', @proxy @hidemodal)
     @modalHelpView.el.one('show.bs.modal', @proxy @showmodal)
+    @modalHelpView.el.one('shown.bs.modal', @proxy @shownmodal)
     
     carousel_id = 'help-carousel'
-    options = interval: 30000000000
+    options = interval: 1000
     slides =
       [
         img: "/img/keyboard.png"
@@ -916,20 +917,23 @@ class ShowView extends Spine.Controller
         slides: slides
         id: carousel_id
       footerButtonText: 'Close'
-      
-      @carousel = $('#'+carousel_id)
-#      @carousel.carousel options
+    
+    @carousel = $('.carousel', @el)
+    @carousel.carousel options
+    @log @carousel
         
   version: (e) ->
     @modalVersionView.el.one('hidden.bs.modal', @proxy @hiddenmodal)
     @modalVersionView.el.one('hide.bs.modal', @proxy @hidemodal)
     @modalVersionView.el.one('show.bs.modal', @proxy @showmodal)
+    @modalVersionView.el.one('shown.bs.modal', @proxy @shownmodal)
     
     @modalVersionView.show
       small: true
       body: -> require("views/version")
         spine_version: Spine.version
         app_version: App.version
+        bs_version: $.fn.tooltip.Constructor.VERSION
       
   hidemodal: (e) ->
     @log 'hidemodal'
@@ -939,6 +943,9 @@ class ShowView extends Spine.Controller
     
   showmodal: (e) ->
     @log 'showmodal'
+      
+  shownmodal: (e) ->
+    @log 'shownmodal'
       
   selectByKey: (direction, e) ->
     isMeta = e.metaKey or e.ctrlKey
