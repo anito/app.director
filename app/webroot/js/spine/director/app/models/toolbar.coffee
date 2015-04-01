@@ -306,9 +306,10 @@ class Toolbar extends Spine.Model
       name: 'Close'
       content:
         [
-          name: 'x'
+          name: '&times;'
           klass: 'opt opt-Previous'
-          type: 'span'
+          innerklass: 'close white'
+          type: 'button'
         ]
     package_09:
       name: 'Slideshow'
