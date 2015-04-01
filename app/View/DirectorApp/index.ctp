@@ -735,7 +735,7 @@
       <div class="opt-Select{{if model.details().sCount>0}}None deselect{{else}}All select{{/if}} btn btn-sm {{if model.details().sCount>0}}btn-info{{/if}}"><b class=""><div>${model.details().sCount}</div></b></div>
     </span> 
     <span class="">
-    <div class="btn btn-sm">Albums<b><div>${model.details().aCount} of ${modelAlbum.count()}</div></b></div>
+    <div class="btn btn-sm">Albums<b><div>${model.details().aCount}{{if model.record}} of ${modelAlbum.count()}{{/if}}</div></b></div>
     </span> 
     <span class="">
     <div class="btn btn-sm">Images<b><div>${model.details().iCount} of ${modelPhoto.count()}</div></b></div>
@@ -749,7 +749,7 @@
     <div class="opt-Select{{if model.details().sCount>0}}None deselect{{else}}All select{{/if}} btn btn-sm {{if model.details().sCount>0}}btn-info{{/if}}"><b class=""><div>${model.details().sCount}</div></b></div>
     </span> 
     <span class="">
-    <div class="btn btn-sm">Images<b><div>${model.details().iCount} of ${modelPhoto.count()}</div></b></div>
+    <div class="btn btn-sm">Images<b><div>${model.details().iCount}{{if modelAlbum.record}} of ${modelPhoto.count()}{{/if}}</div></b></div>
     </span> 
   </div>
 </script>

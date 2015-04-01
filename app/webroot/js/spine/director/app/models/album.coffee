@@ -93,7 +93,7 @@ class Album extends Spine.Model
       ga = new GalleriesAlbum
         gallery_id  : target.id
         album_id    : item
-        order       : GalleriesAlbum.albums(target.id).length
+        order       : GalleriesAlbum.albums(target.id).last().order+1
       valid = ga.save
         validate: true
         ajax: false
