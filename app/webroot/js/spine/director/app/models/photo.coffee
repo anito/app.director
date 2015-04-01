@@ -97,7 +97,7 @@ class Photo extends Spine.Model
       ap = new AlbumsPhoto
         album_id    : target.id
         photo_id    : item.id or item
-        order       : AlbumsPhoto.photos(target.id).length
+        order       : parseInt(AlbumsPhoto.photos(target.id).last()?.order)+1 or 0
       valid = ap.save
         validate: true
         ajax: false
