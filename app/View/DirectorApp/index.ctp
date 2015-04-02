@@ -182,13 +182,11 @@
       <div id="flickr" class="canvas view vbox flex fade" style="position: relative;">
         <ul class="options hbox">
           <li class="splitter flex"></li>
-          <ul class="toolbar hbox nav"></ul>
-          <li class="splitter flex"></li>
+          <ul class="toolbarOne hbox nav"></ul>
+          <li class="splitter disabled flex"></li>
+          <ul class="toolbarTwo hbox nav"></ul>
         </ul>
         <div class="content links vbox flex autoflow"></div>
-        <div style="z-index: 1000; position: absolute; right: 0px; top: 0px; margin: 0;">
-          <button type="button" class="close white" data-dismiss="modal" aria-hidden="true" style="padding: 8px;">&times;</button>
-        </div>
       </div>
       
     </div>
@@ -394,7 +392,7 @@
     <div class="item-header">
       <div class="expander"></div>
         <div class="item-content">
-          <span class="" style="color: rgba(255,255,255, 1); text-shadow: 0 -1px 0 rgba(0,0,0,0.9); font-size: 1.5em;">${name}</span>
+          <span class="opt-flickr" style="color: rgba(255,255,255, 1); text-shadow: 0 -1px 0 rgba(0,0,0,0.9); font-size: 1.5em;">${name}</span>
         </div>
     </div>
     <hr>

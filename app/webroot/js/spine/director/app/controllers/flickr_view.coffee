@@ -11,7 +11,8 @@ class FlickrView extends Spine.Controller
   elements:
     '.links'      : 'links'
     '.content'    : 'content'
-    '.toolbar'    : 'toolbarEl'
+    '.toolbarOne' : 'toolbarOneEl'
+    '.toolbarTwo' : 'toolbarTwoEl'
     
   events:
     'click button.close'  : 'close'
@@ -46,8 +47,11 @@ class FlickrView extends Spine.Controller
         page    : 1
         pages   : 5
         per_page: @perpage
-    @toolbar = new ToolbarView
-      el: @toolbarEl
+    @toolbar_one = new ToolbarView
+      el: @toolbarOneEl
+      template: @toolsTemplate
+    @toolbar_two = new ToolbarView
+      el: @toolbarTwoEl
       template: @toolsTemplate
       
     @bind('flickr:recent', @proxy @recent)
@@ -59,6 +63,9 @@ class FlickrView extends Spine.Controller
       @content.html @template items
     else
       @content.html @introTemplate()
+      @toolbarOneEl.empty()
+    
+    @changeToolbar @toolbar_two, ['Close']
     
   active: ->
     if arguments.length
@@ -83,19 +90,22 @@ class FlickrView extends Spine.Controller
     @type = mode
     switch mode
       when 'recent'
-        toolsList = ['FlickrRecent', 'Back']
+        toolsList_one = ['FlickrRecent']
+        toolsList_two = ['Close']
         options =
           page  : page || @spec[mode].page
           method: 'flickr.photos.getRecent'
+        @changeToolbar @toolbar_one, toolsList_one
       when 'inter'
-        toolsList = ['FlickrInter', 'Back']
+        toolsList_one = ['FlickrInter']
+        toolsList_two = ['Close']
         options =
           page  : page || @spec[mode].page
           method: 'flickr.interestingness.getList'
+        @changeToolbar @toolbar_one, toolsList_one
       else
         return @render()
     options = $().extend @spec[mode], options
-    @changeToolbar toolsList if toolsList
     @ajax(options)
     
   ajax: (options) ->
@@ -118,8 +128,8 @@ class FlickrView extends Spine.Controller
   failResponse: (args...) ->
     @log args
     
-  changeToolbar: (list) ->
-    @toolbar.change list
+  changeToolbar: (tb, list) ->
+    tb.change list
     @refreshElements()
     
   click: (e) ->

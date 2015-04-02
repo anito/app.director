@@ -327,7 +327,7 @@ class Toolbar extends Spine.Model
       locked: true
       content:
         [
-          name: ''
+          name: '&times;'
           klass: 'opt-Previous'
           type: 'span'
           icon: 'arrow-left'
@@ -394,12 +394,12 @@ class Toolbar extends Spine.Model
           type: 'span'
         ,
           name: ''
-          klass: 'opt-Prev'
+          klass: 'opt opt-Prev'
           icon: 'chevron-left'
           disabled: -> 
         ,
           name: ''
-          klass: 'opt-Next'
+          klass: 'opt opt-Next'
           icon: 'chevron-right'
           disabled: -> 
         ]

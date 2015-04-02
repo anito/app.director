@@ -14,8 +14,8 @@ class SidebarFlickr extends Spine.Controller
     '.expander'             : 'expander'
 
   events:
-    'click      .expander'        : 'expand'
-    'click'                       : 'expand'
+    'click      .expander'         : 'expand'
+    'click      .opt-flickr'       : 'expand'
     'click      .opt-FlickrRecent' : 'navRecent'
     'click      .opt-FlickrInter'  : 'navInter'
 
