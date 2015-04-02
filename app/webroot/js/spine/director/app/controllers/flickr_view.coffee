@@ -1,6 +1,7 @@
 Spine           = require('spine')
 $               = Spine.$
 ToolbarView     = require("controllers/toolbar_view")
+Settings        = require("model/settings")
 Extender        = require("plugins/controller_extender")
 
 class FlickrView extends Spine.Controller
