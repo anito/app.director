@@ -2,6 +2,7 @@ Spine   = require("spine")
 $       = Spine.$
 Recent  = require('models/recent')
 Photo   = require('models/photo')
+Settings= require('models/settings')
 Extender= require("plugins/controller_extender")
 
 require("plugins/tmpl")
@@ -125,11 +126,10 @@ class OverviewView extends Spine.Controller
     e.preventDefault()
     e.stopPropagation()
     
-    if localStorage.previousHash and localStorage.previousHash isnt location.hash
-      location.hash = localStorage.previousHash
-      delete localStorage.previousHash
+    if previousHash = Settings.findUserSettings().previousHash
+      location.hash = previousHash
     else
-      @navigate '/galleries', ''
+      @navigate '/galleries/'
       
   keyup: (e) ->
     e.preventDefault()
