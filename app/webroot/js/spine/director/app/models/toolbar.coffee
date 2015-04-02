@@ -363,11 +363,6 @@ class Toolbar extends Spine.Model
       name: 'SlideshowPackage'
       content:
         [
-          name: '<span class="slider" style=""></span>'
-          klass: 'opt-Thumbsize '
-          type: 'div'
-          innerstyle: 'width: 190px; position: relative;'
-        ,
           name: 'Fullscreen'
           klass: -> 'opt-FullScreen' + if App.showView.slideshowView.fullScreenEnabled() then ' active' else ''
           icon: 'fullscreen'
@@ -380,6 +375,11 @@ class Toolbar extends Spine.Model
           icon: 'play'
           iconcolor: ''
           disabled: -> !Gallery.activePhotos().length
+        ,
+          name: '<span class="slider" style=""></span>'
+          klass: 'opt-Thumbsize '
+          type: 'div'
+          innerstyle: 'width: 190px; position: relative;'
         ]
     package_14:
       name: 'FlickrRecent'
