@@ -244,13 +244,6 @@ class SlideshowView extends Spine.Controller
   galleryIsActive: ->
     $('#blueimp-gallery').hasClass(@defaults.displayClass)
     
-  back_: (e) ->
-    if localStorage.previousHash and localStorage.previousHash isnt location.hash
-      location.hash = localStorage.previousHash
-      delete localStorage.previousHash
-    else
-      @navigate '/galleries/'
-    
   back: (e) ->
     if previousHash = Settings.findUserSettings().previousHash
       location.hash = previousHash
