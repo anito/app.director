@@ -4,6 +4,7 @@ Model           = Spine.Model
 Controller      = Spine.Controller
 Photo           = require('models/photo')
 AlbumsPhoto     = require('models/albums_photo')
+Settings        = require('models/settings')
 Extender        = require("plugins/controller_extender")
 
 require('plugins/uri')
@@ -243,10 +244,16 @@ class SlideshowView extends Spine.Controller
   galleryIsActive: ->
     $('#blueimp-gallery').hasClass(@defaults.displayClass)
     
-  back: (e) ->
+  back_: (e) ->
     if localStorage.previousHash and localStorage.previousHash isnt location.hash
       location.hash = localStorage.previousHash
       delete localStorage.previousHash
+    else
+      @navigate '/galleries/'
+    
+  back: (e) ->
+    if previousHash = Settings.findUserSettings().previousHash
+      location.hash = previousHash
     else
       @navigate '/galleries/'
     
