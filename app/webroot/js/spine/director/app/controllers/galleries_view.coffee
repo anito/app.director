@@ -73,8 +73,9 @@ class GalleriesView extends Spine.Controller
 
     id = list[0]
     
-    Root.updateSelection(null, list)
+    Root.updateSelection(null, [id])
     Gallery.current id
+    
     if Gallery.record
       Album.trigger('activate', Gallery.selectionList())
 
@@ -107,8 +108,7 @@ class GalleriesView extends Spine.Controller
       Root.removeFromSelection item.id
     
     unless Gallery.count()
-      Spine.trigger('show:galleries')
-      Gallery.trigger('refresh:gallery')
+      @navigate '/galleries', ''
     else
       unless /^#\/galleries\//.test(location.hash)
         @navigate '/gallery', Gallery.first().id

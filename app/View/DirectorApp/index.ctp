@@ -420,6 +420,7 @@
   <li id="${id}" data-id="${id}" class="item container data fade in gal-trigger-edit" data-drag-over="thumbnail">
     <div class="thumbnail">
       <div class="inner">
+        <div style="font-size: 0.7em; font-style: oblique;">${id.slice(0, 23)}</div>
         {{tmpl($item.data.details()) "#galDetailsTemplate"}}
       </div>
     </div>

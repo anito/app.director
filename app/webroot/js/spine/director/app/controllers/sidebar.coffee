@@ -3,6 +3,7 @@ $              = Spine.$
 Gallery        = require('models/gallery')
 Album          = require('models/album')
 Photo          = require('models/photo')
+Root           = require('models/root')
 GalleriesAlbum = require('models/galleries_album')
 AlbumsPhoto    = require('models/albums_photo')
 User           = require("models/user")
@@ -137,7 +138,8 @@ class Sidebar extends Spine.Controller
     @log 'createGallery'
     
     cb = (gallery) ->
-      gallery.updateSelectionID()
+      Root.updateSelection(null, [gallery.id])
+      Gallery.current gallery.id
       
       if options.albums
         Album.trigger('create:join', options.albums, gallery)
@@ -145,10 +147,7 @@ class Sidebar extends Spine.Controller
         
       unless /^#\/galleries\//.test(location.hash)
         @navigate '/gallery', gallery.id
-      else
-        Gallery.trigger('activate', gallery.id)
         
-      
     gallery = new Gallery @newAttributes()
     gallery.one('ajaxSuccess', @proxy cb)
     gallery.save()
@@ -160,7 +159,7 @@ class Sidebar extends Spine.Controller
     @log 'destroy'
     return unless item = Gallery.find id
     item.destroy()
-    Gallery.trigger('activate', null)
+    Gallery.current()
 
   edit: ->
     App.galleryEditView.render()
