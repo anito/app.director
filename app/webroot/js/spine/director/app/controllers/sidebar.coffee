@@ -138,8 +138,8 @@ class Sidebar extends Spine.Controller
     @log 'createGallery'
     
     cb = (gallery) ->
-      Root.updateSelection(null, [gallery.id])
       Gallery.current gallery.id
+      Root.updateSelection(null, [gallery.id])
       
       if options.albums
         Album.trigger('create:join', options.albums, gallery)

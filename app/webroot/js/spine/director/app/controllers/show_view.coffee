@@ -2,6 +2,7 @@ Spine           = require("spine")
 $               = Spine.$
 Model           = Spine.Model
 Controller      = Spine.Controller
+Root            = require('models/root')
 Gallery         = require('models/gallery')
 Album           = require('models/album')
 Photo           = require('models/photo')
@@ -223,6 +224,7 @@ class ShowView extends Spine.Controller
     
     Gallery.bind('change', @proxy @changeToolbarOne)
     Gallery.bind('change:selection', @proxy @refreshToolbars)
+#    Root.bind('change:selection', @proxy @refreshToolbars)
     Album.bind('change:selection', @proxy @refreshToolbars)
     GalleriesAlbum.bind('error', @proxy @error)
     AlbumsPhoto.bind('error', @proxy @error)

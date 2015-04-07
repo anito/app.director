@@ -108,6 +108,8 @@ class GalleriesView extends Spine.Controller
       Root.removeFromSelection item.id
     
     unless Gallery.count()
+      if /^#\/galleries\//.test(location.hash)
+        @navigate '/galleries' #workaround to force render (could be any hash)
       @navigate '/galleries', ''
     else
       unless /^#\/galleries\//.test(location.hash)
