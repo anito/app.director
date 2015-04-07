@@ -983,7 +983,7 @@ class ShowView extends Spine.Controller
     isMeta = e.metaKey or e.ctrlKey
     index = false
     lastIndex = false
-    list = @controller.list.listener or @controller.list
+    list = @controller.list?.listener or @controller.list
     elements = if list then $('.item', list.el) else $()
     models = @controller.el.data('current').models
     parent = @controller.el.data('current').model
