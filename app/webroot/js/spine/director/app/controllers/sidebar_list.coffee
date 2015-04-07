@@ -64,6 +64,7 @@ class SidebarList extends Spine.Controller
           
   create: (item) ->
     @append @template item
+    @closeAllOtherSublists item
     @reorder item
   
   update: (item) ->
@@ -203,48 +204,59 @@ class SidebarList extends Spine.Controller
       when 'Gallery'
         @expand(item, App.showView.controller?.el.data('current').models isnt Album)
         @navigate '/gallery', item.id
+        @closeAllOtherSublists item
 #        Gallery.current item.id if Gallery.record and Gallery.record.id is item.id
       when 'Album'
         gallery = $(e.target).closest('li.gal').item()
         @navigate '/gallery', gallery.id, item.id
 #        Album.current(item.id) if Album.record and Album.record.id is item.id
     
-  expand: (item, force, e) ->
+  clickExpander: (e) ->
+    galleryEl = $(e.target).closest('li.gal')
+    isOpen = galleryEl.hasClass('open')
+    unless isOpen
+      galleryEl.addClass('manual')
+    else
+      galleryEl.removeClass('manual')
+      
+    item = galleryEl.item()
+    if item
+      @expand(item, !isOpen, e)
+    
+    e.stopPropagation()
+    e.preventDefault()
+    
+  expand: (item, open, e) ->
     galleryEl = @galleryFromItem(item)
     expander = $('.expander', galleryEl)
     if e
       targetIsExpander = $(e.currentTarget).hasClass('expander')
     
-    if force
+    if open
       @openSublist(galleryEl)
     else
-      open = galleryEl.hasClass('open')
-      closeif = galleryEl.hasClass('active') or targetIsExpander
-      if open
-        @closeSublist(galleryEl) if closeif 
-      else
-        @openSublist(galleryEl)
+      @closeSublist(galleryEl) unless galleryEl.hasClass('manual')
         
   openSublist: (el) ->
     el.addClass('open')
     
   closeSublist: (el) ->
-    el.removeClass('open')
+    el.removeClass('open manual')
     
-  closeAllSublists: (item) ->
+  closeAllSublists_: (item) ->
     for gallery in Gallery.all()
       parentEl = @galleryFromItem gallery
       unless parentEl.hasClass('manual')
         @expand gallery, item?.id is gallery.id
   
-  clickExpander: (e) ->
-    galleryEl = $(e.target).closest('li.gal')
-    item = galleryEl.item()
-    @expand(item, false, e) if item
-    
-    e.stopPropagation()
-    e.preventDefault()
-    
+  closeAllSublists: ->
+    for gallery in Gallery.all()
+      @expand gallery
+  
+  closeAllOtherSublists: (item) ->
+    for gallery in Gallery.all()
+      @expand gallery, item?.id is gallery.id
+  
   galleryFromItem: (item) ->
     @children().forItem(item)
 
