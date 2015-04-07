@@ -139,7 +139,7 @@ class PhotosList extends Spine.Controller
     elements.tb.attr('style', css).addClass('in')
     elements.el.toggleClass('active', active)
     elements.el.toggleClass('hot', hot)
-    @el.sortable('destroy').sortable('photos') if Album.record
+    @el.sortable('destroy').sortable('photos')# if Album.record
     @refreshElements()
   
   thumbSize: (width, height) ->
