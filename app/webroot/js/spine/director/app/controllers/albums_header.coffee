@@ -48,7 +48,7 @@ class AlbumsHeader extends Spine.Controller
       Album.filter()
       
   backToGalleries: (e) ->
-    @navigate '/galleries/'
+    @navigate '/galleries', ''
     e.preventDefault()
     
   goUp: (e) ->
