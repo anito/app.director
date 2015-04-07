@@ -138,7 +138,7 @@ class Sidebar extends Spine.Controller
     @log 'createGallery'
     
     cb = (gallery) ->
-      Gallery.current gallery.id
+      gallery.updateSelectionID()
       Root.updateSelection(null, [gallery.id])
       
       if options.albums
@@ -147,6 +147,8 @@ class Sidebar extends Spine.Controller
         
       unless /^#\/galleries\//.test(location.hash)
         @navigate '/gallery', gallery.id
+      else
+        Gallery.trigger('activate', gallery.id)
         
     gallery = new Gallery @newAttributes()
     gallery.one('ajaxSuccess', @proxy cb)
@@ -157,9 +159,10 @@ class Sidebar extends Spine.Controller
     
   destroyGallery: (id) ->
     @log 'destroy'
-    return unless item = Gallery.find id
-    item.destroy()
+    return unless gallery = Gallery.find id
+    gallery.removeSelectionID()
     Gallery.current()
+    gallery.destroy()
 
   edit: ->
     App.galleryEditView.render()
