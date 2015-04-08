@@ -55,12 +55,11 @@ class Gallery extends Spine.Model
     Album.filterRelated(id, filterOptions)
 
   @activePhotos: (id) ->
-    albums = @selectionList(id)
     phos = []
-    for alb in albums
-      if album = Album.find(alb)
-        photos = album.photos() or []
-        phos.push pho for pho in photos
+    albums = Album.sortByOrder(Album.toRecords(@selectionList(id)))
+    for album in albums
+      photos = album.photos() or []
+      phos.push pho for pho in photos
     phos
     
   @details: =>
