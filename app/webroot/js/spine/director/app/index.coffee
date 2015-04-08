@@ -285,7 +285,11 @@ class Main extends Spine.Controller
         previousHash: '#/overview/'
         
   refreshSettings: (records) ->
-    @navigate settings.hash  if settings = Settings.findUserSettings()
+    if hash = location.hash
+      @navigate hash
+    else if settings = Settings.findUserSettings()
+      @navigate settings.hash
+      
     
   changeSettings: (rec) ->
     @navigate rec.hash
