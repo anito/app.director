@@ -131,9 +131,6 @@ class AlbumsList extends Spine.Controller
     if first = selection.first()
       $('#'+first, @el).addClass("hot")
       
-    @parent.focus()
-      
-    
   # workaround:
   # remember the Album since
   # after last AlbumPhoto is destroyed the Album container cannot be retrieved anymore
@@ -249,7 +246,7 @@ class AlbumsList extends Spine.Controller
     ignore = GalleriesAlbum.findByAttribute('album_id', item.id).ignore
     GalleriesAlbum.trigger('ignore', item.id, !ignore)
     
-    e.stopPropagation()
+#    e.stopPropagation()
     e.preventDefault()
     
   deleteAlbum: (e) ->

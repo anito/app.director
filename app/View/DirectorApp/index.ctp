@@ -423,7 +423,7 @@
         {{tmpl($item.data.details()) "#galDetailsTemplate"}}
       </div>
     </div>
-    <div class="glyphicon-set blue fade out" style="">
+    <div class="glyphicon-set right blue fade out" style="">
       <span class="tooltips downloading glyphicon glyphicon-download-alt glyphicon-white hide left fade" data-toggle="tooltip"></span>
       <span class="left">
         <a href="#" class="dropdown-toggle glyphicon glyphicon-chevron-down glyphicon-white" data-toggle="dropdown"></a>
@@ -835,7 +835,7 @@
 
 <script id="photosThumbnailTemplate" type="text/x-jquery-tmpl">
   <div class="thumbnail image left fadeslow"></div>
-  <div class="glyphicon-set blue fade out" style="">
+  <div class="glyphicon-set right blue fade out" style="">
     <span class="tooltips downloading glyphicon glyphicon-download-alt glyphicon-white hide left fade" data-toggle="tooltip"></span>
     <span class="left">
       <a href="#" class="dropdown-toggle glyphicon glyphicon-chevron-down glyphicon-white" data-toggle="dropdown"></a>
@@ -858,7 +858,7 @@
 
 <script id="photoThumbnailTemplate" type="text/x-jquery-tmpl">
   <div class="thumbnail image left"></div>
-  <div class="glyphicon-set blue fade out" style="">
+  <div class="glyphicon-set right blue fade out" style="">
     <span class="tooltips downloading glyphicon glyphicon-download-alt glyphicon-white hide left fade" data-toggle="tooltip"></span>
     <span class="left">
       <a href="#" class="dropdown-toggle glyphicon glyphicon-chevron-down glyphicon-white" data-toggle="dropdown"></a>
