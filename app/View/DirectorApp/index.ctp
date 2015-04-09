@@ -547,8 +547,6 @@
           <li role="presentation" class="zoom"><a role="menuitem" tabindex="-1" data-toggle="tooltip" title="Open" href="#"><i class="tooltips glyphicon glyphicon-folder-close"></i>Open</a></li>
           {{if Gallery.record}}
           <li role="presentation" class="opt-original"><a role="menuitem" tabindex="-1" data-toggle="tooltip" title="Show in Library" href="#"><i class="glyphicon glyphicon glyphicon-file"></i>Show in Library</a></li>
-          <li class="divider"></li>
-          <li role="presentation" class="opt-ignore"><a role="menuitem" tabindex="-1" data-toggle="tooltip" title="{{if !!ignore}}Show{{else}}Ignore{{/if}} in Slideshow" href="#"><i class="glyphicon glyphicon glyphicon-eye"></i>{{if !!ignore}}Show{{else}}Ignore{{/if}} in Slideshow</a></li>
           {{/if}}
           <li class="divider"></li>
           <li role="presentation" class="opt-delete"><a role="menuitem" tabindex="-1" data-toggle="tooltip" title="{{if Gallery.record}}Remove{{else}}Destroy{{/if}} " href="#"><i class="glyphicon glyphicon glyphicon-trash"></i>{{if Gallery.record}}Remove{{else}}Destroy{{/if}}</a></li>

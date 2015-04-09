@@ -50,6 +50,7 @@ class AlbumsAddView extends Spine.Controller
     @list = new AlbumsList
       template: @subTemplate
       parent: @parent
+      modal: true
     @modal.bind('show.bs.modal', @proxy @modalShow)
     @modal.bind('hide.bs.modal', @proxy @modalHide)
     Spine.bind('albums:add', @proxy @show)

@@ -72,7 +72,7 @@ class AlbumsList extends Spine.Controller
         
     if items.length
       @wipe()
-      items = fillIgnore(items) unless mode is 'add'
+      items = fillIgnore(items) unless @modal
       @[mode] @template items
       @renderBackgrounds items
       @exposeSelection(Gallery.record)
@@ -238,7 +238,7 @@ class AlbumsList extends Spine.Controller
     el = $(e.currentTarget)
     el.dropdown()
     e.preventDefault()
-    e.stopPropagation()
+#    e.stopPropagation()
 
   ignoreAlbum: (e) ->
     item = $(e.currentTarget).item()
