@@ -226,10 +226,9 @@ class AlbumsView extends Spine.Controller
     albums = GalleriesAlbum.albums ga.gallery_id
     @render(null, 'html') unless albums.length
        
-  ignoreAlbum: (id, ignore) ->
+  ignoreAlbum: (ga, ignore) ->
     @log 'ignoreAlbum'
-    ga = GalleriesAlbum.findByAttribute('album_id', id)
-    ga.ignore = !!ignore
+    ga.ignore = ignore
     ga.save()
   
   destroyAlbum: (ids) ->

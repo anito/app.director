@@ -64,11 +64,11 @@ class AlbumsList extends Spine.Controller
   
   render: (items=[], mode) ->
     @log 'render', mode
-    fillIgnore = (items) ->
-      for item in items
-        ga = GalleriesAlbum.findByAttribute('album_id', item.id)
-        item.ignore = !!(ga?.ignore)
-      items
+    fillIgnore = (albums) ->
+      for album in albums
+        ga = GalleriesAlbum.galleryAlbumExists(album.id, Gallery.record.id)
+        album.ignore = !!(ga?.ignore)
+      albums
         
     if items.length
       @wipe()
@@ -104,7 +104,7 @@ class AlbumsList extends Spine.Controller
     contentEl = $('.thumbnail', albumEl)
     active = albumEl.hasClass('active')
     hot = albumEl.hasClass('hot')
-    ignore = !!(GalleriesAlbum.findByAttribute('album_id', album.id)?.ignore)
+    ignore = GalleriesAlbum.galleryAlbumExists(album.id, Gallery.record.id)?.ignore
     style = contentEl.attr('style')
     tmplItem = contentEl.tmplItem()
     alert 'no tmpl item' unless tmplItem
@@ -243,8 +243,8 @@ class AlbumsList extends Spine.Controller
   ignoreAlbum: (e) ->
     item = $(e.currentTarget).item()
     return unless item?.constructor?.className is 'Album'
-    ignore = GalleriesAlbum.findByAttribute('album_id', item.id).ignore
-    GalleriesAlbum.trigger('ignore', item.id, !ignore)
+    if ga = GalleriesAlbum.galleryAlbumExists(item.id, Gallery.record.id)
+      GalleriesAlbum.trigger('ignore', ga, !ga.ignore)
     
 #    e.stopPropagation()
     e.preventDefault()
