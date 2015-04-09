@@ -423,7 +423,7 @@
         {{tmpl($item.data.details()) "#galDetailsTemplate"}}
       </div>
     </div>
-    <div class="glyphicon-set fade out" style="">
+    <div class="glyphicon-set blue fade out" style="">
       <span class="tooltips downloading glyphicon glyphicon-download-alt glyphicon-white hide left fade" data-toggle="tooltip"></span>
       <span class="left">
         <a href="#" class="dropdown-toggle glyphicon glyphicon-chevron-down glyphicon-white" data-toggle="dropdown"></a>
@@ -530,19 +530,28 @@
 </script>
 
 <script id="albumsTemplate" type="text/x-jquery-tmpl">
-  <li id="${id}" data-id="${id}" class="item fade in alb-trigger-edit" draggable="true">
+  <li id="${id}" data-id="${id}" class="item fade in alb-trigger-edit {{if Gallery.record}}{{if ignore}}ignore{{/if}}{{/if}}" draggable="true">
     <div class="thumbnail"></div>
-    <div class="glyphicon-set fade out" style="">
+    {{if Gallery.record}}
+    <div class="glyphicon-set left" style="">
+      <span class="">
+        <a href="#" title="{{if ignore}}Show{{else}}Ignore{{/if}} in Slideshow" class="glyphicon glyphicon-eye glyphicon-white opt-ignore"></a>
+      </span>
+    </div>
+    {{/if}}
+    <div class="glyphicon-set blue right fade out" style="">
       <span class="tooltips downloading glyphicon glyphicon-download-alt glyphicon-white hide left fade" data-toggle="tooltip"></span>
       <span class="left">
         <a href="#" class="dropdown-toggle glyphicon glyphicon-chevron-down glyphicon-white" data-toggle="dropdown"></a>
         <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
           <li role="presentation" class="zoom"><a role="menuitem" tabindex="-1" data-toggle="tooltip" title="Open" href="#"><i class="tooltips glyphicon glyphicon-folder-close"></i>Open</a></li>
           {{if Gallery.record}}
-          <li role="presentation" class="original"><a role="menuitem" tabindex="-1" data-toggle="tooltip" title="Show in Library" href="#"><i class="glyphicon glyphicon glyphicon-file"></i>Show in Library</a></li>
+          <li role="presentation" class="opt-original"><a role="menuitem" tabindex="-1" data-toggle="tooltip" title="Show in Library" href="#"><i class="glyphicon glyphicon glyphicon-file"></i>Show in Library</a></li>
+          <li class="divider"></li>
+          <li role="presentation" class="opt-ignore"><a role="menuitem" tabindex="-1" data-toggle="tooltip" title="{{if !!ignore}}Show{{else}}Ignore{{/if}} in Slideshow" href="#"><i class="glyphicon glyphicon glyphicon-eye"></i>{{if !!ignore}}Show{{else}}Ignore{{/if}} in Slideshow</a></li>
           {{/if}}
           <li class="divider"></li>
-          <li role="presentation" class="delete"><a role="menuitem" tabindex="-1" data-toggle="tooltip" title="{{if Gallery.record}}Remove{{else}}Destroy{{/if}} " href="#"><i class="glyphicon glyphicon glyphicon-trash"></i>{{if Gallery.record}}Remove{{else}}Destroy{{/if}}</a></li>
+          <li role="presentation" class="opt-delete"><a role="menuitem" tabindex="-1" data-toggle="tooltip" title="{{if Gallery.record}}Remove{{else}}Destroy{{/if}} " href="#"><i class="glyphicon glyphicon glyphicon-trash"></i>{{if Gallery.record}}Remove{{else}}Destroy{{/if}}</a></li>
         </ul>
       </span>
     </div>
@@ -826,7 +835,7 @@
 
 <script id="photosThumbnailTemplate" type="text/x-jquery-tmpl">
   <div class="thumbnail image left fadeslow"></div>
-  <div class="glyphicon-set fade out" style="">
+  <div class="glyphicon-set blue fade out" style="">
     <span class="tooltips downloading glyphicon glyphicon-download-alt glyphicon-white hide left fade" data-toggle="tooltip"></span>
     <span class="left">
       <a href="#" class="dropdown-toggle glyphicon glyphicon-chevron-down glyphicon-white" data-toggle="dropdown"></a>
@@ -849,7 +858,7 @@
 
 <script id="photoThumbnailTemplate" type="text/x-jquery-tmpl">
   <div class="thumbnail image left"></div>
-  <div class="glyphicon-set fade out" style="">
+  <div class="glyphicon-set blue fade out" style="">
     <span class="tooltips downloading glyphicon glyphicon-download-alt glyphicon-white hide left fade" data-toggle="tooltip"></span>
     <span class="left">
       <a href="#" class="dropdown-toggle glyphicon glyphicon-chevron-down glyphicon-white" data-toggle="dropdown"></a>

@@ -226,6 +226,7 @@ class ShowView extends Spine.Controller
     Gallery.bind('change:selection', @proxy @refreshToolbars)
 #    Root.bind('change:selection', @proxy @refreshToolbars)
     Album.bind('change:selection', @proxy @refreshToolbars)
+    GalleriesAlbum.bind('change', @proxy @refreshToolbars)
     GalleriesAlbum.bind('error', @proxy @error)
     AlbumsPhoto.bind('error', @proxy @error)
     AlbumsPhoto.bind('create destroy', @proxy @refreshToolbars)

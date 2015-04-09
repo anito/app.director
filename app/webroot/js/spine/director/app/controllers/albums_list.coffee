@@ -17,11 +17,12 @@ class AlbumsList extends Spine.Controller
   @extend Extender
   
   events:
-    'click .opt-AddAlbums'         : 'addAlbums'
     'click .dropdown-toggle'       : 'dropdownToggle'
-    'click .delete'                : 'deleteAlbum'
+    'click .opt-AddAlbums'         : 'addAlbums'
+    'click .opt-delete'            : 'deleteAlbum'
+    'click .opt-ignore'            : 'ignoreAlbum'
+    'click .opt-original'          : 'original'
     'click .zoom'                  : 'zoom'
-    'click .original'              : 'original'
     
   constructor: ->
     super
@@ -55,6 +56,7 @@ class AlbumsList extends Spine.Controller
         el.detach()
         
       when 'update'
+        @updateTemplate album
         @el.sortable('destroy').sortable()
     
     @refreshElements()
@@ -62,8 +64,15 @@ class AlbumsList extends Spine.Controller
   
   render: (items=[], mode) ->
     @log 'render', mode
+    fillIgnore = (items) ->
+      for item in items
+        ga = GalleriesAlbum.findByAttribute('album_id', item.id)
+        item.ignore = !!(ga?.ignore)
+      items
+        
     if items.length
       @wipe()
+      items = fillIgnore(items) unless mode is 'add'
       @[mode] @template items
       @renderBackgrounds items
       @exposeSelection(Gallery.record)
@@ -95,6 +104,7 @@ class AlbumsList extends Spine.Controller
     contentEl = $('.thumbnail', albumEl)
     active = albumEl.hasClass('active')
     hot = albumEl.hasClass('hot')
+    ignore = !!(GalleriesAlbum.findByAttribute('album_id', album.id)?.ignore)
     style = contentEl.attr('style')
     tmplItem = contentEl.tmplItem()
     alert 'no tmpl item' unless tmplItem
@@ -105,6 +115,7 @@ class AlbumsList extends Spine.Controller
       contentEl = $('.thumbnail', albumEl)
       albumEl.toggleClass('active', active)
       albumEl.toggleClass('hot', hot)
+      albumEl.toggleClass('ignore', ignore)
       contentEl.attr('style', style)
     @el.sortable()
   
@@ -232,6 +243,15 @@ class AlbumsList extends Spine.Controller
     e.preventDefault()
     e.stopPropagation()
 
+  ignoreAlbum: (e) ->
+    item = $(e.currentTarget).item()
+    return unless item?.constructor?.className is 'Album'
+    ignore = GalleriesAlbum.findByAttribute('album_id', item.id).ignore
+    GalleriesAlbum.trigger('ignore', item.id, !ignore)
+    
+    e.stopPropagation()
+    e.preventDefault()
+    
   deleteAlbum: (e) ->
     @log 'deleteAlbum'
     item = $(e.currentTarget).item()

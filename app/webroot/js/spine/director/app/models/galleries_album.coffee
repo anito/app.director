@@ -13,7 +13,7 @@ require("spine/lib/ajax")
 
 class GalleriesAlbum extends Spine.Model
 
-  @configure "GalleriesAlbum", 'id', 'cid', 'gallery_id', 'album_id', 'order'
+  @configure "GalleriesAlbum", 'id', 'cid', 'gallery_id', 'album_id', 'order', 'ignore'
 
   @extend Model.Ajax
   @extend Filter
@@ -72,5 +72,8 @@ class GalleriesAlbum extends Spine.Model
     
   selectUnique: (empty, options) ->
     return true if @album_id is options.album_id and @gallery_id is options.gallery_id
+    
+  selectNotIgnored: (id) ->
+    return true if @gallery_id is id and @ignore is false
     
 module.exports = Model.GalleriesAlbum = GalleriesAlbum

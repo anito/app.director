@@ -8,6 +8,7 @@ $medium-blue = rgba(51, 153, 255, 1)
 $medium-blue-semi = rgba(51, 153, 255, .5)
 $medium-blue-semi-80 = rgba(51, 153, 255, .8)
 $light-blue = rgba(159, 222, 255, 1)
+$light-red = rgba(255, 85, 17, 1)
 $light-blue-semi = rgba(159, 222, 255, .5)
 $azur-blue = rgb(0, 238, 255)
 $btn-info = rgb(91, 192, 222)
@@ -979,6 +980,10 @@ li .thumbnail.image {
 .content .item.active .thumbnail {
   border-color: $light-blue;
 }
+.item.ignore .thumbnail {
+  opacity: .5;
+  
+}
 .content:not(.modal-content) .item.hot .thumbnail {
   border-color: $medium-blue;
 }
@@ -1264,12 +1269,26 @@ li.item.active .glyphicon-set {
   right: 0;
   top: 0;
 }
-.glyphicon-set {
-  background-color: $medium-blue;
-  position: absolute;
+.glyphicon-set.left {
+  left: 0;
+}
+.glyphicon-set.right {
   right: 0;
+}
+.glyphicon-set {
+  background-color: transparent;
+  position: absolute;
   top: 0;
   padding: 4px 10px 5px 0;
+}
+.glyphicon-set.blue {
+  background-color: $medium-blue;
+}
+.glyphicon-white {
+  color: white !important;
+}
+.glyphicon-red {
+  color: red !important;
 }
 .item .container {
   position: relativ;
@@ -1281,6 +1300,12 @@ li.item.active .glyphicon-set {
 }
 .glyphicon-set a {
   padding: 8px 1px 5px 9px;
+}
+.ignore .glyphicon-eye:before {
+  content: "\e106";
+}
+.glyphicon-eye:before {
+  content: "\e105";
 }
 .glyphicon-folder-close:hover:before {
   content: "\e118";

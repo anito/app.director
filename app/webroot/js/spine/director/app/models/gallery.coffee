@@ -54,13 +54,14 @@ class Gallery extends Spine.Model
       key:'gallery_id'
     Album.filterRelated(id, filterOptions)
 
-  @activePhotos: (id) ->
-    phos = []
-    albums = Album.sortByOrder(Album.toRecords(@selectionList(id)))
-    for album in albums
+  @activePhotos: (id = @record?.id) ->
+    ret = []
+    gas = GalleriesAlbum.filter(id, {key: 'gallery_id', func: 'selectNotIgnored'})
+    for ga in gas
+      album = Album.find ga.album_id
       photos = album.photos() or []
-      phos.push pho for pho in photos
-    phos
+      ret.push pho for pho in photos
+    ret
     
   @details: =>
     return @record.details() if @record

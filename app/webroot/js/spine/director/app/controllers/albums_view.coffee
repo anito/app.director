@@ -70,6 +70,7 @@ class AlbumsView extends Spine.Controller
 
     GalleriesAlbum.bind('beforeDestroy', @proxy @beforeDestroyGalleriesAlbum)
     GalleriesAlbum.bind('destroy', @proxy @destroyGalleriesAlbum)
+    GalleriesAlbum.bind('ignore', @proxy @ignoreAlbum)
     
 #    Gallery.bind('change:collection', @proxy @collectionChanged)
     
@@ -82,6 +83,7 @@ class AlbumsView extends Spine.Controller
     Album.bind('destroy:join', @proxy @destroyJoin)
     Album.bind('activate', @proxy @activateRecord)
     Album.bind('change:collection', @proxy @renderBackgrounds)
+    
 #    GalleriesAlbum.bind('ajaxError', Album.errorHandler)
     
     Spine.bind('reorder', @proxy @reorder)
@@ -224,6 +226,12 @@ class AlbumsView extends Spine.Controller
     albums = GalleriesAlbum.albums ga.gallery_id
     @render(null, 'html') unless albums.length
        
+  ignoreAlbum: (id, ignore) ->
+    @log 'ignoreAlbum'
+    ga = GalleriesAlbum.findByAttribute('album_id', id)
+    ga.ignore = !!ignore
+    ga.save()
+  
   destroyAlbum: (ids) ->
     @log 'destroyAlbum'
   
@@ -361,12 +369,12 @@ class AlbumsView extends Spine.Controller
   infoUp: (e) =>
     @info.up(e)
     el = $(e.currentTarget)
-    $('.glyphicon-set' , el).addClass('in').removeClass('out')
+    $('.glyphicon-set.fade' , el).addClass('in').removeClass('out')
     
   infoBye: (e) =>
     @info.bye(e)
     el = $(e.currentTarget)
-    set = $('.glyphicon-set' , el).addClass('out').removeClass('in')
+    set = $('.glyphicon-set.fade' , el).addClass('out').removeClass('in')
 #    set.children('.open').removeClass('open')
     
   stopInfo: (e) =>
