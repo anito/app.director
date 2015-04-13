@@ -344,8 +344,12 @@ button.jumbo, .btn.jumbo {
   box-shadow: 0 0 0 0;
   margin: 0;
 }
-ul.options li.opt {
-  line-height: 2.8em;
+.opt > span {
+  line-height: 3em;
+}
+.opt > button {
+  font-size: 21px;
+  line-height: inherit;
 }
 .options li.disabled {
   color: #ABABAB;
@@ -1297,6 +1301,9 @@ li.item.active .glyphicon-set {
   cursor: pointer;
 }
 .glyphicon-set [class^="glyphicon-"], .glyphicon-set  [class*=" glyphicon-"] {
+}
+[class*=" glyphicon-"], [class^="glyphicon-"] {
+  line-height: inherit;
 }
 .glyphicon-set a {
   padding: 8px 1px 5px 9px;
