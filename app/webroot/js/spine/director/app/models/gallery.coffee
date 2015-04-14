@@ -58,13 +58,13 @@ class Gallery extends Spine.Model
     ret = []
     if id
       gas = GalleriesAlbum.filter(id, {key: 'gallery_id', func: 'selectNotIgnored'})
-      id = 'album_id'
+      search = 'album_id'
     else
       ids = Gallery.selectionList()
       gas = Album.toRecords(ids)
-      id = 'id'
+      search = 'id'
     for ga in gas
-      album = Album.find ga[id]
+      album = Album.find ga[search]
       photos = album.photos() or []
       ret.push pho for pho in photos
     ret

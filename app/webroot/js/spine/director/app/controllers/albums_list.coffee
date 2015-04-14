@@ -72,8 +72,7 @@ class AlbumsList extends Spine.Controller
         
     if items.length
       @wipe()
-      if !Gallery.record# or !@modal
-        items = fillIgnore(items)
+      items = fillIgnore(items) unless @modal
       @[mode] @template items
       @renderBackgrounds items
       @exposeSelection(Gallery.record)
