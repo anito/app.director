@@ -767,7 +767,7 @@
   {{if flash}}
   <span class="author">${flash}</span>
   {{else}}
-  <li data-id="${id}" class="sublist-item alb alb-trigger-edit item data" title="move (Hold Cmd-Key to Copy)">
+  <li data-id="${id}" class="sublist-item alb alb-trigger-edit item data {{if ignore}}ignore{{/if}}" title="move (Hold Cmd-Key to Copy)">
     <span class="glyphicon glyphicon-folder-close"></span>
     <span class="title center">{{if title}}${title.slice(0, 20)}{{else}}...{{/if}}</span>
     <span class="cta">{{if count}}${count}{{else}}0{{/if}}</span>

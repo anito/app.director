@@ -37,6 +37,7 @@ class SidebarList extends Spine.Controller
     
     @trace = false
     Gallery.bind('change:collection', @proxy @renderGallery)
+    GalleriesAlbum.bind('update', @proxy @renderFromGalleriesAlbum)
     Album.bind('change:collection', @proxy @renderAlbum)
     Gallery.bind('change', @proxy @change)
     Album.bind('create destroy update', @proxy @renderSublists)
@@ -46,6 +47,9 @@ class SidebarList extends Spine.Controller
     Album.bind('change:current', @proxy @scrollTo)
     
   template: -> arguments[0]
+  
+  test: (ga) ->
+    console.log 'test'
   
   change: (item, mode, e) =>
     @log 'change'
@@ -118,7 +122,10 @@ class SidebarList extends Spine.Controller
     @log 'renderSublists'
     gas = GalleriesAlbum.filter(album.id, key: 'album_id')
     for ga in gas
-      @renderOneSublist gallery if gallery = Gallery.find ga.gallery_id
+      @renderOneSublist gallery if gallery = Gallery.find ga['gallery_id']
+      
+  renderFromGalleriesAlbum: (ga) ->
+    @renderOneSublist gallery if gallery = Gallery.find ga['gallery_id']
       
   renderOneSublist: (gallery = Gallery.record) ->
     @log 'renderOneSublist'
@@ -130,6 +137,7 @@ class SidebarList extends Spine.Controller
     albums = Album.filterRelated(gallery.id, filterOptions)
     for album in albums
       album.count = AlbumsPhoto.filter(album.id, key: 'album_id').length
+      album.ignore = !(GalleriesAlbum.isActiveAlbum(gallery.id, album.id))
       
     albums.push {flash: ' '} unless albums.length
     galleryEl = @children().forItem(gallery)

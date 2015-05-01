@@ -238,7 +238,6 @@ class AlbumsList extends Spine.Controller
     el = $(e.currentTarget)
     el.dropdown()
     e.preventDefault()
-#    e.stopPropagation()
 
   ignoreAlbum: (e) ->
     item = $(e.currentTarget).item()
@@ -246,7 +245,6 @@ class AlbumsList extends Spine.Controller
     if ga = GalleriesAlbum.galleryAlbumExists(item.id, Gallery.record.id)
       GalleriesAlbum.trigger('ignore', ga, !ga.ignore)
     
-#    e.stopPropagation()
     e.preventDefault()
     
   deleteAlbum: (e) ->

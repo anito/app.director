@@ -49,6 +49,12 @@ class GalleriesAlbum extends Spine.Model
       ret.push photo for photo in photos
     ret
       
+  @isActiveAlbum: (gid, aid) ->
+    gas = @filter(gid, {key: 'gallery_id', func: 'selectNotIgnored'})
+    for ga in gas
+      return !ga.ignore if ga.album_id is aid
+    return false
+      
   @c: 0
   
   validate: ->
@@ -63,6 +69,9 @@ class GalleriesAlbum extends Spine.Model
       
   albums: ->
     @constructor.albums @gallery_id
+      
+  isActiveAlbum: (aid) ->
+    @constructor.isActiveAlbum @gallery_id, aid
       
   select: (id, options) ->
     return true if @[options.key] is id
