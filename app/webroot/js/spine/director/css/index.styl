@@ -246,9 +246,6 @@ div.content label.label span {
 .italic {
   font-style: italic
 }
-.ignore {
-  opacity: 0.5;
-}
 #show .galleries .item:not(.active) .inner > div:nth-child(4) {
   visibility: hidden;
 }
@@ -987,9 +984,8 @@ li .thumbnail.image {
 .content .item.active .thumbnail {
   border-color: $light-blue;
 }
-.item.ignore .thumbnail {
+.item.ignore .thumbnail, .ignore {
   opacity: .5;
-  
 }
 .content:not(.modal-content) .item.hot .thumbnail {
   border-color: $medium-blue;
