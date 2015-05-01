@@ -64,7 +64,7 @@ class AlbumsList extends Spine.Controller
   
   render: (items=[], mode) ->
     @log 'render', mode
-    fillIgnore = (albums) ->
+    mixinIgnore = (albums) ->
       for album in albums
         ga = GalleriesAlbum.galleryAlbumExists(album.id, Gallery.record.id)
         album.ignore = !!(ga?.ignore)
@@ -72,7 +72,7 @@ class AlbumsList extends Spine.Controller
         
     if items.length
       @wipe()
-      items = fillIgnore(items) unless @modal
+      items = mixinIgnore(items) unless @modal
       @[mode] @template items
       @renderBackgrounds items
       @exposeSelection(Gallery.record)
