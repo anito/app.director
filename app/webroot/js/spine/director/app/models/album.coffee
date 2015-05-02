@@ -93,7 +93,7 @@ class Album extends Spine.Model
       ga = new GalleriesAlbum
         gallery_id  : target.id
         album_id    : item
-        ignore      : false
+        ignore      : true
         order       : parseInt(GalleriesAlbum.albums(target.id).last()?.order)+1 or 0
       valid = ga.save
         validate: true
