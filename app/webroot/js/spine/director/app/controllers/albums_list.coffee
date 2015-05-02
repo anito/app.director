@@ -46,7 +46,7 @@ class AlbumsList extends Spine.Controller
     switch mode
       when 'create'
         @wipe()
-        @append @template album
+        @append @template @mixinAttributes([album], ['ignore'])
         @renderBackgrounds [album]
         @el.sortable('destroy').sortable()
 #        $('.tooltips', @el).tooltip()
@@ -62,17 +62,19 @@ class AlbumsList extends Spine.Controller
     @refreshElements()
     @el
   
+  mixinAttributes: (items, atts) ->
+    for item in items
+      ga = GalleriesAlbum.galleryAlbumExists(item.id, Gallery.record.id)
+      for att in atts 
+        item[att] = !!(ga?[att])
+    items
+    
   render: (items=[], mode) ->
     @log 'render', mode
-    mixinIgnore = (albums) ->
-      for album in albums
-        ga = GalleriesAlbum.galleryAlbumExists(album.id, Gallery.record.id)
-        album.ignore = !!(ga?.ignore)
-      albums
         
     if items.length
       @wipe()
-      items = mixinIgnore(items) unless @modal
+      items = @mixinAttributes(items, ['ignore']) unless @modal
       @[mode] @template items
       @renderBackgrounds items
       @exposeSelection(Gallery.record)

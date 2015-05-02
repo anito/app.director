@@ -88,11 +88,11 @@ class Album extends Spine.Model
       if typeof callback is 'function'
         callback.call(@)
     
-    items = items.toID()
-    ret = for item in items
+    ids = items.toID()
+    ret = for id in ids
       ga = new GalleriesAlbum
         gallery_id  : target.id
-        album_id    : item
+        album_id    : id
         ignore      : true
         order       : parseInt(GalleriesAlbum.albums(target.id).last()?.order)+1 or 0
       valid = ga.save
