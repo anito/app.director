@@ -93,11 +93,9 @@ class GalleriesView extends Spine.Controller
     Root.emptySelection() if exclusive
       
     selection = Root.selectionList()[..]
-    @log selection
     for id in ids
       selection.addRemoveSelection(id)
     
-    @log selection
     Gallery.trigger('activate', selection[0])
     Root.updateSelection(null, selection)
     
