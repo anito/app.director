@@ -18,7 +18,6 @@ class GalleriesHeader extends Spine.Controller
 
   render: ->
     return unless @isActive()
-    @log 'render'
     @html @template
       model       : Gallery
       modelAlbum  : Album

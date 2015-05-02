@@ -1,5 +1,6 @@
 Spine           = require("spine")
 $               = Spine.$
+Root            = require("models/root")
 Album           = require('models/album')
 Gallery         = require('models/gallery')
 AlbumsPhoto     = require('models/albums_photo')
@@ -35,12 +36,13 @@ class SidebarList extends Spine.Controller
   constructor: ->
     super
     
-    @trace = false
+#    @trace = false
     Gallery.bind('change:collection', @proxy @renderGallery)
     GalleriesAlbum.bind('update', @proxy @renderFromGalleriesAlbum)
     Album.bind('change:collection', @proxy @renderAlbum)
     Gallery.bind('change', @proxy @change)
     Album.bind('create destroy update', @proxy @renderSublists)
+    Root.bind('change:selection', @proxy @test)
     Gallery.bind('change:selection', @proxy @exposeSublistSelection)
     Gallery.bind('current', @proxy @exposeSelection)
     Gallery.bind('change:current', @proxy @scrollTo)
@@ -48,8 +50,11 @@ class SidebarList extends Spine.Controller
     
   template: -> arguments[0]
   
-  test: (ga) ->
+  test: (ga, l) ->
+    return
     console.log 'test'
+    console.log ga
+    console.log l
   
   change: (item, mode, e) =>
     @log 'change'
@@ -179,11 +184,10 @@ class SidebarList extends Spine.Controller
     for ga in gas
       @renderItemFromGalleriesAlbum ga
   
-  exposeSelection: (item) ->
-    item = item or Gallery.record
+  exposeSelection: (item = Gallery.record) ->
+    @log 'exposeSelection'
     @children().removeClass('active')
     @children().forItem(item).addClass("active") if item
-#    @exposeSublistSelection(item)
     
   exposeSublistSelection: (item) ->
     item = item or Gallery.record
@@ -277,7 +281,6 @@ class SidebarList extends Spine.Controller
     
   scrollTo: (item) ->
     return unless item and Gallery.record
-    @log 'scrollTo', item
     el = @children().forItem(Gallery.record)
     if item.constructor.className is 'Gallery'
       ul = $('ul', el)

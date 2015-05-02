@@ -237,10 +237,11 @@ class Main extends Spine.Controller
     
   storeHash: ->
     return unless settings = Settings.findUserSettings()
-    if !@ignoredHashes.contains(location.hash)
-      settings.previousHash = location.hash
-    settings.hash = location.hash
-    settings.save()
+    if hash = location.hash
+      if !@ignoredHashes.contains(hash)
+        settings.previousHash = hash
+      settings.hash = hash
+      settings.save()
     
   fullscreen: ->
     Spine.trigger('chromeless', true)

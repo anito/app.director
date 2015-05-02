@@ -145,24 +145,26 @@ class AlbumsView extends Spine.Controller
     unless @isActive()
       @navigate '/gallery', Gallery.record?.id or ''
       
-  activateRecord: (records) ->
-    unless (records)
-      records = Gallery.selectionList()
+  activateRecord: (ids) ->
+    unless (ids)
+      ids = Gallery.selectionList()
       Album.current()
       noid = true
       
-    unless Spine.isArray(records)
-      records = [records]
+    unless Spine.isArray(ids)
+      ids = [ids]
     
     list = []
-    for id_ in records
-      list.push album.id if album = Album.find(id_)
+    for id in ids
+      list.push album.id if album = Album.find(id)
 
     id = list[0]
-
-    App.sidebar.list.expand(Gallery.record, true) if id
+    
+    if id
+      Album.current(id) unless noid
+      App.sidebar.list.expand(Gallery.record, true) 
+      
     Gallery.updateSelection(Gallery.record?.id, list)
-    Album.current(id) unless noid
     if Album.record
       Photo.trigger('activate', Album.selectionList())
     else

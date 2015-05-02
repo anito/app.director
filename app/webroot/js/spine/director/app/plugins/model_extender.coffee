@@ -70,13 +70,14 @@ Model.Extender =
         defaults = {trigger: true}
         option = $().extend defaults, options
         ret = @emptySelection id, list
-#        record = @find(id)
         @trigger('change:selection', @record, ret) if option.trigger
         ret
 
-      emptySelection: (id, list = []) ->
+      emptySelection: (id, idOrList = []) ->
+        unless @isArray idOrList
+          idOrList = [idOrList]
         originalList = @selectionList(id)
-        originalList[0...originalList.length] = list
+        originalList[0...originalList.length] = idOrList
         originalList
 
       removeFromSelection: (id, idOrList=[], options) ->

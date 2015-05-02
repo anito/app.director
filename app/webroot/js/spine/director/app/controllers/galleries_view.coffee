@@ -60,20 +60,20 @@ class GalleriesView extends Spine.Controller
     App.showView.trigger('change:toolbarTwo', ['Slideshow'])
     @render()
     
-  activateRecord: (records) ->
-    unless (records)
-      records = []
+  activateRecord: (ids) ->
+    unless (ids)
+      ids = []
   
-    unless Spine.isArray(records)
-      records = [records]
+    unless Spine.isArray(ids)
+      ids = [ids]
 
     list = []
-    for id_ in records
-      list.push gallery.id if gallery = Gallery.find(id_)
+    for id in ids
+      list.push gallery.id if gallery = Gallery.find(id)
 
     id = list[0]
     
-    Root.updateSelection(null, [id])
+    Root.updateSelection(null, id)
     Gallery.current id
     
     if Gallery.record
@@ -87,15 +87,17 @@ class GalleriesView extends Spine.Controller
   select_: (item) ->
     Gallery.trigger('activate', item.id)
     
-  select: (items = [], exclusive) ->
-    unless Spine.isArray items
-      items = [items]
+  select: (ids = [], exclusive) ->
+    unless Spine.isArray ids
+      ids = [ids]
     Root.emptySelection() if exclusive
       
     selection = Root.selectionList()[..]
-    for id in items
+    @log selection
+    for id in ids
       selection.addRemoveSelection(id)
     
+    @log selection
     Gallery.trigger('activate', selection[0])
     Root.updateSelection(null, selection)
     
@@ -104,17 +106,18 @@ class GalleriesView extends Spine.Controller
 
   destroy: (item) ->
     if item
+      Gallery.current() if Gallery.record?.id is item?.id
       item.removeSelectionID()
       Root.removeFromSelection item.id
-    
+      
     unless Gallery.count()
+      #force to rerender
       if /^#\/galleries\//.test(location.hash)
-        @navigate '/galleries' #workaround to force render (could be any hash)
+        @navigate '/galleries'
       @navigate '/galleries', ''
     else
       unless /^#\/galleries\//.test(location.hash)
         @navigate '/gallery', Gallery.first().id
-  
   
   newAttributes: ->
     if User.first()

@@ -40,7 +40,6 @@ class GalleriesList extends Spine.Controller
     @updateTemplates()
     
   renderOne: (item, mode) ->
-    @log 'renderOne'
     switch mode
       when 'create'
         if Gallery.count() is 1
@@ -54,6 +53,8 @@ class GalleriesList extends Spine.Controller
         catch e
         @reorder item
         @exposeSelection item
+      when 'destroy'
+        @exposeSelection()
           
     @el
 
@@ -107,20 +108,30 @@ class GalleriesList extends Spine.Controller
     @parent.focus()
         
   dropdownToggle: (e) ->
-    el = $(e.currentTarget)
-    el.dropdown()
     e.preventDefault()
     e.stopPropagation()
         
+    el = $(e.currentTarget)
+    el.dropdown()
+    
   zoom: (e) ->
     @log 'zoom'
+    e.stopPropagation()
+    e.preventDefault()
+    
     item = $(e.currentTarget).item()
     @navigate '/gallery', item.id
     
   back: (e) ->
+    e.stopPropagation()
+    e.preventDefault()
+    
     @navigate '/overview', ''
     
   deleteGallery: (e) ->
+    e.stopPropagation()
+    e.preventDefault()
+    
     item = $(e.currentTarget).item()
     el = $(e.currentTarget).parents('.item')
     Spine.trigger('destroy:gallery', item.id) if item

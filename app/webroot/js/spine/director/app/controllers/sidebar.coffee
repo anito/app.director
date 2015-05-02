@@ -158,10 +158,7 @@ class Sidebar extends Spine.Controller
     Spine.trigger('create:album')
     
   destroyGallery: (id) ->
-    @log 'destroy'
     return unless gallery = Gallery.find id
-    gallery.removeSelectionID()
-    Gallery.current()
     gallery.destroy()
 
   edit: ->

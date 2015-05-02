@@ -350,11 +350,9 @@ class ShowView extends Spine.Controller
       @showAlbumMasters()
   
   copyAlbums: (albums, gallery) ->
-    hash = location.hash
     Album.trigger('create:join', albums, gallery)
       
   copyPhotos: (photos, album) ->
-    hash = location.hash
     options =
       photos: photos
       album: album
@@ -642,7 +640,6 @@ class ShowView extends Spine.Controller
     
   selectNone: (e) ->
     try
-#      list = @select_()
       @current.select([], true)
     catch e
     
