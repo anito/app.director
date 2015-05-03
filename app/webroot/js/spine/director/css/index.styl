@@ -3,6 +3,7 @@
 @import "fonts";
 
 $light-grey = #868686
+$white-grey = #717171
 $dark-grey = #565656
 $medium-blue = rgba(51, 153, 255, 1)
 $medium-blue-semi = rgba(51, 153, 255, .5)
@@ -11,6 +12,7 @@ $light-blue = rgba(159, 222, 255, 1)
 $light-red = rgba(255, 85, 17, 1)
 $light-blue-semi = rgba(159, 222, 255, .5)
 $azur-blue = rgb(0, 238, 255)
+$fire = rgb(255, 203, 20)
 $btn-info = rgb(91, 192, 222)
 $btn-warning = rgb(240, 173, 78)
 $btn-default = rgb(255, 255, 255)
@@ -1499,7 +1501,7 @@ section.addAction {
   background: -webkit-gradient(linear, left top, left bottom, from(#e3e3e3), to(#f9f9f9));
   background: -moz-linear-gradient(center top , #00e3e3, #09f9f9);
 }
-button.puls {
+.puls {
     -webkit-animation: pulsate 2s ease-out;
     -webkit-animation-iteration-count: infinite;
     -ms-animation: pulsate 2s ease-out;
@@ -1511,10 +1513,16 @@ button.puls {
     animation: pulsate 2s ease-out;
     animation-iteration-count: infinite;
     z-index: 999;
+}
+.puls.azur {
     color: $dark-grey !important;
     background: $azur-blue !important;
     text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7) !important;
-    
+}
+.puls.fire {
+    color: $white-grey !important;
+    background: $fire !important;
+    text-shadow: 0px 1px 0 rgba(255, 249, 247, 1) !important;
 }
 @-webkit-keyframes pulsate {
     from {

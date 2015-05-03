@@ -318,7 +318,7 @@ class Toolbar extends Spine.Model
           name: -> 'Start'
           icon: 'play'
           klass: 'opt-SlideshowPlay'
-          innerklass: -> if Gallery.activePhotos().length then 'puls' else ''
+          innerklass: -> if Gallery.activePhotos().length then 'azur puls' else ''
           dataToggle: 'modal-gallery'
           disabled: -> !Gallery.activePhotos().length
         ]
