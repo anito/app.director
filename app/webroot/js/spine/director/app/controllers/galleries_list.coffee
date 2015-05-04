@@ -147,7 +147,11 @@ class GalleriesList extends Spine.Controller
     
   slideshowPlay: (e) ->
     gallery = $(e.currentTarget).closest('.item').item()
-    Gallery.trigger('activate', gallery.id)
-    App.slideshowView.trigger('play')
+    if gallery.activePhotos().length
+      Gallery.trigger('activate', gallery.id)
+      App.slideshowView.trigger('play')
+    else
+      App.showView.noSlideShow()
+    e.stopPropagation()
 
 module?.exports = GalleriesList
