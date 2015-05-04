@@ -49,6 +49,7 @@ class SlideshowView extends Spine.Controller
       fullScreen: false
       carousel: false
       useBootstrapModal: true
+      onopen: @proxy @onopenGallery
       onopened: @proxy @onopenedGallery
       onclose:  @proxy @oncloseGallery
       onclosed: @proxy @onclosedGallery
@@ -222,7 +223,8 @@ class SlideshowView extends Spine.Controller
     
   onopenedGallery: (e) ->
     
-  onclosedGallery: (e) ->
+  onopenGallery: (e) ->
+    App.modal.exists = true
     
   oncloseGallery: (e) ->
     if @previousHash
@@ -233,6 +235,7 @@ class SlideshowView extends Spine.Controller
     
   onclosedGallery: (e) ->
     @images = []
+    App.modal.exists = false
     
   onslide: (index, slide) ->
     text = @list[index].getAttribute('data-description')

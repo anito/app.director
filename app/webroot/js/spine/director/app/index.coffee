@@ -15,7 +15,6 @@ LoaderView              = require("controllers/loader_view")
 Sidebar                 = require("controllers/sidebar")
 ShowView                = require("controllers/show_view")
 ModalSimpleView         = require("controllers/modal_simple_view")
-Modal2ButtonView        = require("controllers/modal_2_button_view")
 ModalActionView         = require("controllers/modal_action_view")
 ToolbarView             = require("controllers/toolbar_view")
 LoginView               = require("controllers/login_view")
@@ -59,7 +58,6 @@ class Main extends Spine.Controller
     '#loader'             : 'loaderEl'
     '#login'              : 'loginEl'
     '#modal-gallery'      : 'slideshowEl'
-    '#modal-view'         : 'modalEl'
     '#show .content'      : 'content'
     '.vdraggable'         : 'vDrag'
     '.hdraggable'         : 'hDrag'
@@ -69,9 +67,9 @@ class Main extends Spine.Controller
     
   events:
     'click [class*="-trigger-edit"]' : 'activateEditor'
-    'drop'                : 'drop'
+    'click'               : 'delegateFocus'
     
-    'focus'               : 'focus'
+    'drop'                : 'drop'
     
     'keyup'               : 'key'
     'keydown'             : 'key'
@@ -91,14 +89,15 @@ class Main extends Spine.Controller
     @IMAGE_SINGLE_MOVE = @createImage('/img/cursor_images_1.png')
     @IMAGE_DOUBLE_MOVE = @createImage('/img/cursor_images_3.png')
     
+    @modal = exists: false
     
     $(window).bind('hashchange', @proxy @storeHash)
-    $(window).bind('focus', @proxy @focus)
     
     @ignoredHashes = ['slideshow', 'overview', 'preview', 'flickr', 'logout']
     
     User.bind('pinger', @proxy @validate)
     
+    #reset clipboard
     Clipboard.fetch()
     Clipboard.destroyAll()
     
@@ -107,12 +106,9 @@ class Main extends Spine.Controller
     
     $('#modal-gallery').bind('hidden', @proxy @hideSlideshow)
     
-    @modalSimpleView = new ModalSimpleView
-      el: @modalEl
-    @modalNotifyView = new ModalSimpleView
-      el: @modalEl
-    @modal2ButtonView = new Modal2ButtonView
-      el: @modalEl
+    @modalView = new ModalSimpleView
+#    @modal2ButtonView = new Modal2ButtonView
+#      el: @modalEl
     @missingView = new MissingView
       el: @missingEl
     @gallery = new GalleryEditView
@@ -194,8 +190,6 @@ class Main extends Spine.Controller
     
     @initializeFileupload()
     
-    $(window).trigger('focus')
-    
     @routes
       '/gallery/:gid/:aid/:pid': (params) ->
         Gallery.trigger('activate', params.gid)
@@ -268,10 +262,11 @@ class Main extends Spine.Controller
     $('.sortable-placeholder').detach()
       
   notify: (text) ->
-    @modalNotifyView.show
+    @modalView.render
       small: true
       body: -> require("views/notify")
         text: text
+    .show()
       
   loadUserSettings: (id) ->
     Settings.fetch()
@@ -306,7 +301,6 @@ class Main extends Spine.Controller
     @mainView.el.fadeIn(1500)
       
   canvas: (controller) ->
-    @log 'main canvas', controller
     controller.trigger 'active'
     
   changeMainCanvas: (controller) ->
@@ -350,7 +344,7 @@ class Main extends Spine.Controller
     code = e.charCode or e.keyCode
     type = e.type
     
-#    @log 'key', code
+    @log e.type , code
     
     el=$(document.activeElement)
     isFormfield = $().isFormElement(el)
@@ -362,6 +356,7 @@ class Main extends Spine.Controller
     switch code
       when 8 #Backspace
         unless isFormfield
+          @delegateFocus(e, @showView)
           e.preventDefault()
       when 9 #Tab
         unless isFormfield
@@ -369,36 +364,42 @@ class Main extends Spine.Controller
           e.preventDefault()
       when 13 #Return
         unless isFormfield
+          @delegateFocus(e, @showView)
           e.preventDefault()
       when 27 #Esc
         unless isFormfield
-          e.preventDefault()
+          @delegateFocus(e, @showView)
       when 32 #Space
         unless isFormfield
           if @overviewView.isActive()
-            @overviewView.focus(e)
+            @overviewView.focus()
+          else
+            @delegateFocus(e, @showView)
           e.preventDefault()
       when 37 #Left
         unless isFormfield
+          @delegateFocus(e, @showView)
           e.preventDefault()
       when 38 #Up
         unless isFormfield
+          @delegateFocus(e, @showView)
           e.preventDefault()
       when 39 #Right
         unless isFormfield
+          @delegateFocus(e, @showView)
           e.preventDefault()
       when 40 #Down
         unless isFormfield
+          @delegateFocus(e, @showView)
           e.preventDefault()
       when 65 #ctrl A
         unless isFormfield
+          @delegateFocus(e, @showView)
           e.preventDefault()
-        
-  focus: (e) ->
+          
+  delegateFocus: (e, controller = @showView) ->
     el=$(document.activeElement)
-    isFormfield = $().isFormElement(el)
-    
-    unless isFormfield
-      @showView.focus()
+    return if $().isFormElement(el)
+    controller.focus()
       
 module?.exports = Main

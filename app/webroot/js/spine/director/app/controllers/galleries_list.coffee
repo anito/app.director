@@ -40,6 +40,7 @@ class GalleriesList extends Spine.Controller
     @updateTemplates()
     
   renderOne: (item, mode) ->
+    @log 'renderOne'
     switch mode
       when 'create'
         if Gallery.count() is 1

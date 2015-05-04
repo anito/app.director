@@ -78,7 +78,6 @@ class ShowView extends Spine.Controller
     'click .opt-AutoUpload:not(.disabled)'            : 'toggleAutoUpload'
     'click .opt-Overview:not(.disabled)'              : 'showOverview'
     'click .opt-Previous:not(.disabled)'              : 'back'
-    'click .opt-ShowModal:not(.disabled)'             : 'showModal'
     'click .opt-Sidebar:not(.disabled)'               : 'toggleSidebar'
     'click .opt-FullScreen:not(.disabled)'            : 'toggleFullScreen'
     'click .opt-CreateGallery:not(.disabled)'         : 'createGallery'
@@ -139,6 +138,7 @@ class ShowView extends Spine.Controller
     
   constructor: ->
     super
+    
     @bind('active', @proxy @active)
     @silent = true
     @toolbarOne = new ToolbarView
@@ -201,11 +201,14 @@ class ShowView extends Spine.Controller
       el: @waitEl
       parent: @
     
-    @modalHelpView = new ModalSimpleView
-      el: $('#modal-view')
-    
-    @modalVersionView = new ModalSimpleView
-      el: $('#modal-view')
+#    @modalHelpView = new ModalSimpleView
+#      el: $('#modal-view')
+#    
+#    @modalVersionView = new ModalSimpleView
+#      el: $('#modal-view')
+#    
+#    @modalNoSlideShowView = new ModalSimpleView
+#      el: $('#modal-view')
     
 #    @bind('canvas', @proxy @canvas)
     @bind('change:toolbarOne', @proxy @changeToolbarOne)
@@ -224,7 +227,6 @@ class ShowView extends Spine.Controller
     
     Gallery.bind('change', @proxy @changeToolbarOne)
     Gallery.bind('change:selection', @proxy @refreshToolbars)
-#    Root.bind('change:selection', @proxy @refreshToolbars)
     Album.bind('change:selection', @proxy @refreshToolbars)
     GalleriesAlbum.bind('change', @proxy @refreshToolbars)
     GalleriesAlbum.bind('error', @proxy @error)
@@ -266,6 +268,11 @@ class ShowView extends Spine.Controller
     
   changeCanvas: (controller) ->
     $('.items', @el).removeClass('in')
+    
+    #remove global selection if we've left from Album Library
+    if @previous?.type is "Album" and !Gallery.record
+      @resetSelection()
+        
     t = switch controller.type
       when "Gallery"
         true
@@ -296,8 +303,10 @@ class ShowView extends Spine.Controller
       _1()
     , 200)
     
+  resetSelection: (controller) ->
+    Gallery.updateSelection(null)
+    
   changeHeader: (controller) ->
-#    controller.trigger('active')
     
   activated: (controller) ->
     @previous = @current unless @current.subview
@@ -311,7 +320,6 @@ class ShowView extends Spine.Controller
     # the controller should already be active, however rendering hasn't taken place yet
     controller.trigger 'active'
     controller.header.trigger 'active'
-    controller.focus()
     controller
     
   changeToolbarOne: (list) ->
@@ -699,15 +707,6 @@ class ShowView extends Spine.Controller
   showOverview: (e) ->
     @navigate '/overview', ''
 
-  showModal: (options) ->
-#    opts =
-#      header: 'New Header'
-#      body  : Gallery.all()
-#      footer: 'New Footer'
-#      info  : 'Test Info'
-#    opts = $.extend({}, opts, options)
-#    @actionWindow.show(opts)
-    
   showPhotosTrash: ->
     Photo.inactive()
     
@@ -866,11 +865,6 @@ class ShowView extends Spine.Controller
     Album.trigger('create:join', items.toID(), gallery, callback)
       
   help: (e) ->
-    @modalHelpView.el.one('hidden.bs.modal', @proxy @hiddenmodal)
-    @modalHelpView.el.one('hide.bs.modal', @proxy @hidemodal)
-    @modalHelpView.el.one('show.bs.modal', @proxy @showmodal)
-    @modalHelpView.el.one('shown.bs.modal', @proxy @shownmodal)
-    
     carousel_id = 'help-carousel'
     options = interval: 1000
     slides =
@@ -940,39 +934,81 @@ class ShowView extends Spine.Controller
           ]
       ]
     
-    @modalHelpView.show
-      header: 'Quick Help'
-      body: -> require("views/carousel")
-        slides: slides
-        id: carousel_id
-      footerButtonText: 'Close'
+    dialog = new ModalSimpleView
+      options:
+        small: false
+        header: 'Quick Help'
+        body: -> require("views/carousel")
+          slides: slides
+          id: carousel_id
+        footerButtonText: 'Close'
+      modalOptions:
+        keyboard: true
+        show: false
+        
+    dialog.el.one('hidden.bs.modal', @proxy @hiddenmodal)
+    dialog.el.one('hide.bs.modal', @proxy @hidemodal)
+    dialog.el.one('show.bs.modal', @proxy @showmodal)
+    dialog.el.one('shown.bs.modal', @proxy @shownmodal)
     
     @carousel = $('.carousel', @el)
     @carousel.carousel options
-    @log @carousel
         
-  version: (e) ->
-    @modalVersionView.el.one('hidden.bs.modal', @proxy @hiddenmodal)
-    @modalVersionView.el.one('hide.bs.modal', @proxy @hidemodal)
-    @modalVersionView.el.one('show.bs.modal', @proxy @showmodal)
-    @modalVersionView.el.one('shown.bs.modal', @proxy @shownmodal)
+    dialog.render().show()
     
-    @modalVersionView.show
-      small: true
-      body: -> require("views/version")
-        copyright     : 'Axel Nitzschner'
-        spine_version : Spine.version
-        app_version   : App.version
-        bs_version    : $.fn.tooltip.Constructor.VERSION
+  version: (e) ->
+    dialog = new ModalSimpleView
+      options:
+        small: true
+        body: -> require("views/version")
+          copyright     : 'Axel Nitzschner'
+          spine_version : Spine.version
+          app_version   : App.version
+          bs_version    : $.fn.tooltip.Constructor.VERSION
+      modalOptions:
+        keyboard: true
+        show: false
       
+    dialog.el.one('hidden.bs.modal', @proxy @hiddenmodal)
+    dialog.el.one('hide.bs.modal', @proxy @hidemodal)
+    dialog.el.one('show.bs.modal', @proxy @showmodal)
+    dialog.el.one('shown.bs.modal', @proxy @shownmodal)
+    
+    dialog.render().show()
+    
+  noSlideShow: (e) ->
+    dialog = new ModalSimpleView
+      options:
+        small: false
+        body: -> require("views/no_slideshow")
+          copyright     : 'Axel Nitzschner'
+          spine_version : Spine.version
+          app_version   : App.version
+          noGallery: !!!Gallery.record
+          count: GalleriesAlbum.albums(Gallery.record?.id).length
+          activeAlbums: GalleriesAlbum.activeAlbums(Gallery.record?.id).length
+          bs_version    : $.fn.tooltip.Constructor.VERSION
+      modalOptions:
+        keyboard: true
+        show: false
+        
+    dialog.el.one('hidden.bs.modal', @proxy @hiddenmodal)
+    dialog.el.one('hide.bs.modal', @proxy @hidemodal)
+    dialog.el.one('show.bs.modal', @proxy @showmodal)
+    dialog.el.one('shown.bs.modal', @proxy @shownmodal)
+    
+    dialog.render().show()
+    
   hidemodal: (e) ->
     @log 'hidemodal'
     
   hiddenmodal: (e) ->
     @log 'hiddenmodal'
+    App.modal.exists = false
     
   showmodal: (e) ->
     @log 'showmodal'
+    App.modal.exists = true
       
   shownmodal: (e) ->
     @log 'shownmodal'
@@ -1071,7 +1107,7 @@ class ShowView extends Spine.Controller
       duration: 'slow'
       complete: =>
         
-  zoom: ->
+  zoom: (e) ->
     controller = @controller
     models = controller.el.data('current').models
     record = models.record
@@ -1079,6 +1115,9 @@ class ShowView extends Spine.Controller
     return unless controller.list
     activeEl = controller.list.findModelElement(record)
     $('.zoom', activeEl).click()
+    
+    e.preventDefault()
+    e.stopPropagation()
         
   back: (e) ->
     @controller.list?.back(e) or @controller.back?(e)
@@ -1093,19 +1132,37 @@ class ShowView extends Spine.Controller
     
     el=$(document.activeElement)
     isFormfield = $().isFormElement(el)
-    @controller.focus() unless isFormfield
     
-    @log 'keydown' + code
+    @log e.type, code
+    
+  keyup: (e) ->
+    code = e.charCode or e.keyCode
+    
+    el=$(document.activeElement)
+    isFormfield = $().isFormElement(el)
+    
+    @log e.type, code
     
     switch code
+      when 8 #Backspace
+        unless isFormfield
+          @destroySelected(e)
+          e.preventDefault()
       when 13 #Return
         unless isFormfield
           @zoom(e)
           e.stopPropagation()
           e.preventDefault()
       when 27 #Esc
-        unless isFormfield
+        unless isFormfield or App.modal.exists
           @back(e)
+          e.preventDefault()
+      when 32 #Space
+        unless isFormfield
+          if Gallery.activePhotos().length
+            @slideshowView.play()
+          else
+            el = @noSlideShow()
           e.preventDefault()
       when 37 #Left
         unless isFormfield
@@ -1123,26 +1180,6 @@ class ShowView extends Spine.Controller
         unless isFormfield
           @selectByKey('down', e)
           e.preventDefault()
-      
-  keyup: (e) ->
-    e.preventDefault()
-    code = e.charCode or e.keyCode
-    
-    el=$(document.activeElement)
-    isFormfield = $().isFormElement(el)
-    
-    @log 'keyup', code
-    
-    switch code
-      when 8 #Backspace
-        unless isFormfield
-          @destroySelected(e)
-          e.preventDefault()
-      when 32 #Space
-        unless isFormfield
-          @slideshowView.play()
-      when 27 #Esc
-        @slideshowView.onclosedGallery()
       when 65 #CTRL A
         unless isFormfield
           if e.metaKey or e.ctrlKey

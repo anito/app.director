@@ -42,19 +42,12 @@ class SidebarList extends Spine.Controller
     Album.bind('change:collection', @proxy @renderAlbum)
     Gallery.bind('change', @proxy @change)
     Album.bind('create destroy update', @proxy @renderSublists)
-    Root.bind('change:selection', @proxy @test)
     Gallery.bind('change:selection', @proxy @exposeSublistSelection)
     Gallery.bind('current', @proxy @exposeSelection)
     Gallery.bind('change:current', @proxy @scrollTo)
     Album.bind('change:current', @proxy @scrollTo)
     
   template: -> arguments[0]
-  
-  test: (ga, l) ->
-    return
-    console.log 'test'
-    console.log ga
-    console.log l
   
   change: (item, mode, e) =>
     @log 'change'

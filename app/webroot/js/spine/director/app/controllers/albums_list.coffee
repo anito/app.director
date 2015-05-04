@@ -31,7 +31,6 @@ class AlbumsList extends Spine.Controller
     Album.bind('update', @proxy @updateTemplate)
     Album.bind("ajaxError", Album.errorHandler)
     GalleriesAlbum.bind('change', @proxy @changeRelated)
-#    AlbumsPhoto.bind('beforeDestroy', @proxy @widowedAlbumsPhoto)
     Gallery.bind('change:selection', @proxy @exposeSelection)
     
   changedAlbums: (gallery) ->
@@ -66,7 +65,7 @@ class AlbumsList extends Spine.Controller
     for item in items
       ga = GalleriesAlbum.galleryAlbumExists(item.id, Gallery.record.id)
       for att in atts 
-        item[att] = !!(ga?[att])
+        item[att] = ga[att]
     items
     
   render: (items=[], mode) ->
@@ -101,7 +100,6 @@ class AlbumsList extends Spine.Controller
     @el
     
   updateTemplate: (album) ->
-    @log 'updateTemplate'
     albumEl = @children().forItem(album)
     contentEl = $('.thumbnail', albumEl)
     active = albumEl.hasClass('active')
@@ -181,7 +179,6 @@ class AlbumsList extends Spine.Controller
     deferred.promise()
       
   callback: (json, album) ->
-    @log 'callback'
     el = $('#'+album.id, @el)
     thumb = $('.thumbnail', el)
     
@@ -222,17 +219,17 @@ class AlbumsList extends Spine.Controller
     e.stopPropagation()
       
   zoom: (e) ->
-    @log 'zoom'
     item = $(e.currentTarget).item()
     
     @parent.stopInfo()
     @navigate '/gallery', (Gallery.record?.id or ''), item.id
+    
     e.preventDefault()
     e.stopPropagation()
     
   back: (e) ->
-    @log 'back'
     @navigate '/galleries', ''
+    
     e.preventDefault()
     e.stopPropagation()
     
@@ -242,12 +239,11 @@ class AlbumsList extends Spine.Controller
     e.preventDefault()
 
   ignoreAlbum: (e) ->
+    e.preventDefault()
     item = $(e.currentTarget).item()
     return unless item?.constructor?.className is 'Album'
     if ga = GalleriesAlbum.galleryAlbumExists(item.id, Gallery.record.id)
       GalleriesAlbum.trigger('ignore', ga, !ga.ignore)
-    
-    e.preventDefault()
     
   deleteAlbum: (e) ->
     @log 'deleteAlbum'

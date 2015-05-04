@@ -1,0 +1,17 @@
+p
+  div
+    h2 Your Slideshow could not be started
+  div
+    p
+      case noGallery
+        when true
+          div Please select a Gallery, or
+          div select Albums from your #[a.opt-ShowAllAlbums.btnClose.anim-link Album Library]
+        default
+          case count
+            when 0
+              div There are no Albums for your Slideshow
+            when 1
+              div Please make sure you have activated your Album
+            default
+              div None of your #{count} Albums is active

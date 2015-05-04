@@ -16,7 +16,7 @@
   <header id="title" class="">
     <div class="left" style="position: relative;">
       <h1 class="" style="line-height: 3em;"><a style="font-size: 3em;" href="/"><span class="chopin">Photo Director</span></a></h1>
-      <span style="position: absolute; top: 10px; right: 67px;"><a href="http://glyphicons.com/" target="_blank" class="glyphicon-brand" title="GLYPHICONS is a library of precisely prepared monochromatic icons and symbols, created with an emphasis on simplicity and easy orientation.">GLYPHICONS.com</a></span>
+      <span style="position: absolute; top: 10px; right: 67px;"><a href="http://glyphicons.com/" target="_blank" class="anim-link" title="GLYPHICONS is a library of precisely prepared monochromatic icons and symbols, created with an emphasis on simplicity and easy orientation.">GLYPHICONS.com</a></span>
     </div>
     <div id="login" class="right" style="margin: 15px 5px;"></div>
   </header>
@@ -51,7 +51,7 @@
       <div class="vdivide draghandle"></div>
     </div>
     <div id="content" class="views bg-medium vbox flex">
-      <div id="show" class="view canvas bg-dark vbox flex fade">
+      <div tabindex="1" id="show" class="view canvas bg-dark vbox flex fade">
         <div id="modal-action " class="modal fade"></div>
         <div id="modal-addAlbum" class="modal fade"></div>
         <div id="modal-addPhoto" class="modal fade"></div>
@@ -60,7 +60,7 @@
           <li class="splitter disabled flex"></li>
           <ul class="toolbarTwo hbox nav"></ul>
         </ul>
-        <div tabindex="1" class="contents views vbox flex deselector" style="height: 0;">
+        <div class="contents views vbox flex deselector" style="height: 0;">
           <div class="header views vbox">
             <div class="galleries view vbox"></div>
             <div class="albums view vbox"></div>
@@ -69,14 +69,14 @@
             <div class="overview view"></div>
           </div>
           <div class="view wait content vbox flex autoflow" style=""></div>
-          <div tabindex="1" class="view deselector galleries content vbox flex data parent autoflow" style="">
+          <div class="view deselector galleries content vbox flex data parent autoflow" style="">
             <div class="items deselector fadein">Galleries</div>
           </div>
-          <div tabindex="1" class="view deselector albums content vbox flex data parent autoflow fadeelement" style="">
+          <div class="view deselector albums content vbox flex data parent autoflow fadeelement" style="">
             <div class="hoverinfo fadeslow"></div>
             <div class="items deselector flex fadein">Albums</div>
           </div>
-          <div tabindex="1" class="view deselector photos content vbox flex data parent autoflow fadeelement" style="">
+          <div class="view deselector photos content vbox flex data parent autoflow fadeelement" style="">
             <div class="hoverinfo fadeslow"></div>
             <div class="items deselector flex fadein" data-toggle="modal-gallery" data-target="#modal-gallery" data-selector="a">Photos</div>
           </div>
@@ -84,7 +84,7 @@
             <div class="hoverinfo fadeslow"></div>
             <div class="items flex fade nopad">Photo</div>
           </div>
-          <div tabindex="1" id="slideshow" class="view content vbox flex data parent autoflow">
+          <div id="slideshow" class="view content vbox flex data parent autoflow">
             <div class="items flex" data-toggle="blueimp-gallery" data-target="#blueimp-gallery" data-selector="a.thumbnail"></div>
           </div>
         </div>
@@ -204,7 +204,7 @@
   <ol class="indicator"></ol>
 </div>
 <!-- modal-dialogue -->
-<div id="modal-view" class="modal fade"></div>
+<div tabindex="0" id="modal-view" class="modal fade"></div>
 <!-- /.modal -->
 
 <!-- Templates -->

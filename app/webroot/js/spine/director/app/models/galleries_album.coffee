@@ -42,6 +42,9 @@ class GalleriesAlbum extends Spine.Model
       sorted: 'sortByOrder'
     )
       
+  @activeAlbums: (gid) ->
+    @filter(gid, {key: 'gallery_id', func: 'selectNotIgnored'})
+      
   @photos: () ->
     ret = []
     @each (item) =>

@@ -45,7 +45,7 @@ class OverviewView extends Spine.Controller
     @max = 18
     @bind('render:toolbar', @proxy @renderToolbar)
     
-  focus: (e) ->
+  focus: ->
     @carousel.focus()
     
   parse: (json) ->

@@ -9,31 +9,47 @@ class ModalSimpleView extends Spine.Controller
     '.modal-footer'       : 'footer'
   
   events:
+    'click .opt-ShowAllAlbums'     : 'allAlbums'
     'click .btnClose'     : 'close'
     'hidden.bs.modal'     : 'hiddenmodal'
     'show.bs.modal'       : 'showmodal'
+    'shown.bs.modal'      : 'shownmodal'
+    'keydown'             : 'keydown'
   
   template: (item) ->
     $('#modalSimpleTemplate').tmpl(item)
     
   constructor: ->
     super
-      
-    @el.modal
-      show: false
+    @el = $('#modal-view')
+    
+    modalDefaults =
       keyboard: true
+      show: false
       
-    @defaults = {}
-#      header  : 'Default Header Text'
-#      body    : 'Default Body Text'
-#      footer  : 'Default Footer Text'
+    defaults =
+      small: true
+      body    : 'Default Body Text'
       
+    @options = $.extend defaults, @options
+    modals = $.extend modalDefaults, @modalOptions
+    
+    @render()
+    
+  allAlbums: ->
+    @navigate '/gallery', ''
+    
   hiddenmodal: ->
+    @log 'hiddenmodal...'
   
   showmodal: ->
-      
-  keyup: (e) ->
-    @log 'ModalSimpleView:keyup'
+    @log 'showmodal...'
+    
+  shownmodal: ->
+    @log 'shownmodal...'
+    
+  keydown: (e) ->
+    @log 'keydown'
     
     code = e.charCode or e.keyCode
     @log code
@@ -49,17 +65,17 @@ class ModalSimpleView extends Spine.Controller
         @close()
         e.stopPropagation()
     
-  render: (options) ->
+  render: (options = @options) ->
     @log 'render'
-    
     @html @template options
-    @el
+    @refreshElements()
+    @
       
-  show: (options) ->
-    opts = $.extend @defaults, options
-    @render(opts).modal 'show'
+  show: ->
+    @el.modal('show')
     
   close: (e) ->
-    @el.modal 'hide'
+    @log 'close'
+    @el.modal('hide')
     
 module?.exports = ModalSimpleView
