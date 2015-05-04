@@ -266,12 +266,12 @@ class ShowView extends Spine.Controller
     @activated(controller)
     @focus()
     
-  changeCanvas: (controller) ->
+  changeCanvas: (controller, args) ->
     $('.items', @el).removeClass('in')
     
     #remove global selection if we've left from Album Library
-    if @previous?.type is "Album" and !Gallery.record
-      @resetSelection()
+#    if @previous?.type is "Album" and !Gallery.record
+#      @resetSelection()
         
     t = switch controller.type
       when "Gallery"

@@ -99,6 +99,19 @@ class AlbumsView extends Spine.Controller
     
     $(@views).queue('fx')
     
+  activate: ->
+    @el.addClass('active')
+    if !Gallery.record# and @parent.slideshowView.isActive()
+      Gallery.updateSelection(null, Gallery.preservedSel)
+    @
+    
+  deactivate: ->
+    @el.removeClass('active')
+    if !Gallery.record
+      Gallery.preservedSel.update Gallery.selectionList()
+    Gallery.updateSelection(null)
+    @
+    
   refreshOne: ->
     Album.one('refresh', @proxy @refresh)
     

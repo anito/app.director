@@ -45,6 +45,8 @@ Model.Extender =
       
       record: false
 
+      preservedSel: []
+
       selection: [global:[]]
 
       current: (recordOrID) ->
