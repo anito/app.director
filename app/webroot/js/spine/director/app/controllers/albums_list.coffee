@@ -104,7 +104,10 @@ class AlbumsList extends Spine.Controller
     contentEl = $('.thumbnail', albumEl)
     active = albumEl.hasClass('active')
     hot = albumEl.hasClass('hot')
-    ignore = GalleriesAlbum.galleryAlbumExists(album.id, Gallery.record.id)?.ignore
+    if Gallery.record
+      ignore = GalleriesAlbum.galleryAlbumExists(album.id, Gallery.record.id)?.ignore
+    else
+      ignore = false
     style = contentEl.attr('style')
     tmplItem = contentEl.tmplItem()
     alert 'no tmpl item' unless tmplItem

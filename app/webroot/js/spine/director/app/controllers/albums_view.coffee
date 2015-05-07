@@ -202,7 +202,7 @@ class AlbumsView extends Spine.Controller
         record.createJoin(target)
         target.updateSelection(record.id)
       else
-        Gallery.updateSelection(Gallery.record?.id, record.id)
+        Gallery.updateSelection(null, record.id)
         
       record.updateSelectionID()
       
