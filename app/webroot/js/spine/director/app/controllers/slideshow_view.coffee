@@ -60,18 +60,6 @@ class SlideshowView extends Spine.Controller
     Spine.bind('chromeless', @proxy @chromeless)
     Spine.bind('loading:done', @proxy @loadingDone)
     
-  activate: ->
-    @el.addClass('active')
-    if !Gallery.record# and @parent.slideshowView.isActive()
-      Gallery.updateSelection(null, Gallery.preservedSel)
-    @
-    
-  deactivate: ->
-    @el.removeClass('active')
-    if !Gallery.record# and @parent.slideshowView.isActive()
-      Gallery.updateSelection(null)
-    @
-    
   active: (params) ->
     if params
       @options = $().unparam(params)

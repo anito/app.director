@@ -142,7 +142,7 @@ class SidebarList extends Spine.Controller
     gallerySublist = $('ul', galleryEl)
     gallerySublist.html @sublistTemplate(albums)
     gallerySublist.sortable('album')
-    @exposeSublistSelection(gallery)
+#    @exposeSublistSelection(gallery)
     
   updateTemplate: (item) ->
     @log 'updateTemplate'
@@ -183,6 +183,7 @@ class SidebarList extends Spine.Controller
     @children().forItem(item).addClass("active") if item
     
   exposeSublistSelection: (item) ->
+    @log 'exposeSublistSelection'
     item = item or Gallery.record
     if item
       selection = item.selectionList()

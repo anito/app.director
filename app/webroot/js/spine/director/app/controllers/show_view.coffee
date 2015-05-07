@@ -304,7 +304,7 @@ class ShowView extends Spine.Controller
     , 200)
     
   resetSelection: (controller) ->
-    Gallery.updateSelection(null)
+#    Gallery.updateSelection(null)
     
   changeHeader: (controller) ->
     
