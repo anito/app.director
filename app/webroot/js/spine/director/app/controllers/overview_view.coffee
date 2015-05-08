@@ -114,7 +114,10 @@ class OverviewView extends Spine.Controller
     
   showPhoto: (e) ->
     index = @item.index($(e.currentTarget))
-    @slideshow.trigger('play', {index:index}, Recent.all())
+    @slideshow.trigger('play'
+      index:index
+      startSlideshow: false
+      , Recent.all())
     e.preventDefault()
     e.stopPropagation()
   
