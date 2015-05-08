@@ -81,7 +81,7 @@ class AlbumsView extends Spine.Controller
     Album.bind('destroy', @proxy @destroy)
     Album.bind('create:join', @proxy @createJoin)
     Album.bind('destroy:join', @proxy @destroyJoin)
-    Album.bind('activate', @proxy @activateRecord)
+#    Gallery.bind('change:selection', @proxy @activateRecord)
     Album.bind('change:collection', @proxy @renderBackgrounds)
     
 #    GalleriesAlbum.bind('ajaxError', Album.errorHandler)
@@ -155,6 +155,15 @@ class AlbumsView extends Spine.Controller
       
   activateRecord: (ids) ->
     unless (ids)
+      ids = []
+  
+    unless Spine.isArray(ids)
+      ids = [ids]
+    
+    Album.current ids[0]
+  
+  activateRecord_: (ids) ->
+    unless (ids)
       ids = Gallery.selectionList()
       Album.current()
       noid = true
@@ -172,7 +181,7 @@ class AlbumsView extends Spine.Controller
       Album.current(id) unless noid
       App.sidebar.list.expand(Gallery.record, true) 
       
-    Gallery.updateSelection(Gallery.record?.id, list)
+    Gallery.updateSelection(list)
     if Album.record
       Photo.trigger('activate', Album.selectionList())
     else
@@ -372,8 +381,8 @@ class AlbumsView extends Spine.Controller
     for id in items
       selection.addRemoveSelection(id)
     
-    Album.trigger('activate', selection[0])
-    Gallery.updateSelection(Gallery.record?.id, selection)
+#    Album.trigger('activate', selection[0])
+    Gallery.updateSelection(selection, Gallery.record?.id)
     
   infoUp: (e) =>
     @info.up(e)

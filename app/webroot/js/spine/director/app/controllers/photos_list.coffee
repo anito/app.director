@@ -75,7 +75,7 @@ class PhotosList extends Spine.Controller
       @[mode] @template items
       @callDeferred items
       @size(App.showView.sOutValue)
-      @exposeSelection(Album.record)
+      @exposeSelection()
       $('.dropdown-toggle', @el).dropdown()
     else if mode is 'add'
       @html '<h3 class="invite"><span class="enlightened">Nothing to add.  &nbsp;</span></h3>'
@@ -244,12 +244,7 @@ class PhotosList extends Spine.Controller
     
   #  ****** END ***** 
   
-  exposeSelection: (item, sel) ->
-    return unless item?.id is Album.record?.id
-    item = item or Album
-    
-    selection = sel or item.selectionList()
-
+  exposeSelection: (selection = Album.selectionList()) ->
     @deselect()
     for id in selection
       $('#'+id, @el).addClass("active")

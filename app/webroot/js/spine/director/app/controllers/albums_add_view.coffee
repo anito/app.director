@@ -97,7 +97,7 @@ class AlbumsAddView extends Spine.Controller
       @selectionList.addRemoveSelection(item)
       
     @renderFooter @selectionList
-    @list.exposeSelection(Gallery.record, @selectionList)
+    @list.exposeSelection(@selectionList)
     
   selectAll: (e) ->
     list = @select_()

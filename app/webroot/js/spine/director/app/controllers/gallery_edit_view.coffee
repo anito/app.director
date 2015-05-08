@@ -23,8 +23,8 @@ class GalleryEditView extends Spine.Controller
   active: ->
     @render()
 
-  change: (parent, selection=[]) ->
-    @current = Gallery.find(selection.first())
+  change: (id) ->
+    @current = Gallery.find(id)
     @render()
     
   change_: (item) ->

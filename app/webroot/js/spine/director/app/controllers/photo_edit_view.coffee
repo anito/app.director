@@ -23,8 +23,8 @@ class PhotoEditView extends Spine.Controller
   active: ->
     @render()
   
-  change: (parent, selection) ->
-    @current = Photo.find(selection.first())
+  change: (id) ->
+    @current = Photo.find(id)
     @render()
   
   render: () ->

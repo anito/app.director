@@ -1027,6 +1027,7 @@ class ShowView extends Spine.Controller
     @log 'shownmodal'
       
   selectByKey: (direction, e) ->
+    @log 'selectByKey'
     isMeta = e.metaKey or e.ctrlKey
     index = false
     lastIndex = false
@@ -1068,6 +1069,7 @@ class ShowView extends Spine.Controller
         return unless active
         el = $(active)
         
+        
     id = el.attr('data-id')
     if isMeta
       #support for multiple selection
@@ -1078,9 +1080,9 @@ class ShowView extends Spine.Controller
         else
           selection.addRemoveSelection(selection.first())
           
-        models.trigger('activate', selection)
+        parent.updateSelection(selection, parent.record?.id)
     else
-      models.trigger('activate', id)
+      parent.updateSelection([id], parent.record?.id)
         
   scrollTo: (item) ->
     return unless @controller.isActive() and item

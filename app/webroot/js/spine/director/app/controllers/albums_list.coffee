@@ -76,7 +76,7 @@ class AlbumsList extends Spine.Controller
       items = @mixinAttributes(items, ['ignore']) unless @modal
       @[mode] @template items
       @renderBackgrounds items
-      @exposeSelection(Gallery.record)
+      @exposeSelection()
       $('.dropdown-toggle', @el).dropdown()
     else if mode is 'add'
       @html '<label class="invite"><span class="enlightened">Nothing to add.  &nbsp;</span></label>'
@@ -122,12 +122,7 @@ class AlbumsList extends Spine.Controller
       contentEl.attr('style', style)
     @el.sortable()
   
-  exposeSelection: (item, sel) ->
-    return unless item?.id is Gallery.record?.id
-    item = item or Gallery
-
-    selection = sel or item.selectionList()
-      
+  exposeSelection: (selection = Gallery.selectionList()) ->
     @deselect()
     for id in selection
       $('#'+id, @el).addClass("active")
@@ -223,7 +218,7 @@ class AlbumsList extends Spine.Controller
       
   zoom: (e) ->
     item = $(e.currentTarget).item()
-    
+
     @parent.stopInfo()
     @navigate '/gallery', (Gallery.record?.id or ''), item.id
     

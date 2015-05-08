@@ -66,7 +66,7 @@ class SidebarList extends Spine.Controller
           
   create: (item) ->
     @append @template item
-    @closeAllOtherSublists item
+#    @closeAllOtherSublists item
     @reorder item
   
   update: (item) ->
@@ -123,6 +123,7 @@ class SidebarList extends Spine.Controller
       @renderOneSublist gallery if gallery = Gallery.find ga['gallery_id']
       
   renderFromGalleriesAlbum: (ga) ->
+    @log 'renderFromGalleriesAlbum'
     @renderOneSublist gallery if gallery = Gallery.find ga['gallery_id']
       
   renderOneSublist: (gallery = Gallery.record) ->
@@ -142,7 +143,7 @@ class SidebarList extends Spine.Controller
     gallerySublist = $('ul', galleryEl)
     gallerySublist.html @sublistTemplate(albums)
     gallerySublist.sortable('album')
-#    @exposeSublistSelection(gallery)
+    @exposeSublistSelection(null, gallery.id)
     
   updateTemplate: (item) ->
     @log 'updateTemplate'
@@ -178,25 +179,25 @@ class SidebarList extends Spine.Controller
       @renderItemFromGalleriesAlbum ga
   
   exposeSelection: (item = Gallery.record) ->
-    @log 'exposeSelection'
     @children().removeClass('active')
     @children().forItem(item).addClass("active") if item
+    @expand item, true
+    @exposeSublistSelection item?.id
     
-  exposeSublistSelection: (item) ->
+  exposeSublistSelection: (selection = Gallery.selectionList(), id) ->
     @log 'exposeSublistSelection'
-    item = item or Gallery.record
+    item = Gallery.find id
     if item
-      selection = item.selectionList()
       galleryEl = @children().forItem(item)
       albumsEl = galleryEl.find('li')
       albumsEl.removeClass('selected active')
       $('.glyphicon', galleryEl).removeClass('glyphicon-folder-open')
       
-      for id in selection
-        if album = Album.find(id)
+      for sel in selection
+        if album = Album.find(sel)
           albumsEl.forItem(album).addClass('selected')
 
-      if activeAlbum = Album.find(first = selection.first())
+      if activeAlbum = Album.find item.selectionList().first()
         activeEl = albumsEl.forItem(activeAlbum).addClass('active')
         $('.glyphicon', activeEl).addClass('glyphicon-folder-open')
         
@@ -210,12 +211,10 @@ class SidebarList extends Spine.Controller
       when 'Gallery'
         @expand(item, App.showView.controller?.el.data('current').models isnt Album)
         @navigate '/gallery', item.id
-        @closeAllOtherSublists item
-#        Gallery.current item.id if Gallery.record and Gallery.record.id is item.id
+#        @closeAllOtherSublists item
       when 'Album'
         gallery = $(e.target).closest('li.gal').item()
         @navigate '/gallery', gallery.id, item.id
-#        Album.current(item.id) if Album.record and Album.record.id is item.id
     
   clickExpander: (e) ->
     galleryEl = $(e.target).closest('li.gal')

@@ -28,7 +28,7 @@ class UploadEditView extends Spine.Controller
   constructor: ->
     super
     @bind('active', @proxy @active)
-    Album.bind('change:selection', @proxy @changeDataLink)
+    Album.bind('change:current', @proxy @changeDataLink)
     @data = fileslist: [link: false]
     @queue = []
     

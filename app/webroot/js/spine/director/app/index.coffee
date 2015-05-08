@@ -4,6 +4,7 @@ Drag                    = require("plugins/drag")
 User                    = require('models/user')
 Config                  = require('models/config')
 Album                   = require('models/album')
+Root                    = require('models/root')
 Gallery                 = require('models/gallery')
 Toolbar                 = require("models/toolbar")
 Settings                = require('models/settings')
@@ -192,19 +193,19 @@ class Main extends Spine.Controller
     
     @routes
       '/gallery/:gid/:aid/:pid': (params) ->
-        Gallery.trigger('activate', params.gid)
-        Album.trigger('activate', params.aid)
-        Photo.trigger('activate', params.pid)
+        Root.updateSelection params.gid
+        Gallery.updateSelection params.aid
+        Album.updateSelection params.pid
         if params.pid is 'slideshow'
           @showView.trigger('active', @showView.photosView, params.pid)
         else
           @showView.trigger('active', @showView.photoView)
       '/gallery/:gid/:aid': (params) ->
-        Gallery.trigger('activate', params.gid)
-        Album.trigger('activate', params.aid)
+        Root.updateSelection params.gid
+        Gallery.updateSelection params.aid
         @showView.trigger('active', @showView.photosView)
       '/gallery/:gid': (params) ->
-        Gallery.trigger('activate', params.gid)
+        Root.updateSelection params.gid
         @showView.trigger('active', @showView.albumsView)
       '/galleries/*': ->
         @showView.trigger('active', @showView.galleriesView)

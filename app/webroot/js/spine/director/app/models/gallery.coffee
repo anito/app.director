@@ -89,6 +89,7 @@ class Gallery extends Spine.Model
     s = new Object()
     s[id] = []
     @constructor.selection.push s
+    @constructor.childType = 'Album'
     
   activePhotos: ->
     @constructor.activePhotos(@id)

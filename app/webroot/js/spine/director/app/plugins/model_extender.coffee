@@ -45,8 +45,6 @@ Model.Extender =
       
       record: false
 
-      preservedSel: []
-
       selection: [global:[]]
 
       current: (recordOrID) ->
@@ -68,11 +66,12 @@ Model.Extender =
           return item[id] if item[id]
         ret
       
-      updateSelection: (id=@record?.id, list, options) ->
+      updateSelection: (list, id=@record?.id, options) ->
         defaults = {trigger: true}
         option = $().extend defaults, options
         ret = @emptySelection id, list
-        @trigger('change:selection', @record, ret) if option.trigger
+        @trigger('change:selection', ret, id) if option.trigger
+        Model[@childType].current(ret[0] or false)
         ret
 
       emptySelection: (id, idOrList = []) ->
@@ -220,7 +219,7 @@ Model.Extender =
       
       updateSelection: (list, options) ->
         list = [list] unless @constructor.isArray list
-        list = @constructor.updateSelection @id, list, options
+        list = @constructor.updateSelection list, @id, options
 
       emptySelection: ->
         list = @constructor.emptySelection @id

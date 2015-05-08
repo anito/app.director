@@ -2,7 +2,6 @@ Spine             = require("spine")
 $                 = Spine.$
 Model             = Spine.Model
 Model.Gallery     = require('models/gallery')
-Model.Photo       = require('models/photo')
 GalleriesAlbum    = require('models/galleries_album')
 AlbumsPhoto       = require('models/albums_photo')
 Clipboard         = require('models/clipboard')
@@ -140,6 +139,7 @@ class Album extends Spine.Model
     s = new Object()
     s[id] = []
     @constructor.selection.push s
+    @constructor.childType = 'Photo'
     
   selChange: (list) ->
   

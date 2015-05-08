@@ -105,7 +105,7 @@ Controller.Drag =
           Spine.DragItem.selected = true
           Spine.DragItem.save()
           selection.add Spine.DragItem.source.id
-          Model[Spine.DragItem.originModel].updateSelection Spine.DragItem.originRecord?.id, selection, trigger: false
+          Model[Spine.DragItem.originModel].updateSelection selection, Spine.DragItem.originRecord?.id, trigger: false
         
       dragStart: (e, controller, record) ->
         @log 'dragStart'

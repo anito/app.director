@@ -79,7 +79,7 @@ class PhotosView extends Spine.Controller
     Photo.bind('create:join', @proxy @createJoin)
     Photo.bind('destroy:join', @proxy @destroyJoin)
     Photo.bind('ajaxError', Photo.errorHandler)
-    Photo.bind('activate', @proxy @activateRecord)
+#    Album.bind('change:selection', @proxy @activateRecord)
     
     Spine.bind('destroy:photo', @proxy @destroyPhoto)
     Spine.bind('loading:done', @proxy @updateBuffer)
@@ -125,7 +125,16 @@ class PhotosView extends Spine.Controller
     @refresh()
     @parent.scrollTo(@el.data('current').models.record)
     
-  activateRecord: (records) ->
+  activateRecord: (ids) ->
+    unless (ids)
+      ids = []
+  
+    unless Spine.isArray(ids)
+      ids = [ids]
+    
+    Photo.current ids[0]
+    
+  activateRecord_: (records) ->
     unless records
       records = Album.selectionList()
 
@@ -138,7 +147,7 @@ class PhotosView extends Spine.Controller
     
     id = list[0]
     
-    Album.updateSelection(Album.record?.id, list)
+    Album.updateSelection(list)
     Photo.current(id)
   
   click: (e) ->
@@ -157,8 +166,8 @@ class PhotosView extends Spine.Controller
     for id in items
       selection.addRemoveSelection(id)
       
-    Photo.trigger('activate', selection[0])
-    Album.updateSelection(Album.record?.id, selection)
+#    Photo.trigger('activate', selection[0])
+    Album.updateSelection(selection, Album.record?.id)
   
   clearPhotoCache: ->
     Photo.clearCache()
@@ -228,7 +237,7 @@ class PhotosView extends Spine.Controller
   add: (photos) ->
     unless Photo.isArray photos
       photos = [photos]
-    Album.updateSelection(Album.record?.id, photos.toID())
+    Album.updateSelection(photos.toID())
     @render(photos, 'append')
     @list.el.sortable('destroy').sortable('photos')
       

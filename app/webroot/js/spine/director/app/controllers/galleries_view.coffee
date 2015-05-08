@@ -44,7 +44,6 @@ class GalleriesView extends Spine.Controller
     Gallery.bind('beforeDestroy', @proxy @beforeDestroy)
     Gallery.bind('destroy', @proxy @destroy)
     Gallery.bind('refresh:gallery', @proxy @render)
-    Gallery.bind('activate', @proxy @activateRecord)
 
   render: (items) ->
     return unless @isActive()
@@ -56,30 +55,12 @@ class GalleriesView extends Spine.Controller
           
   active: ->
     return unless @isActive()
-    Gallery.updateSelection(null)
+    unless Gallery.record
+      Gallery.updateSelection()
     App.showView.trigger('change:toolbarOne', ['Default'])
     App.showView.trigger('change:toolbarTwo', ['Slideshow'])
     @render()
     
-  activateRecord: (ids) ->
-    unless (ids)
-      ids = []
-  
-    unless Spine.isArray(ids)
-      ids = [ids]
-
-    list = []
-    for id in ids
-      list.push gallery.id if gallery = Gallery.find(id)
-
-    id = list[0]
-    
-    Root.updateSelection(null, id)
-    Gallery.current id
-    
-    if Gallery.record
-      Album.trigger('activate', Gallery.selectionList())
-
   click: (e) ->
     App.showView.trigger('change:toolbarOne', ['Default'])
     item = $(e.currentTarget).item()
@@ -97,8 +78,8 @@ class GalleriesView extends Spine.Controller
     for id in ids
       selection.addRemoveSelection(id)
     
-    Gallery.trigger('activate', selection[0])
-    Root.updateSelection(null, selection)
+#    Gallery.trigger('activate', selection[0])
+    Root.updateSelection(selection)
     
   beforeDestroy: (item) ->
     @list.findModelElement(item).detach()

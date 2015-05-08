@@ -22,8 +22,8 @@ class AlbumEditView extends Spine.Controller
   active: ->
     @render()
   
-  change: (parent, selection) ->
-    @current = Album.find(selection.first())
+  change: (id) ->
+    @current = Album.find(id)
     @render() 
   
   render: () ->

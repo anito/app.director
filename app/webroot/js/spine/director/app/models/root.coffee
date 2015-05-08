@@ -10,5 +10,10 @@ class Root extends Spine.Model
 
   @extend Extender
   
+  @childType = 'Gallery'
+  
+  init: (instance) ->
+    return unless id = instance.id
+  
 module?.exports = Model.Root = Root
 
