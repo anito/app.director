@@ -635,7 +635,7 @@ class ShowView extends Spine.Controller
     return unless $(e.target).hasClass('deselector')
     model = @el.data('current').model
     models = @el.data('current').models
-    models.trigger('activate', [])
+    models.trigger('activate')
     try
       @current.itemsEl.deselect()
     catch e
