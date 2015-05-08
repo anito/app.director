@@ -129,7 +129,6 @@ class OverviewView extends Spine.Controller
       @navigate '/galleries/'
       
   keyup: (e) ->
-    e.preventDefault()
     code = e.charCode or e.keyCode
     
     @log 'keyup', code
@@ -138,7 +137,7 @@ class OverviewView extends Spine.Controller
     
     switch code
       when 27 #Esc
-        @navigate '/galleries', ''
+        @close(e)
       when 32 #Space
         paused = @carousel.data('bs.carousel').paused
         if paused

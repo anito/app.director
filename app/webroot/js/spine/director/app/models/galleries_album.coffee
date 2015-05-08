@@ -45,11 +45,17 @@ class GalleriesAlbum extends Spine.Model
   @activeAlbums: (gid) ->
     @filter(gid, {key: 'gallery_id', func: 'selectNotIgnored'})
       
-  @photos: () ->
+  @photos: (id) ->
     ret = []
-    @each (item) =>
-      photos = AlbumsPhoto.albumPhotos item.album_id
-      ret.push photo for photo in photos
+    unless id
+      @each (item) =>
+        photos = AlbumsPhoto.albumPhotos item.album_id
+        ret.push photo for photo in photos
+    else
+      albums = @albums id
+      for album in albums
+        photos = AlbumsPhoto.albumPhotos album.id
+        ret.push photo for photo in photos
     ret
       
   @isActiveAlbum: (gid, aid) ->
