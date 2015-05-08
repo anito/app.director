@@ -92,6 +92,7 @@ class AlbumsView extends Spine.Controller
     Spine.bind('loading:done', @proxy @loadingDone)
     Spine.bind('loading:fail', @proxy @loadingFail)
     Spine.bind('destroy:album', @proxy @destroyAlbum)
+    Spine.bind('select:album', @proxy @select)
     
     @bind('drag:start', @proxy @dragStart)
     @bind('drag:help', @proxy @dragHelp)

@@ -1,5 +1,6 @@
 Spine = require("spine")
 $      = Spine.$
+GalleriesAlbum  = require('models/galleries_album')
 
 class ModalSimpleView extends Spine.Controller
   
@@ -9,12 +10,13 @@ class ModalSimpleView extends Spine.Controller
     '.modal-footer'       : 'footer'
   
   events:
-    'click .opt-ShowAllAlbums'     : 'allAlbums'
-    'click .btnClose'     : 'close'
-    'hidden.bs.modal'     : 'hiddenmodal'
-    'show.bs.modal'       : 'showmodal'
-    'shown.bs.modal'      : 'shownmodal'
-    'keydown'             : 'keydown'
+    'click .opt-ShowAllAlbums' : 'allAlbums'
+    'click .opt-AddPhotos'     : 'addPhotos'
+    'click .btnClose'          : 'close'
+    'hidden.bs.modal'          : 'hiddenmodal'
+    'show.bs.modal'            : 'showmodal'
+    'shown.bs.modal'           : 'shownmodal'
+    'keydown'                  : 'keydown'
   
   template: (item) ->
     $('#modalSimpleTemplate').tmpl(item)
@@ -38,6 +40,10 @@ class ModalSimpleView extends Spine.Controller
     
   allAlbums: ->
     @navigate '/gallery', ''
+    
+  addPhotos: (e) ->
+    Spine.trigger('select:album', GalleriesAlbum.albums(Gallery.record?.id)[0].id, true)
+    Spine.trigger('photos:add')
     
   hiddenmodal: ->
     @log 'hiddenmodal...'

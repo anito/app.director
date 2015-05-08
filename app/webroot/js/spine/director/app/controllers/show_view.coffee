@@ -238,6 +238,7 @@ class ShowView extends Spine.Controller
     Album.bind('current', @proxy @refreshToolbars)
     Spine.bind('albums:copy', @proxy @copyAlbums)
     Spine.bind('photos:copy', @proxy @copyPhotos)
+    Spine.bind('deselect', @proxy @deselect)
     
     @current = @controller = @galleriesView
     
