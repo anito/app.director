@@ -62,6 +62,9 @@ class GalleriesView extends Spine.Controller
     @render()
     
   click: (e) ->
+    e.preventDefault()
+    e.stopPropagation()
+    
     App.showView.trigger('change:toolbarOne', ['Default'])
     item = $(e.currentTarget).item()
     @select(item.id, true) #one gallery selected at a time

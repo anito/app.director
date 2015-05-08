@@ -94,6 +94,7 @@ class ShowView extends Spine.Controller
     'click .opt-PasteAlbum'                           : 'pasteAlbum'
     'click .opt-EmptyAlbum'                           : 'emptyAlbum'
     'click .opt-CreatePhoto:not(.disabled)'           : 'createPhoto'
+    'click .opt-DestroyEmptyAlbums:not(.disabled)'    : 'destroyEmptyAlbums'
     'click .opt-DestroyGallery:not(.disabled)'        : 'destroyGallery'
     'click .opt-DestroyAlbum:not(.disabled)'          : 'destroyAlbum'
     'click .opt-DestroyPhoto:not(.disabled)'          : 'destroyPhoto'
@@ -119,7 +120,6 @@ class ShowView extends Spine.Controller
     'click .opt-SelectNone:not(.disabled)'            : 'selectNone'
     'click .opt-SelectInv:not(.disabled)'             : 'selectInv'
     'click .opt-CloseDraghandle'                      : 'toggleDraghandle'
-    'click .deselector'                               : 'deselect'
     'click .opt-Help'                                 : 'help'
     'click .opt-Version'                              : 'version'
     'click .opt-Prev'                                 : 'prev'
@@ -474,6 +474,11 @@ class ShowView extends Spine.Controller
   editAlbum: (e) ->
     Spine.trigger('edit:album')
 
+  destroyEmptyAlbums: (e) ->
+    albums = Album.findEmpties()
+    for album in albums
+      album.destroy()
+
   destroySelected: (e) ->
     models = @controller.el.data('current').models
     @['destroy'+models.className]()
@@ -632,16 +637,6 @@ class ShowView extends Spine.Controller
   closePanel: (controller, target) ->
     App[controller].trigger('active')
     target.click()
-    
-  deselect: (e) =>
-    e.stopPropagation()
-    return unless $(e.target).hasClass('deselector')
-    model = @el.data('current').model
-    models = @el.data('current').models
-    try
-      @current.itemsEl.deselect()
-    catch e
-    model.updateSelection()
     
   selectAll: (e) ->
     try

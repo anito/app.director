@@ -182,7 +182,7 @@ class SidebarList extends Spine.Controller
     @children().removeClass('active')
     @children().forItem(item).addClass("active") if item
     @expand item, true
-    @exposeSublistSelection item?.id
+    @exposeSublistSelection null, item?.id
     
   exposeSublistSelection: (selection = Gallery.selectionList(), id) ->
     @log 'exposeSublistSelection'
@@ -193,7 +193,7 @@ class SidebarList extends Spine.Controller
       albumsEl.removeClass('selected active')
       $('.glyphicon', galleryEl).removeClass('glyphicon-folder-open')
       
-      for sel in selection
+      for sel in item.selectionList()
         if album = Album.find(sel)
           albumsEl.forItem(album).addClass('selected')
 

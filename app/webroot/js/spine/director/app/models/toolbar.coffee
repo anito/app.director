@@ -141,15 +141,26 @@ class Toolbar extends Spine.Model
           disabled: -> !Gallery.selectionList().length
           shortcut: '<-'
         ,
+          name: -> 'Destroy Empty Albums (' + Album.findEmpties().length + ')'
+          icon: 'trash'
+          klass: 'opt-DestroyEmptyAlbums'
+          disabled: -> false
+        ,
           name: 'Empty Albums'
           icon: 'fire'
           klass: 'opt-EmptyAlbum'
           disabled: -> !Gallery.selectionList().length or !Gallery.activePhotos().length
         ,
-          name: -> 'Toggle visible (' + Gallery.selectionList().length + ')'
+          name: ->
+            a = 'Toggle visible'
+            b = ' (' + Gallery.selectionList().length + ')'
+            if Gallery.record
+              return a + b
+            else
+              return a
           icon: 'eye'
           klass: 'opt-ToggleVisible'
-          disabled: -> !Gallery.selectionList().length
+          disabled: -> !Gallery.selectionList().length or !Gallery.record
         ,
           devider: true
         ,

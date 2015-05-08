@@ -369,6 +369,9 @@ class AlbumsView extends Spine.Controller
       @render()
       
   click: (e) ->
+    e.preventDefault()
+    e.stopPropagation()
+    
     item = $(e.currentTarget).item()
     @select(item.id, @isCtrlClick(e))
     

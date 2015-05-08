@@ -151,6 +151,9 @@ class PhotosView extends Spine.Controller
     Photo.current(id)
   
   click: (e) ->
+    e.preventDefault()
+    e.stopPropagation()
+    
     App.showView.trigger('change:toolbarOne')
     
     item = $(e.currentTarget).item()

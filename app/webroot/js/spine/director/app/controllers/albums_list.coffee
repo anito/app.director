@@ -122,10 +122,12 @@ class AlbumsList extends Spine.Controller
       contentEl.attr('style', style)
     @el.sortable()
   
-  exposeSelection: (selection = Gallery.selectionList()) ->
+  exposeSelection: (selection=Gallery.selectionList(), id=Gallery.record?.id) ->
+    if Gallery.record
+      return unless Gallery.record.id is id
     @deselect()
-    for id in selection
-      $('#'+id, @el).addClass("active")
+    for sel in selection
+      $('#'+sel, @el).addClass("active")
     if first = selection.first()
       $('#'+first, @el).addClass("hot")
       

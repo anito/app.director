@@ -61,12 +61,12 @@ Model.Extender =
       selectionList: (recordID) ->
         ret = []
         id = recordID or @record?.id or @record?.cid
-        return @selection[0].global unless id
+        return @selection[0].global unless @exists id
         for item in @selection
           return item[id] if item[id]
         ret
       
-      updateSelection: (list, id=@record?.id, options) ->
+      updateSelection: (list, id, options) ->
         defaults = {trigger: true}
         option = $().extend defaults, options
         ret = @emptySelection id, list

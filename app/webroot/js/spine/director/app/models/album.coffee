@@ -134,6 +134,12 @@ class Album extends Spine.Model
       iCount : Photo.count()
       sCount : Album.selectionList().length
       
+  @findEmpties: ->
+    ret = []
+    @each (item) ->
+      ret.push item unless item.photos().length
+    ret
+      
   init: (instance) ->
     return unless id = instance.id
     s = new Object()
