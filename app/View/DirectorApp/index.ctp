@@ -69,14 +69,14 @@
             <div class="overview view"></div>
           </div>
           <div class="view wait content vbox flex autoflow" style=""></div>
-          <div class="view deselector galleries content vbox flex data parent autoflow" style="">
+          <div class="view  galleries content vbox flex data parent autoflow" style="">
             <div class="items deselector fadein">Galleries</div>
           </div>
-          <div class="view deselector albums content vbox flex data parent autoflow fadeelement" style="">
+          <div class="view albums content vbox flex data parent autoflow fadeelement" style="">
             <div class="hoverinfo fadeslow"></div>
             <div class="items deselector flex fadein">Albums</div>
           </div>
-          <div class="view deselector photos content vbox flex data parent autoflow fadeelement" style="">
+          <div class="view photos content vbox flex data parent autoflow fadeelement" style="">
             <div class="hoverinfo fadeslow"></div>
             <div class="items deselector flex fadein" data-toggle="modal-gallery" data-target="#modal-gallery" data-selector="a">Photos</div>
           </div>

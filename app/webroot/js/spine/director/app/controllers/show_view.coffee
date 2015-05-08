@@ -239,7 +239,7 @@ class ShowView extends Spine.Controller
     Album.bind('current', @proxy @refreshToolbars)
     Spine.bind('albums:copy', @proxy @copyAlbums)
     Spine.bind('photos:copy', @proxy @copyPhotos)
-    Spine.bind('deselect', @proxy @deselect)
+#    Spine.bind('deselect', @proxy @deselect)
     
     @current = @controller = @galleriesView
     
@@ -634,13 +634,14 @@ class ShowView extends Spine.Controller
     target.click()
     
   deselect: (e) =>
+    e.stopPropagation()
     return unless $(e.target).hasClass('deselector')
     model = @el.data('current').model
     models = @el.data('current').models
-    models.trigger('activate')
     try
       @current.itemsEl.deselect()
     catch e
+    model.updateSelection()
     
   selectAll: (e) ->
     try
