@@ -30,9 +30,13 @@ class GalleriesList extends Spine.Controller
     Gallery.bind('change:current', @proxy @exposeSelection)
     Album.bind('change:collection', @proxy @renderRelated)
     Gallery.bind('change', @proxy @renderOne)
+    GalleriesAlbum.bind('change', @proxy @renderOneRelated)
     Photo.bind('destroy', @proxy @renderRelated)
     Album.bind('destroy', @proxy @renderRelated)
     
+  renderOneRelated: (ga) ->
+    gallery = Gallery.find ga.gallery_id
+    @updateOneTemplate(gallery) if gallery
     
   renderRelated: ->
     return unless @parent.isActive()
@@ -65,20 +69,23 @@ class GalleriesList extends Spine.Controller
     @exposeSelection()
     $('.dropdown-toggle', @el).dropdown()
     @el
-
+  
   updateTemplates: ->
     @log 'updateTemplates'
     for gallery in Gallery.records
-      galleryEl = @children().forItem(gallery)
-      active = galleryEl.hasClass('active')
-      contentEl = $('.thumbnail', galleryEl)
-      tmplItem = contentEl.tmplItem()
-      alert 'no tmpl item' unless tmplItem
-      if tmplItem
-        tmplItem.tmpl = $( "#galleriesTemplate" ).template()
-        tmplItem.update?()
-        galleryEl = @children().forItem(gallery).toggleClass('active hot', active)
+      @updateOneTemplate(gallery)
 
+  updateOneTemplate: (gallery) ->
+    galleryEl = @children().forItem(gallery)
+    active = galleryEl.hasClass('active')
+    contentEl = $('.thumbnail', galleryEl)
+    tmplItem = contentEl.tmplItem()
+    alert 'no tmpl item' unless tmplItem
+    if tmplItem
+      tmplItem.tmpl = $( "#galleriesTemplate" ).template()
+      tmplItem.update?()
+      galleryEl = @children().forItem(gallery).toggleClass('active hot', active)
+    
   reorder: (item) ->
     id = item.id
     index = (id, list) ->
