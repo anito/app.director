@@ -1194,14 +1194,18 @@ class ShowView extends Spine.Controller
         unless isFormfield
           if e.metaKey or e.ctrlKey
             @selectAll(e)
-      when 73 #CTRL I
-        unless isFormfield
-          if e.metaKey or e.ctrlKey
-            @selectInv(e)
       when 67 #CTRL C
         unless isFormfield
           if e.metaKey or e.ctrlKey
             @copy(e)
+      when 73 #CTRL I
+        unless isFormfield
+          if e.metaKey or e.ctrlKey
+            @selectInv(e)
+      when 77 #CTRL M
+        unless isFormfield
+          if e.metaKey or e.ctrlKey
+            @toggleVisible(e)
       when 86 #CTRL V
         unless isFormfield
           if e.metaKey or e.ctrlKey

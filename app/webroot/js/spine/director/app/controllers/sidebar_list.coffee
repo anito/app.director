@@ -209,7 +209,7 @@ class SidebarList extends Spine.Controller
     
     switch item.constructor.className
       when 'Gallery'
-        @expand(item, App.showView.controller?.el.data('current').models isnt Album)
+        @expand(item, !(Gallery.record?.id is item.id) or !@isOpen(el))
         @navigate '/gallery', item.id
 #        @closeAllOtherSublists item
       when 'Album'
@@ -242,6 +242,9 @@ class SidebarList extends Spine.Controller
     else
       @closeSublist(galleryEl) unless galleryEl.hasClass('manual')
         
+  isOpen: (el) ->
+    el.hasClass('open')
+    
   openSublist: (el) ->
     el.addClass('open')
     

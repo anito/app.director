@@ -160,6 +160,7 @@ class Toolbar extends Spine.Model
               return a
           icon: 'eye'
           klass: 'opt-ToggleVisible'
+          shortcut: 'Ctrl-M'
           disabled: -> !Gallery.selectionList().length or !Gallery.record
         ,
           devider: true

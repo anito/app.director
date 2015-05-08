@@ -407,6 +407,10 @@ class Main extends Spine.Controller
         unless isFormfield
           @delegateFocus(e, @showView)
           e.preventDefault()
+      when 77 #ctrl M
+        unless isFormfield
+          @delegateFocus(e, @showView)
+          e.preventDefault()
           
   delegateFocus: (e, controller = @showView) ->
     el=$(document.activeElement)
