@@ -79,7 +79,6 @@ class PhotosAddView extends Spine.Controller
     @el.modal('show')
     
   hide: ->
-    alert 'hide'
     @el.modal('hide')
   
   modalShow: (e) ->
