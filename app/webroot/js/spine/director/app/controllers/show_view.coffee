@@ -980,11 +980,13 @@ class ShowView extends Spine.Controller
     dialog = new ModalSimpleView
       options:
         small: false
-        body: -> require("views/no_slideshow")
+        body: => require("views/no_slideshow")
           copyright     : 'Axel Nitzschner'
           spine_version : Spine.version
           app_version   : App.version
           noGallery: !!!Gallery.record
+          selectedAlbums: Gallery.selectionList(null).length
+          noAlbumsView: !(!Gallery.record and @albumsView.isActive())
           albumsCount: GalleriesAlbum.albums(Gallery.record?.id).length
           photosCount: GalleriesAlbum.photos(Gallery.record?.id).length
           activeAlbumsCount: GalleriesAlbum.activeAlbums(Gallery.record?.id).length

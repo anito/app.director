@@ -5,8 +5,14 @@ p
     p
       case noGallery
         when true
-          div Please select a Gallery, or
-          div select Albums from your #[a.opt-ShowAllAlbums.btnClose.anim-link Album Library]
+          case noAlbumsView
+            when true
+              div Select Albums from your #[a.opt-ShowAllAlbums.btnClose.anim-link Album Library], or
+              div Select a Gallery
+            default
+              case selectedAlbums
+                when 0
+                  div Select Albums or activate a Gallery
         default
           case albumsCount
             when 0
