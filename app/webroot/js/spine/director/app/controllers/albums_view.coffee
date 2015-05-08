@@ -101,8 +101,8 @@ class AlbumsView extends Spine.Controller
     
   deactivate: ->
     @el.removeClass('active')
-    if !Gallery.record
-      Gallery.updateSelection(null)
+#    if !Gallery.record
+#      Gallery.updateSelection(null)
 #      Gallery.preservedSel.update Gallery.selectionList()
     @
     

@@ -14,9 +14,9 @@ class OverviewView extends Spine.Controller
   elements:
     '#overview-carousel'            : 'carousel'
     '.carousel-inner'               : 'content'
-    '.carousel-inner .recents'      : 'items'
-    '.carousel-inner .recents .item': 'item'
-    '.carousel-inner .summary'      : 'summary'
+    '.recents .carousel-item'       : 'items'
+    '.recents .item'                : 'item'
+    '.summary'                      : 'summary'
     
   events:
     'click button.close'  : 'close'
@@ -37,23 +37,24 @@ class OverviewView extends Spine.Controller
   constructor: ->
     super
     @bind('active', @proxy @active)
-    # carousel options
-    @options =
-      interval: 2000
-    @carousel.on('slide.bs.carousel', @proxy @focus)
+#    @carousel.on('slide.bs.carousel', @proxy @focus)
     @el.data current: Recent
     @max = 18
     @bind('render:toolbar', @proxy @renderToolbar)
     
-  focus: ->
-    @carousel.focus()
+    Recent.bind('refresh', @proxy @render)
+    
+  active: ->
+    @loadRecent()
+    
+  loadRecent: ->
+    Recent.loadRecent(@max, @proxy @parse)
     
   parse: (json) ->
     recents = []
     for item in json
       recents.push item['Photo']
     Recent.refresh(recents, {clear:true})
-    @render Recent.all()
     
   render: (tests) ->
     #validate fresh records against existing model collection
@@ -63,8 +64,9 @@ class OverviewView extends Spine.Controller
       
     @content.html @template items
     @refreshElements()
-    @carousel.carousel @options
     @uri items
+    
+#    @carousel.carousel @options
     
   thumbSize: (width = 70, height = 70) ->
     width: width
@@ -90,7 +92,6 @@ class OverviewView extends Spine.Controller
       photo = item
       jsn = searchJSON photo.id
       photoEl = @items.children().forItem(photo)
-      @log 
       img = new Image
       img.element = photoEl
       if jsn
@@ -98,19 +99,12 @@ class OverviewView extends Spine.Controller
       else
         img.src = '/img/nophoto.png'
       img.onload = @imageLoad
-        
+      
   imageLoad: ->
     css = 'url(' + @src + ')'
     $('.thumbnail', @element).css
       'backgroundImage': css
       'backgroundPosition': 'center, center'
-    
-  loadRecent: ->
-    Recent.loadRecent(@max, @proxy @parse)
-    
-  active: ->
-    @loadRecent()
-    @el.focus()
     
   showPhoto: (e) ->
     index = @item.index($(e.currentTarget))
@@ -138,9 +132,13 @@ class OverviewView extends Spine.Controller
     e.preventDefault()
     code = e.charCode or e.keyCode
     
-#    @log 'OverviewView:keyupCode: ' + code
+    @log 'keyup', code
+    
+    @carousel.data('bs.carousel') || @carousel.carousel(keyboard:true)
     
     switch code
+      when 27 #Esc
+        @navigate '/galleries', ''
       when 32 #Space
         paused = @carousel.data('bs.carousel').paused
         if paused
@@ -150,7 +148,6 @@ class OverviewView extends Spine.Controller
           @carousel.carousel('pause')
       when 39 #Right
         @carousel.carousel('next')
-        
       when 37 #Left
         @carousel.carousel('prev')
 

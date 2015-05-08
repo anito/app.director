@@ -56,6 +56,7 @@ class GalleriesView extends Spine.Controller
           
   active: ->
     return unless @isActive()
+    Gallery.updateSelection(null)
     App.showView.trigger('change:toolbarOne', ['Default'])
     App.showView.trigger('change:toolbarTwo', ['Slideshow'])
     @render()

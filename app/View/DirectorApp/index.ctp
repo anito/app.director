@@ -144,11 +144,11 @@
           </div>
         </div>
       </div>
-      <div id="overview" class="view content vbox flex data parent fade" style="position: relative;">
+      <div tabindex="1" id="overview" class="view content vbox flex data parent fade" style="position: relative;">
         <div class="carousel-background bg-medium flex" style="z-index: 0;">
 <!--          The data-ride="carousel" attribute is used to mark a carousel as animating starting at page load.-->
 <!--          We can't use it here, since it must be triggered via the controller-->
-          <div tabindex="3" id="overview-carousel" class="carousel slide" data-ride="">
+          <div id="overview-carousel" class="carousel slide" data-ride="" data-interval="2000">
             
             <!-- Indicators -->
             <ol class="carousel-indicators">
@@ -164,7 +164,7 @@
               <span class="glyphicon glyphicon-chevron-right"></span>
             </a>
           </div>
-          <div class="xxl" style="color: rgba(156, 156, 156, 0.99);">
+          <div class="xxl" style="color: rgba(156, 156, 156, 0.99); top: 260px;">
             Overview
             <div style="font-size: 0.3em; color: rgba(156, 156, 156, 0.59); line-height: 30px;">hit space (play/pause) or arrow keys (navigate)</div>
           </div>
@@ -984,9 +984,9 @@
 </script>
 
 <script id="overviewTemplate" type="text/x-jquery-tmpl">
-  <div class="item active">
+  <div class="item recents active">
     <img src="/img/overview-background.png" style="width: 800px; height: 370px;">
-    <div class="recents carousel-item">
+    <div class="carousel-item">
       {{tmpl($item.data.photos) "#overviewPhotosTemplate"}}
     </div>
     <div class="carousel-caption">

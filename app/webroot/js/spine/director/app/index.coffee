@@ -368,17 +368,24 @@ class Main extends Spine.Controller
           e.preventDefault()
       when 27 #Esc
         unless isFormfield
-          @delegateFocus(e, @showView)
+          if @overviewView.isActive()
+            @delegateFocus(e, @overviewView)
+          else
+            @delegateFocus(e, @showView)
+          e.preventDefault()
       when 32 #Space
         unless isFormfield
           if @overviewView.isActive()
-            @overviewView.focus()
+            @delegateFocus(e, @overviewView)
           else
             @delegateFocus(e, @showView)
           e.preventDefault()
       when 37 #Left
         unless isFormfield
-          @delegateFocus(e, @showView)
+          if @overviewView.isActive()
+            @delegateFocus(e, @overviewView)
+          else
+            @delegateFocus(e, @showView)
           e.preventDefault()
       when 38 #Up
         unless isFormfield
@@ -386,7 +393,10 @@ class Main extends Spine.Controller
           e.preventDefault()
       when 39 #Right
         unless isFormfield
-          @delegateFocus(e, @showView)
+          if @overviewView.isActive()
+            @delegateFocus(e, @overviewView)
+          else
+            @delegateFocus(e, @showView)
           e.preventDefault()
       when 40 #Down
         unless isFormfield
