@@ -45,6 +45,9 @@ class GalleriesAlbum extends Spine.Model
   @activeAlbums: (gid) ->
     @filter(gid, {key: 'gallery_id', func: 'selectNotIgnored'})
       
+  @inactiveAlbums: (gid) ->
+    @filter(gid, {key: 'gallery_id', func: 'selectIgnored'})
+      
   @photos: (id) ->
     ret = []
     unless id
@@ -93,5 +96,8 @@ class GalleriesAlbum extends Spine.Model
     
   selectNotIgnored: (id) ->
     return true if @gallery_id is id and @ignore is false
+    
+  selectIgnored: (id) ->
+    return true if @gallery_id is id and @ignore is true
     
 module.exports = Model.GalleriesAlbum = GalleriesAlbum

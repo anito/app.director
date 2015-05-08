@@ -146,6 +146,11 @@ class Toolbar extends Spine.Model
           klass: 'opt-EmptyAlbum'
           disabled: -> !Gallery.selectionList().length or !Gallery.activePhotos().length
         ,
+          name: 'Toggle visible'
+          icon: 'eye'
+          klass: 'opt-ToggleVisible'
+          disabled: -> false
+        ,
           devider: true
         ,
           name: 'Copy'

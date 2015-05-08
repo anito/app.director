@@ -83,6 +83,7 @@ class ShowView extends Spine.Controller
     'click .opt-CreateGallery:not(.disabled)'         : 'createGallery'
     'click .opt-CreateAlbum:not(.disabled)'           : 'createAlbum'
     'click .opt-DuplicateAlbums:not(.disabled)'       : 'duplicateAlbums'
+    'click .opt-ToggleVisible'                        : 'toggleVisible'
     'click .opt-CopyAlbumsToNewGallery:not(.disabled)': 'copyAlbumsToNewGallery'
     'click .opt-CopyPhotosToNewAlbum:not(.disabled)'  : 'copyPhotosToNewAlbum'
     'click .opt-CopyPhoto'                            : 'copyPhoto'
@@ -707,6 +708,12 @@ class ShowView extends Spine.Controller
     
   showOverview: (e) ->
     @navigate '/overview', ''
+
+  toggleVisible: (e, list = Gallery.selectionList()) ->
+    for id in list
+      ga =  GalleriesAlbum.galleryAlbumExists id, Gallery.record?.id
+      ga.ignore = !ga.ignore
+      ga.save()
 
   showPhotosTrash: ->
     Photo.inactive()

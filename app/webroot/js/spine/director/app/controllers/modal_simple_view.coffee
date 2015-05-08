@@ -12,6 +12,7 @@ class ModalSimpleView extends Spine.Controller
   events:
     'click .opt-ShowAllAlbums' : 'allAlbums'
     'click .opt-AddPhotos'     : 'addPhotos'
+    'click .opt-CreateAlbum'   : 'createAlbum'
     'click .btnClose'          : 'close'
     'hidden.bs.modal'          : 'hiddenmodal'
     'show.bs.modal'            : 'showmodal'
@@ -44,6 +45,9 @@ class ModalSimpleView extends Spine.Controller
   addPhotos: (e) ->
     Spine.trigger('select:album', GalleriesAlbum.albums(Gallery.record?.id)[0].id, true)
     Spine.trigger('photos:add')
+    
+  createAlbum: ->
+    Spine.trigger('create:album')
     
   hiddenmodal: ->
     @log 'hiddenmodal...'
