@@ -1066,18 +1066,18 @@ class ShowView extends Spine.Controller
         
         
     id = el.attr('data-id')
+    item = models.find id
+    
     if isMeta
       #support for multiple selection
-      if parent
-        selection = parent.selectionList()
-        unless id in selection
-          selection.addRemoveSelection(id)
-        else
-          selection.addRemoveSelection(selection.first())
-          
-        parent.updateSelection(selection, parent.record?.id)
+      selection = parent.selectionList()[..]
+      unless id in selection
+        selection.addRemoveSelection(id)
+      else
+        selection.addRemoveSelection(selection.first())
+      @controller.select selection, e#parent.updateSelection(selection, parent.record?.id)
     else
-      parent.updateSelection([id], parent.record?.id)
+      @controller.select [id], e#parent.updateSelection([id], parent.record?.id)
         
   scrollTo: (item) ->
     return unless @controller.isActive() and item

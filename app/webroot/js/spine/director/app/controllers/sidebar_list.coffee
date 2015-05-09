@@ -44,8 +44,8 @@ class SidebarList extends Spine.Controller
     Album.bind('create destroy update', @proxy @renderSublists)
     Gallery.bind('change:selection', @proxy @exposeSublistSelection)
     Gallery.bind('current', @proxy @exposeSelection)
-    Album.bind('change:current', @proxy @scrollTo)
-    Gallery.bind('change:current', @proxy @scrollTo)
+    Album.bind('current', @proxy @scrollTo)
+    Gallery.bind('current', @proxy @scrollTo)
     
   template: -> arguments[0]
   
@@ -278,20 +278,24 @@ class SidebarList extends Spine.Controller
   scrollTo: (item) ->
     return unless item and Gallery.record
     el = @children().forItem(Gallery.record)
-    if item.constructor.className is 'Gallery'
-      ul = $('ul', el)
-      # messuring galleryEl w/o sublist
-      ul.hide()
-      el_ = el[0]
-      ohc = el_.offsetHeight if el_
-      ul.show()
-      speed = 300
-    else
-      ul = $('ul', el)
-      el = $('li', ul).forItem(item)
-      el_ = el[0]
-      ohc = el_.offsetHeight if el_
-      speed = 700
+    clsName = item.constructor.className
+    switch clsName
+      when 'Gallery'
+        queued = true
+        ul = $('ul', el)
+        # messuring galleryEl w/o sublist
+        ul.hide()
+        el_ = el[0]
+        ohc = el_.offsetHeight if el_
+        ul.show()
+        speed = 300
+      when 'Album'
+        queued = false
+        ul = $('ul', el)
+        el = $('li', ul).forItem(item)
+        el_ = el[0]
+        ohc = el_.offsetHeight if el_
+        speed = 700
       
     return unless el.length
       
@@ -313,7 +317,7 @@ class SidebarList extends Spine.Controller
     res = if outOfMinRange then resMin else if outOfMaxRange then resMax
     
     @el.animate scrollTop: res,
-      queue: false
+      queue: queued
       duration: speed
       complete: =>
     

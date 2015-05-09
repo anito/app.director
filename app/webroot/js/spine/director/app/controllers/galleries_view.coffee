@@ -81,8 +81,9 @@ class GalleriesView extends Spine.Controller
     for id in ids
       selection.addRemoveSelection(id)
     
-#    Gallery.trigger('activate', selection[0])
     Root.updateSelection(selection)
+    Gallery.updateSelection(Gallery.selectionList())
+    Album.updateSelection(Album.selectionList())
     
   beforeDestroy: (item) ->
     @list.findModelElement(item).detach()

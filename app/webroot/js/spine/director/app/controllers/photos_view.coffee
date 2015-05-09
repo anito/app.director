@@ -157,15 +157,21 @@ class PhotosView extends Spine.Controller
     App.showView.trigger('change:toolbarOne')
     
     item = $(e.currentTarget).item()
-    @select item.id, @isCtrlClick(e) if item
+    @select item.id, e
     
-  select: (items = [], exclusive) ->
+  select: (items = [], e) ->
     unless Spine.isArray items
       items = [items]
       
-    Album.emptySelection() if exclusive
+    type = e.type
+    Album.emptySelection() if @isCtrlClick(e)
+      
+    switch type
+      when 'keyup'
+        selection = []
+      when 'click'
+        selection = Album.selectionList()[..] 
     
-    selection = Album.selectionList()[..]
     for id in items
       selection.addRemoveSelection(id)
       

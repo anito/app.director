@@ -368,19 +368,26 @@ class AlbumsView extends Spine.Controller
     if gallery.id is Gallery.record.id
       @render()
       
-  click: (e) ->
+  click: (e, excl) ->
     e.preventDefault()
     e.stopPropagation()
     
     item = $(e.currentTarget).item()
-    @select(item.id, @isCtrlClick(e))
+    @select(item.id, e)
     
-  select: (items = [], exclusive) ->
+  select: (items = [], e) ->
     unless Spine.isArray items
       items = [items]
-    Gallery.emptySelection() if exclusive
       
-    selection = Gallery.selectionList()[..]
+    type = e.type
+    Gallery.emptySelection() if @isCtrlClick(e)
+      
+    switch type
+      when 'keyup'
+        selection = []
+      when 'click'
+        selection = Gallery.selectionList()[..]
+      
     for id in items
       selection.addRemoveSelection(id)
     
