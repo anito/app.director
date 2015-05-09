@@ -61,7 +61,7 @@ Model.Extender =
       selectionList: (recordID) ->
         ret = []
         id = recordID or @record?.id or @record?.cid
-        return @selection[0].global unless @exists id
+        return @selection[0].global unless id
         for item in @selection
           return item[id] if item[id]
         ret

@@ -8,7 +8,9 @@
     for (_i = 0, _len = this.length; _i < _len; _i++) {
       item = this[_i];
       id = typeof item === 'object' ? item.id : typeof item === 'string' ? item : void 0;
-      res.push(id);
+      if (id) {
+        res.push(id);
+      }
     }
     return res;
   };

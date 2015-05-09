@@ -2,7 +2,7 @@ Array.prototype.toID = ->
   res = []
   for item in @
     id = if typeof item is 'object' then item.id else if typeof item is 'string' then item
-    res.push id
+    res.push id if id
   res
   
 Array.prototype.last = ->

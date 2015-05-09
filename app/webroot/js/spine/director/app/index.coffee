@@ -193,19 +193,19 @@ class Main extends Spine.Controller
     
     @routes
       '/gallery/:gid/:aid/:pid': (params) ->
-        Root.updateSelection params.gid
-        Gallery.updateSelection params.aid
-        Album.updateSelection params.pid
+        Root.updateSelection params.gid or null
+        Gallery.updateSelection params.aid or null
+        Album.updateSelection params.pid or null
         if params.pid is 'slideshow'
           @showView.trigger('active', @showView.photosView, params.pid)
         else
           @showView.trigger('active', @showView.photoView)
       '/gallery/:gid/:aid': (params) ->
-        Root.updateSelection params.gid
-        Gallery.updateSelection params.aid
+        Root.updateSelection params.gid or null
+        Gallery.updateSelection params.aid or null
         @showView.trigger('active', @showView.photosView)
       '/gallery/:gid': (params) ->
-        Root.updateSelection params.gid
+        Root.updateSelection params.gid or null
         @showView.trigger('active', @showView.albumsView)
       '/galleries/*': ->
         @showView.trigger('active', @showView.galleriesView)
