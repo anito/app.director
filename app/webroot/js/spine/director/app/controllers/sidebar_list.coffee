@@ -44,8 +44,8 @@ class SidebarList extends Spine.Controller
     Album.bind('create destroy update', @proxy @renderSublists)
     Gallery.bind('change:selection', @proxy @exposeSublistSelection)
     Gallery.bind('current', @proxy @exposeSelection)
-    Gallery.bind('change:current', @proxy @scrollTo)
     Album.bind('change:current', @proxy @scrollTo)
+    Gallery.bind('change:current', @proxy @scrollTo)
     
   template: -> arguments[0]
   
