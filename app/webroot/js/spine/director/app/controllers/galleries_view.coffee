@@ -72,7 +72,7 @@ class GalleriesView extends Spine.Controller
   select_: (item) ->
     Gallery.trigger('activate', item.id)
     
-  select: (ids = [], exclusive) ->
+  select__: (ids = [], exclusive) ->
     unless Spine.isArray ids
       ids = [ids]
     Root.emptySelection() if exclusive
@@ -82,6 +82,14 @@ class GalleriesView extends Spine.Controller
       selection.addRemoveSelection(id)
     
     Root.updateSelection(selection)
+    Gallery.updateSelection(Gallery.selectionList())
+    Album.updateSelection(Album.selectionList())
+    
+  select: (e, items = []) ->
+    unless Spine.isArray items
+      items = [items]
+      
+    Root.updateSelection(items.first())
     Gallery.updateSelection(Gallery.selectionList())
     Album.updateSelection(Album.selectionList())
     
