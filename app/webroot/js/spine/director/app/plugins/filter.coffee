@@ -38,8 +38,7 @@ Filter =
         bb = (b or '').name?.toLowerCase()
         return if aa == bb then 0 else if aa < bb then -1 else 1
           
-      sortSelectionListByOrder: ->
-        list = @selectionList()
+      sortSelectionListByOrder: (list = @selectionList())->
         list.sort (a, b) ->
           aInt = parseInt(Album.find(a).order)
           bInt = parseInt(Album.find(b).order)

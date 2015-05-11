@@ -159,25 +159,22 @@ class PhotosView extends Spine.Controller
     item = $(e.currentTarget).item()
     @select item.id, e
     
-  select: (items = [], e) ->
+  select: (e, items = []) ->
     unless Spine.isArray items
       items = [items]
       
     type = e.type
-    Album.emptySelection() if @isCtrlClick(e)
-      
     switch type
       when 'keyup'
-        selection = []
+        selection = items
       when 'click'
-        selection = Album.selectionList()[..] 
+        Album.emptySelection() if @isCtrlClick(e)
+        selection = Album.selectionList()[..]
+        for id in items
+          selection.addRemoveSelection(id)
     
-    for id in items
-      selection.addRemoveSelection(id)
-      
-#    Photo.trigger('activate', selection[0])
     Album.updateSelection(selection, Album.record?.id)
-  
+      
   clearPhotoCache: ->
     Photo.clearCache()
   

@@ -18,11 +18,11 @@
   Array.prototype.last = function() {
     var lastIndex;
     lastIndex = this.length - 1;
-    return this[lastIndex];
+    return this[lastIndex] || null;
   };
 
   Array.prototype.first = function() {
-    return this[0];
+    return this[0] || null;
   };
 
   Array.prototype.update = function(value) {

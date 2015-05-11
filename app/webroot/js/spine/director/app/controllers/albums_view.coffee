@@ -50,8 +50,8 @@ class AlbumsView extends Spine.Controller
  
   constructor: ->
     super
+#    @trace = false
     @bind('active', @proxy @active)
-    @trace = false
     @el.data('current',
       model: Gallery
       models: Album
@@ -373,25 +373,22 @@ class AlbumsView extends Spine.Controller
     e.stopPropagation()
     
     item = $(e.currentTarget).item()
-    @select(item.id, e)
+    @select(e, item.id)
     
-  select: (items = [], e) ->
+  select: (e, items = []) ->
     unless Spine.isArray items
       items = [items]
       
     type = e.type
-    Gallery.emptySelection() if @isCtrlClick(e)
-      
     switch type
       when 'keyup'
-        selection = []
+        selection = items
       when 'click'
+        Gallery.emptySelection() if @isCtrlClick(e)
         selection = Gallery.selectionList()[..]
-      
-    for id in items
-      selection.addRemoveSelection(id)
+        for id in items
+          selection.addRemoveSelection(id)
     
-#    Album.trigger('activate', selection[0])
     Gallery.updateSelection(selection, Gallery.record?.id)
     
   infoUp: (e) =>

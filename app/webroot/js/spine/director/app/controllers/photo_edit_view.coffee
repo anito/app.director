@@ -18,13 +18,13 @@ class PhotoEditView extends Spine.Controller
   constructor: ->
     super
     @bind('active', @proxy @active)
-    Album.bind('change:selection', @proxy @change)
+    Photo.bind('current', @proxy @change)
   
   active: ->
     @render()
   
-  change: (id) ->
-    @current = Photo.find(id)
+  change: (item) ->
+    @current = item
     @render()
   
   render: () ->

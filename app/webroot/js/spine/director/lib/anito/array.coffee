@@ -7,10 +7,10 @@ Array.prototype.toID = ->
   
 Array.prototype.last = ->
   lastIndex = @.length-1
-  @[lastIndex]
+  @[lastIndex] or null
   
 Array.prototype.first = ->
-  @[0]
+  @[0] or null
   
   
 Array.prototype.update = (value) ->

@@ -1021,11 +1021,11 @@ class ShowView extends Spine.Controller
   shownmodal: (e) ->
     @log 'shownmodal'
       
-  selectByKey: (direction, e) ->
+  selectByKey: (e, direction) ->
     @log 'selectByKey'
     isMeta = e.metaKey or e.ctrlKey
-    index = false
-    lastIndex = false
+    index = null
+    lastIndex = null
     list = @controller.list?.listener or @controller.list
     elements = if list then $('.item', list.el) else $()
     models = @controller.el.data('current').models
@@ -1042,13 +1042,18 @@ class ShowView extends Spine.Controller
       if $(el).is(activeEl)
         index = idx
         
-    index = parseInt(index)
-        
-    first   = elements[0] or false
-    active  = elements[index] or first
-    prev    = elements[index-1] or elements[index] or active
-    next    = elements[index+1] or elements[index] or active
-    last    = elements[lastIndex] or active
+    last    = elements[lastIndex] or false
+    unless index?
+      prev = next = first = elements[0] or false
+    else if isMeta
+      active  = elements[index]
+      first   = elements[0] or false
+      prev    = elements[index-1] or false
+      next    = elements[index+1] or false
+    else
+      first   = elements[0] or false
+      prev    = elements[index-1] or elements[index] or false
+      next    = elements[index+1] or elements[index] or false
     
     switch direction
       when 'left'
@@ -1059,14 +1064,9 @@ class ShowView extends Spine.Controller
         el = $(next)
       when 'down'
         el = $(last)
-      else
-        @log active
-        return unless active
-        el = $(active)
         
         
     id = el.attr('data-id')
-    item = models.find id
     
     if isMeta
       #support for multiple selection
@@ -1074,10 +1074,14 @@ class ShowView extends Spine.Controller
       unless id in selection
         selection.addRemoveSelection(id)
       else
-        selection.addRemoveSelection(selection.first())
-      @controller.select selection, e#parent.updateSelection(selection, parent.record?.id)
+        first = selection.first()
+        selection.addRemoveSelection(id)
+        selection.addRemoveSelection(first)
+        selection.addRemoveSelection(id)
+        
+      @controller.select e, selection
     else
-      @controller.select [id], e#parent.updateSelection([id], parent.record?.id)
+      @controller.select e, [id]
         
   scrollTo: (item) ->
     return unless @controller.isActive() and item
@@ -1176,19 +1180,19 @@ class ShowView extends Spine.Controller
           e.preventDefault()
       when 37 #Left
         unless isFormfield
-          @selectByKey('left', e)
+          @selectByKey(e, 'left')
           e.preventDefault()
       when 38 #Up
         unless isFormfield
-          @selectByKey('up', e)
+          @selectByKey(e, 'up')
           e.preventDefault()
       when 39 #Right
         unless isFormfield
-          @selectByKey('right', e)
+          @selectByKey(e, 'right')
           e.preventDefault()
       when 40 #Down
         unless isFormfield
-          @selectByKey('down', e)
+          @selectByKey(e, 'down')
           e.preventDefault()
       when 65 #CTRL A
         unless isFormfield
