@@ -67,7 +67,7 @@ class GalleriesView extends Spine.Controller
     
     App.showView.trigger('change:toolbarOne', ['Default'])
     item = $(e.currentTarget).item()
-    @select(item.id, true) #one gallery selected at a time
+    @select(e, item.id) #one gallery selected at a time
     
   select_: (item) ->
     Gallery.trigger('activate', item.id)

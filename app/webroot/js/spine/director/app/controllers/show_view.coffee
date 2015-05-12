@@ -641,18 +641,20 @@ class ShowView extends Spine.Controller
   selectAll: (e) ->
     try
       list = @select_()
-      @current.select(list, true)
+      @current.select(e, list)
     catch e
     
   selectNone: (e) ->
     try
-      @current.select([], true)
+      @current.select(e, [])
     catch e
     
   selectInv: (e)->
     try
       list = @select_()
-      @current.select(list)
+      selList = @current.el.data('current').model.selectionList()
+      list.removeFromList(selList)
+      @current.select(e, list)
     catch e
     
   select_: ->

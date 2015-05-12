@@ -157,7 +157,7 @@ class PhotosView extends Spine.Controller
     App.showView.trigger('change:toolbarOne')
     
     item = $(e.currentTarget).item()
-    @select item.id, e
+    @select e, item.id
     
   select: (e, items = []) ->
     unless Spine.isArray items
@@ -170,6 +170,7 @@ class PhotosView extends Spine.Controller
       when 'click'
         Album.emptySelection() if @isCtrlClick(e)
         selection = Album.selectionList()[..]
+        items = selection[..] unless items.length
         for id in items
           selection.addRemoveSelection(id)
     
@@ -259,11 +260,8 @@ class PhotosView extends Spine.Controller
     photos = [photos] unless Photo.isArray(photos)
     photos = photos.toID()
     
-    selection = []
-    for id in photos
-      selection.addRemoveSelection id
-      
     Photo.destroyJoin photos, album, callback
+    album.updateSelection()
     
   sortupdate: ->
     @log 'sortupdate'

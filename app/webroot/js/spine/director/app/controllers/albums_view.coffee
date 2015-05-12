@@ -306,7 +306,6 @@ class AlbumsView extends Spine.Controller
       
   createJoin: (albums, gallery, callback) ->
     Album.createJoin albums, gallery, callback
-    Album.trigger('activate', albums.last())
     gallery.updateSelection albums
     
   destroyJoin: (albums, gallery) ->
@@ -318,11 +317,8 @@ class AlbumsView extends Spine.Controller
     albums = [albums] unless Album.isArray(albums)
     albums = albums.toID()
     
-    selection = []
-    for id in albums
-      selection.addRemoveSelection id
-
     Album.destroyJoin albums, gallery, callback
+    gallery.updateSelection()
       
   loadingStart: (album) ->
     return unless @isActive()
@@ -386,6 +382,7 @@ class AlbumsView extends Spine.Controller
       when 'click'
         Gallery.emptySelection() if @isCtrlClick(e)
         selection = Gallery.selectionList()[..]
+        items = selection[..] unless items.length
         for id in items
           selection.addRemoveSelection(id)
     

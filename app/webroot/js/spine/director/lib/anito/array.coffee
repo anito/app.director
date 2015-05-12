@@ -5,6 +5,15 @@ Array.prototype.toID = ->
     res.push id if id
   res
   
+Array.prototype.removeFromList = (list=[]) ->
+  seq = []
+  for id, idx in @ when id in list
+    seq.push(idx)
+  seq.reverse()
+  for id in seq
+    @splice(id, 1)
+  @
+  
 Array.prototype.last = ->
   lastIndex = @.length-1
   @[lastIndex] or null
@@ -12,7 +21,8 @@ Array.prototype.last = ->
 Array.prototype.first = ->
   @[0] or null
   
-  
+
+
 Array.prototype.update = (value) ->
   throw new Error('passed value requires an array') unless Object::toString.call(value) is '[object Array]'
   @[0...@length] = value

@@ -15,6 +15,26 @@
     return res;
   };
 
+  Array.prototype.removeFromList = function(list) {
+    var id, idx, seq, _i, _j, _len, _len1;
+    if (list == null) {
+      list = [];
+    }
+    seq = [];
+    for (idx = _i = 0, _len = this.length; _i < _len; idx = ++_i) {
+      id = this[idx];
+      if (__indexOf.call(list, id) >= 0) {
+        seq.push(idx);
+      }
+    }
+    seq.reverse();
+    for (_j = 0, _len1 = seq.length; _j < _len1; _j++) {
+      id = seq[_j];
+      this.splice(id, 1);
+    }
+    return this;
+  };
+
   Array.prototype.last = function() {
     var lastIndex;
     lastIndex = this.length - 1;
