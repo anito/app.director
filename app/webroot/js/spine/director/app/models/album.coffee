@@ -160,6 +160,9 @@ class Album extends Spine.Model
   count: (inc = 0) =>
     @constructor.contains(@id).length + inc
   
+  contains: ->
+    @constructor.contains @id
+  
   photos: (max) ->
     @constructor.photos @id, max
   

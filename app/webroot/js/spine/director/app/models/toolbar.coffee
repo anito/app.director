@@ -149,7 +149,7 @@ class Toolbar extends Spine.Model
           name: 'Empty Albums'
           icon: 'fire'
           klass: 'opt-EmptyAlbum'
-          disabled: -> !Gallery.selectionList().length or !Gallery.activePhotos().length
+          disabled: -> !Gallery.selectionList().length or !Gallery.selectedAlbumsHasPhotos()
         ,
           name: ->
             a = 'Toggle visible'

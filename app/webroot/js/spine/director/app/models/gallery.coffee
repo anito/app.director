@@ -52,6 +52,12 @@ class Gallery extends Spine.Model
       key:'gallery_id'
     Album.filterRelated(id, filterOptions)
 
+  @selectedAlbumsHasPhotos: ->
+    albums = Album.toRecords @selectionList()
+    for alb in albums
+      return true if alb.contains().length
+    false
+  
   @activePhotos: (id = @record?.id) ->
     ret = []
     if id
