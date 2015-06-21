@@ -924,7 +924,13 @@
     <{{if type}}${type} class="{{if icon}}symbol{{/if}} tb-name {{if innerklass}}${innerklass}{{/if}}"{{else}}button class="symbol dark {{if innerklass}}${innerklass}{{/if}}" {{if dataToggle}} data-toggle="${dataToggle}"{{/if}}{{/if}}
     {{if innerstyle}} style="${innerstyle}"{{/if}}
     {{if disabled}}disabled{{/if}}>
-    {{if icon}}<i class="glyphicon glyphicon-${icon}  {{if iconcolor}}glyphicon glyphicon-${iconcolor}{{/if}}"></i>{{/if}}{{html name}}
+    {{if icon}}
+    <i class="glyphicon glyphicon-${icon} {{if iconcolor}}glyphicon-${iconcolor}{{/if}}"></i> 
+    {{/if}}
+    {{if icon2}}
+    <i class="glyphicon glyphicon-${icon2} {{if iconcolor}}glyphicon-${iconcolor}{{/if}}"></i> 
+    {{/if}}
+    {{html name}}
     </{{if type}}${type}{{else}}button{{/if}}>
   </li>
   {{/if}}
