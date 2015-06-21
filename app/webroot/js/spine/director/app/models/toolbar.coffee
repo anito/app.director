@@ -144,7 +144,7 @@ class Toolbar extends Spine.Model
           name: -> 'Destroy Empty Albums (' + Album.findEmpties().length + ')'
           icon: 'trash'
           klass: 'opt-DestroyEmptyAlbums'
-          disabled: -> false
+          disabled: -> !Album.findEmpties().length
         ,
           name: 'Empty Albums'
           icon: 'fire'
