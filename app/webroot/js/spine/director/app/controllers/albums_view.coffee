@@ -387,6 +387,7 @@ class AlbumsView extends Spine.Controller
           selection.addRemoveSelection(id)
     
     Gallery.updateSelection(selection, Gallery.record?.id)
+    Album.updateSelection(Album.selectionList(), Album.record?.id)
     
   infoUp: (e) =>
     @info.up(e)

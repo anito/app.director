@@ -137,30 +137,23 @@ Model.Extender =
           
       contains: -> []
       
-      # private
       createJoinTables: (arr) ->
         return unless @isArray arr
         joinTables = @joinTables()
         for key in joinTables
           Model[key].refresh(@createJoins(arr, key), clear: true)
         
+      fromArray: (arr, key) ->
+        new @(obj[key]) for obj in arr
+        
+      # private
+      
       joinTables: ->
         fModels = @foreignModels()
         joinTables = for key, value of fModels
           fModels[key]['joinTable']
         joinTables
 
-      fromArray: (arr, key) ->
-        res = []
-        extract = (obj) =>
-          unless @isArray obj[key]
-            item = =>
-              res.push new @(obj[key])
-            itm = item()
-        
-        extract(obj) for obj in arr
-        res
-        
       createJoins: (json, tableName) ->
         res = []
         introspect = (obj) =>

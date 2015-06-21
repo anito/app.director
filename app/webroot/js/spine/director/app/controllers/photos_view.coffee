@@ -260,6 +260,7 @@ class PhotosView extends Spine.Controller
     photos = [photos] unless Photo.isArray(photos)
     photos = photos.toID()
     
+    return unless album
     Photo.destroyJoin photos, album, callback
     album.updateSelection()
     

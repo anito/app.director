@@ -38,8 +38,6 @@ class Photo extends Spine.Model
   @url: '' + base_url + @className.toLowerCase() + 's'
 
   @fromJSON: (objects) ->
-    @log 'fromJSON'
-    @log @className
     super
     @createJoinTables objects
     key = @className
@@ -133,6 +131,8 @@ class Photo extends Spine.Model
   init: (instance) ->
     return unless instance?.id
     @constructor.initCache instance.id
+    
+  parent: -> @constructor.parent
   
   createJoin: (target) ->
     @constructor.createJoin [@id], target

@@ -29,8 +29,6 @@ class Gallery extends Spine.Model
   @url: '' + base_url + 'galleries'
 
   @fromJSON: (objects) ->
-    @log 'fromJSON'
-    @log @className
     super
     @createJoinTables objects
     key = @className

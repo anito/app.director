@@ -147,6 +147,8 @@ class Album extends Spine.Model
     @constructor.selection.push s
     @constructor.childType = 'Photo'
     
+  parent: -> @constructor.parent
+    
   selChange: (list) ->
   
   createJoin: (target) ->

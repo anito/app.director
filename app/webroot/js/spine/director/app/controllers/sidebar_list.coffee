@@ -184,7 +184,7 @@ class SidebarList extends Spine.Controller
     @expand item, true
     @exposeSublistSelection null, item?.id
     
-  exposeSublistSelection: (selection = Gallery.selectionList(), id) ->
+  exposeSublistSelection: (selection = Gallery.selectionList(), id=Gallery.record?.id) ->
     @log 'exposeSublistSelection'
     item = Gallery.find id
     if item
