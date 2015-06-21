@@ -318,7 +318,6 @@ class AlbumsView extends Spine.Controller
     albums = albums.toID()
     
     Album.destroyJoin albums, gallery, callback
-    gallery.updateSelection()
       
   loadingStart: (album) ->
     return unless @isActive()

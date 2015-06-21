@@ -88,7 +88,7 @@ Model.Extender =
           
         for id in idOrList
           unless (index = originalList.indexOf(id)) is -1
-            originalList.splice(index, 1) 
+            originalList.splice(index, 1)
           
         list = @updateSelection id, originalList.slice(0), options
         list
@@ -210,7 +210,7 @@ Model.Extender =
       removeFromSelection: (list, options) ->
         @constructor.removeFromSelection(@id, list, options)
       
-      updateSelection: (list, options) ->
+      updateSelection: (list=[], options) ->
         list = [list] unless @constructor.isArray list
         list = @constructor.updateSelection list, @id, options
 
