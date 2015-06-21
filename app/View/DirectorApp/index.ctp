@@ -779,7 +779,6 @@
 <script id="albumInfoTemplate" type="text/x-jquery-tmpl">
   <ul>
     <li class="tr name">
-      <span class="td left">${id} </span>
       <span class="td left">{{if title}}${title}{{else}}no title{{/if}} </span><span class="td"></span><span class="td right"> {{tmpl($item.data.details()) "#albumCountTemplate"}}</span>
     </li>
     <li class="tr italic">{{if description}}

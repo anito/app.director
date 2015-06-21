@@ -43,7 +43,6 @@ class ModalSimpleView extends Spine.Controller
     @navigate '/gallery', ''
     
   addPhotos: (e) ->
-    Spine.trigger('select:album', GalleriesAlbum.albums(Gallery.record?.id)[0].id, true)
     Spine.trigger('photos:add')
     
   createAlbum: ->

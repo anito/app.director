@@ -987,17 +987,17 @@ class ShowView extends Spine.Controller
       options:
         small: false
         body: => require("views/no_slideshow")
-          copyright     : 'Axel Nitzschner'
-          spine_version : Spine.version
-          app_version   : App.version
-          noGallery: !!!Gallery.record
-          selectedAlbums: Gallery.selectionList(null).length
-          noAlbumsView: !(!Gallery.record and @albumsView.isActive())
-          albumsCount: GalleriesAlbum.albums(Gallery.record?.id).length
-          photosCount: GalleriesAlbum.photos(Gallery.record?.id).length
-          activeAlbumsCount: GalleriesAlbum.activeAlbums(Gallery.record?.id).length
-          activePhotosCount: Gallery.activePhotos(Gallery.record?.id).length
-          bs_version    : $.fn.tooltip.Constructor.VERSION
+          copyright           : 'Axel Nitzschner'
+          spine_version       : Spine.version
+          app_version         : App.version
+          noGallery           : !!!Gallery.record
+          selectedAlbums      : Gallery.selectionList(null).length
+          noAlbumsView        : !(!Gallery.record and @albumsView.isActive())
+          albumsCount         : GalleriesAlbum.albums(Gallery.record?.id).length
+          photosCount         : GalleriesAlbum.photos(Gallery.record?.id).length
+          activeAlbumsCount   : GalleriesAlbum.activeAlbums(Gallery.record?.id).length
+          activePhotosCount   : Gallery.activePhotos(Gallery.record?.id).length
+          bs_version          : $.fn.tooltip.Constructor.VERSION
       modalOptions:
         keyboard: true
         show: false
