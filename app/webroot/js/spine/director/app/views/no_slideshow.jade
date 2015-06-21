@@ -29,16 +29,24 @@ p
                         when 0
                           div Select an Album and add Photos to it
                         default
-                          div #[a.opt-AddPhotos.btnClose.anim-link Add] Photos to your Album
+                          div #[a.opt-AddPhotos.btnClose.anim-link Add] Photos to your selected Album
                           
             default
               case activeAlbumsCount
                 when 0
                   div None of your #{count} Albums is active
                 when 1
-                  div No Photos in your active Album
+                  case selectedAlbums
+                    when 0
+                      div Select an Album
+                    default
+                      div #[a.opt-AddPhotos.btnClose.anim-link Add] Photos to your selected Album
                 default
-                  div No Photos in your active Albums
+                  div #[a.opt-AddPhotos.btnClose.anim-link Add] Photos to your selected Albums
               case photosCount
                 when 0
-                  div #[a.opt-AddPhotos.btnClose.anim-link Add] Photos to your Album
+                  case selectedAlbums
+                    when 0
+                      div Select an Album
+                    default
+                      div #[a.opt-AddPhotos.btnClose.anim-link Add] Photos to your selected Album
