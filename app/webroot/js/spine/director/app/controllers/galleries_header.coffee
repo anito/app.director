@@ -15,6 +15,11 @@ class GalleriesHeader extends Spine.Controller
     Gallery.bind('change', @proxy @render)
     Gallery.bind('refresh', @proxy @render)
     Gallery.bind('change:current', @proxy @render)
+    
+    Album.bind('change', @proxy @render)
+    Album.bind('change:collection', @proxy @render)
+    
+    Photo.bind('refresh', @proxy @render)
 
   render: ->
     return unless @isActive()
