@@ -890,8 +890,10 @@ class ShowView extends Spine.Controller
             'Select the album you want to upload photos to'
             'If no album is selected, Director will change to the photos library after upload'
             'To start uploading your content, you can:',
-            'Drag photos from the desktop to your browser, or',
-            'Use the appropriate upload menu item',
+            items: [
+              'Drag photos from the desktop to your browser, or',
+              'Use the appropriate upload menu item',
+            ]
             'Director currently supports JPG, JPE, GIF and PNG'
           ]
       ,
