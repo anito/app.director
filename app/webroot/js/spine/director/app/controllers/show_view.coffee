@@ -1081,9 +1081,9 @@ class ShowView extends Spine.Controller
         selection.addRemoveSelection(first)
         selection.addRemoveSelection(id)
         
-      @controller.select e, selection
+      list.parent.select e, selection
     else
-      @controller.select e, [id]
+      list.parent.select e, [id]
         
   scrollTo: (item) ->
     return unless @controller.isActive() and item
