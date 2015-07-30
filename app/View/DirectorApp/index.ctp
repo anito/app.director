@@ -427,7 +427,7 @@
     <div class="glyphicon-set right blue fade out" style="">
       <span class="tooltips downloading glyphicon glyphicon-download-alt glyphicon-white hide left fade" data-toggle="tooltip"></span>
       <span class="left">
-        <a href="#" class="dropdown-toggle glyphicon glyphicon-chevron-down glyphicon-white" data-toggle="dropdown"></a>
+        <a href="#" class="dd dropdown-toggle glyphicon glyphicon-chevron-down glyphicon-white" data-toggle="dropdown"></a>
         <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
           <li role="presentation" class="zoom"><a role="menuitem" tabindex="-1" data-toggle="tooltip" title="Open" href="#"><i class="tooltips glyphicon glyphicon-folder-close"></i>Open</a></li>
           <li class="divider"></li>
@@ -535,15 +535,15 @@
     <div class="thumbnail"></div>
     {{if Gallery.record}}
     <div class="glyphicon-set left" style="">
-      <span class="">
+      <span class="dd">
         <a href="#" title="{{if ignore}}Show{{else}}Ignore{{/if}} in Slideshow" class="glyphicon glyphicon-eye glyphicon-white opt-ignore"></a>
       </span>
     </div>
     {{/if}}
     <div class="glyphicon-set blue right fade out" style="">
-      <span class="tooltips downloading glyphicon glyphicon-download-alt glyphicon-white hide left fade" data-toggle="tooltip"></span>
+      <span class="dd tooltips downloading glyphicon glyphicon-download-alt glyphicon-white hide left fade" data-toggle="tooltip"></span>
       <span class="left">
-        <a href="#" class="dropdown-toggle glyphicon glyphicon-chevron-down glyphicon-white" data-toggle="dropdown"></a>
+        <a href="#" class="dd dropdown-toggle glyphicon glyphicon-chevron-down glyphicon-white" data-toggle="dropdown"></a>
         <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
           <li role="presentation" class="zoom"><a role="menuitem" tabindex="-1" data-toggle="tooltip" title="Open" href="#"><i class="tooltips glyphicon glyphicon-folder-close"></i>Open</a></li>
           {{if Gallery.record}}
@@ -837,7 +837,7 @@
   <div class="glyphicon-set right blue fade out" style="">
     <span class="tooltips downloading glyphicon glyphicon-download-alt glyphicon-white hide left fade" data-toggle="tooltip"></span>
     <span class="left">
-      <a href="#" class="dropdown-toggle glyphicon glyphicon-chevron-down glyphicon-white" data-toggle="dropdown"></a>
+      <a href="#" class="dd dropdown-toggle glyphicon glyphicon-chevron-down glyphicon-white" data-toggle="dropdown"></a>
       <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
         <li role="presentation" class="zoom"><a role="menuitem" tabindex="-1" data-toggle="tooltip" title="Open" href="#"><i class="tooltips glyphicon glyphicon-resize-full"></i>Open</a></li>
         <li class="divider"></li>
@@ -860,7 +860,7 @@
   <div class="glyphicon-set right blue fade out" style="">
     <span class="tooltips downloading glyphicon glyphicon-download-alt glyphicon-white hide left fade" data-toggle="tooltip"></span>
     <span class="left">
-      <a href="#" class="dropdown-toggle glyphicon glyphicon-chevron-down glyphicon-white" data-toggle="dropdown"></a>
+      <a href="#" class="dd dropdown-toggle glyphicon glyphicon-chevron-down glyphicon-white" data-toggle="dropdown"></a>
       <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
         <li role="presentation" class="zoom"><a role="menuitem" tabindex="-1" data-toggle="tooltip" title="Full Size" href="#"><i class="tooltips glyphicon glyphicon-resize-full"></i>Full size</a></li>
         <li class="divider"></li>
