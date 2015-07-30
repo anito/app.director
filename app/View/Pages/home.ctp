@@ -11,7 +11,7 @@
             <a href="/director_app" class="btn btn-info btn-large" type="submit"><span itemprop="name">Photo Director</span></a>
           </td>
           <td>
-            <a href="#" class="btn btn-primary btn-large" type="submit"><span itemprop="name">Datastore (offline)</span></a>
+            <a href="http://datastore.webpremiere.de" class="btn btn-primary btn-large" type="submit"><span itemprop="name">Datastore (offline)</span></a>
           </td>
           <td>
             <a href="http://app.webpremiere.de" class="btn btn-large" type="submit">More...</a>
