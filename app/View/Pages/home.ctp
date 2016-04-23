@@ -30,7 +30,7 @@ endif;
       <table class="download-info">
         <tr style="text-align: center">
           <td>
-            <a href="/director_app" class="btn btn-info btn-large" type="submit"><span itemprop="name">Photo Directorxxx</span></a>
+            <a href="/director_app" class="btn btn-info btn-large" type="submit"><span itemprop="name">Photo Director</span></a>
           </td>
           <td>
            <a href="http://data.webpremiere.<?php echo TOPLEVEL; ?>" class="btn btn-primary btn-large" type="submit"><span itemprop="name">Datastore</span></a>
