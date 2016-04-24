@@ -33,7 +33,7 @@ endif;
             <a href="/director_app" class="btn btn-info btn-large" type="submit"><span itemprop="name">Photo Director</span></a>
           </td>
           <td>
-           <a href="http://data.<?php echo HOST; ?>.<?php echo TOPLEVEL; ?>" class="btn btn-primary btn-large" type="submit"><span itemprop="name">Datastore</span></a>
+           <a href="https://data.<?php echo HOST; ?>.<?php echo TOPLEVEL; ?>" class="btn btn-primary btn-large" type="submit"><span itemprop="name">Datastore</span></a>
           </td>
           <td>
             <a href="http://app.<?php echo HOST; ?>.<?php echo TOPLEVEL; ?>" class="btn btn-large" type="submit">More...</a>
