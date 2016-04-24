@@ -138,6 +138,11 @@ if (!defined('TOPLEVEL')) {
   $last = count($a)-1;
   define('TOPLEVEL', $a[$last]);
 }
+if (!defined('HOST')) {
+  $a = explode('.', DIR_HOST);
+  $domain = count($a)-2;
+  define('HOST', $a[$domain]);
+}
 if (!defined('SIMPLE_JSON')) {
 	define('SIMPLE_JSON', '/Elements/simple_json');
 }
