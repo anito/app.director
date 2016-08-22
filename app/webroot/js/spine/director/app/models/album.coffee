@@ -73,7 +73,9 @@ class Album extends Spine.Model
     ret
     
   @activePhotos: ->
-    @photos(id = @record?.id)
+    if id = @record.id
+      return @photos(id)
+    return @contains()
     
   @inactive: ->
     @findAllByAttribute('active', false)
