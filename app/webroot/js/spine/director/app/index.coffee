@@ -307,6 +307,7 @@ class Main extends Spine.Controller
   changeMainCanvas: (controller) ->
     
   changeContentCanvas: (controller) ->
+    controller.el.removeClass('in')
     controller.el.addClass('in')
       
   changeEditCanvas: (controller) ->
