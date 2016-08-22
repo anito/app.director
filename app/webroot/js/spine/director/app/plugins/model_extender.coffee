@@ -146,6 +146,8 @@ Model.Extender =
       fromArray: (arr, key) ->
         new @(obj[key]) for obj in arr
         
+      activePhotos: -> Gallery.activePhotos()
+        
       # private
       
       joinTables: ->

@@ -150,8 +150,8 @@ class GalleriesList extends Spine.Controller
     
   slideshowPlay: (e) ->
     gallery = $(e.currentTarget).closest('.item').item()
-    if gallery.activePhotos().length
-      Gallery.trigger('activate', gallery.id)
+    if App.activePhotos().length
+      #Gallery.trigger('activate', gallery.id)
       App.slideshowView.trigger('play')
     else
       App.showView.noSlideShow()

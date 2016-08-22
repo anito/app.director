@@ -335,6 +335,12 @@ class Main extends Spine.Controller
   loadToolbars: ->
     Toolbar.load()
 
+  activePhotos: ->
+    model = @showView.current.el.data('current').model
+    
+    photos = model.activePhotos()
+    photos
+
   activateEditor: (e) ->
     el = $(e.currentTarget)
     test = el.prop('class')

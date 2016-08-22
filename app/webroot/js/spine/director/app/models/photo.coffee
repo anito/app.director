@@ -77,7 +77,7 @@ class Photo extends Spine.Model
   @inactive: ->
     @findAllByAttribute('active', false)
     
-  
+  @activePhotos: -> [ @record ]
     
   @createJoin: (items=[], target, callback) ->
     unless @isArray items

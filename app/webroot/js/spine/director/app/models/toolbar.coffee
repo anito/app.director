@@ -41,7 +41,7 @@ class Toolbar extends Spine.Model
         ,
           name: 'Preview'
           klass: 'opt-SlideshowPreview '
-          disabled: -> !Gallery.activePhotos().length
+          disabled: -> !App.activePhotos().length
         ,
           devider: true
         ,
@@ -276,21 +276,21 @@ class Toolbar extends Spine.Model
         ]
     group4:
       name: -> 
-        len = Gallery.activePhotos().length
-        'Slideshow (' + len + ')'
+        len = App.activePhotos().length
+        'Slideshow  <span class="badge">' + len + '</span>'
       content:
         [
           name: -> 'Preview'
           klass: 'opt-SlideshowPreview'
           icon: 'picture'
-          disabled: -> !Gallery.activePhotos().length
+          disabled: -> !App.activePhotos().length
         ,
           name: 'Start'
           klass: 'opt-SlideshowPlay'
           shortcut: 'Space'
           icon: 'play'
           dataToggle: 'modal-gallery'
-          disabled: -> !Gallery.activePhotos().length
+          disabled: -> !App.activePhotos().length
         ]
       
   @data:
@@ -336,9 +336,9 @@ class Toolbar extends Spine.Model
           icon: 'picture'
           icon2: 'play'
           klass: 'opt-SlideshowPlay'
-          innerklass: -> if Gallery.activePhotos().length then 'azur puls' else ''
+          innerklass: -> if App.activePhotos().length then 'azur puls' else ''
           dataToggle: 'modal-gallery'
-          disabled: -> !Gallery.activePhotos().length
+          disabled: -> !App.activePhotos().length
         ]
     package_10:
       name: 'Back_'
@@ -366,7 +366,7 @@ class Toolbar extends Spine.Model
           klass: 'opt-SlideshowPlay'
           icon: 'play'
           iconcolor: 'white'
-          disabled: -> !Gallery.activePhotos().length
+          disabled: -> !App.activePhotos().length
         ]
     package_12:
       name: 'Slider'
@@ -392,7 +392,7 @@ class Toolbar extends Spine.Model
           innerklass: 'symbol'
           icon: 'play'
           iconcolor: ''
-          disabled: -> !Gallery.activePhotos().length
+          disabled: -> !App.activePhotos().length
         ,
           name: '<span class="slider" style=""></span>'
           klass: 'opt-Thumbsize '

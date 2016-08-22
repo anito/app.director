@@ -985,6 +985,7 @@ class ShowView extends Spine.Controller
     dialog.render().show()
     
   noSlideShow: (e) ->
+    @log 'noslideshow'
     dialog = new ModalSimpleView
       options:
         small: false
@@ -998,7 +999,7 @@ class ShowView extends Spine.Controller
           albumsCount         : GalleriesAlbum.albums(Gallery.record?.id).length
           photosCount         : GalleriesAlbum.photos(Gallery.record?.id).length
           activeAlbumsCount   : GalleriesAlbum.activeAlbums(Gallery.record?.id).length
-          activePhotosCount   : Gallery.activePhotos(Gallery.record?.id).length
+          activePhotosCount   : App.activePhotos().length
           bs_version          : $.fn.tooltip.Constructor.VERSION
       modalOptions:
         keyboard: true
@@ -1177,10 +1178,12 @@ class ShowView extends Spine.Controller
           e.preventDefault()
       when 32 #Space
         unless isFormfield
-          if Gallery.activePhotos().length
-            @slideshowView.play()
+          photos = App.activePhotos()
+          
+          if photos.length
+            @slideshowView.play(null, photos)
           else
-            el = @noSlideShow()
+            @noSlideShow() 
           e.preventDefault()
       when 37 #Left
         unless isFormfield

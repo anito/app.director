@@ -43,7 +43,7 @@ class PhotoView extends Spine.Controller
     @currentId = 0
     @bind('active', @proxy @active)
     @el.data('current',
-      model: Album
+      model: Photo
       models: Photo
     )
     @list = new PhotoList

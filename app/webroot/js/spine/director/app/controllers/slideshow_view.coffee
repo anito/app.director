@@ -35,7 +35,7 @@ class SlideshowView extends Spine.Controller
       model: Gallery
       models: Album
     )
-    @images = []
+    @temp = []
     @viewport = $('.items', @el)
     @thumbSize = 240
     
@@ -66,19 +66,11 @@ class SlideshowView extends Spine.Controller
       
     App.showView.trigger('change:toolbarOne', ['SlideshowPackage', App.showView.initSlider])
     App.showView.trigger('change:toolbarTwo', ['Close'])
-    @activated()
+    @render()
     
-  activated: ->
-    list = []
-    if @images.length
-      list.update @images
-    else
-      list.update Gallery.activePhotos()
-
-    @render list
-    
-  render: (items) ->
+  render: ->
     @log 'render'
+    items = @temp
     unless items.length
       @itemsEl.html '<label class="invite">
         <span class="enlightened">This slideshow does not have any images &nbsp;
@@ -96,8 +88,7 @@ class SlideshowView extends Spine.Controller
     
   loadingDone: ->
     return unless @isActive()
-    @images.update []
-    @trigger('active')
+    @temp.update []
        
   params: (width = @parent.thumbSize, height = @parent.thumbSize) ->
     width: width
@@ -195,7 +186,7 @@ class SlideshowView extends Spine.Controller
     !!(window.fullScreen)
     
   slideshowable: ->
-    @photos().length
+    @temp().length
     
   click: (e) ->
     options =
@@ -206,13 +197,15 @@ class SlideshowView extends Spine.Controller
     e.stopPropagation()
     e.preventDefault()
     
-  play: (options={index:0}, list=[]) ->
-#    unless @isActive() and @parent.isActive()
-    @images.update list # mixin images to override album images
-    @one('slideshow:ready', @proxy @playSlideshow)
-    @previousHash = location.hash unless /^#\/slideshow\//.test(location.hash)
-    params = $.param(options)
-    @navigate '/slideshow', params
+  play: (options={index:0}, list) ->
+    @options = options
+    unless @isActive()
+      @previousHash = location.hash unless /^#\/slideshow\//.test(location.hash)
+      params = $.param(options)
+      p = @temp.update list or App.activePhotos() # mixin images to override album images
+      @one('slideshow:ready', @proxy @playSlideshow) if p.length
+      @navigate '/slideshow', params
+    else @playSlideshow()
       
   playSlideshow: (options=@options) ->
     return if @galleryIsActive()
