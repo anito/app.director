@@ -36,7 +36,7 @@ class SlideshowView extends Spine.Controller
       models: Album
     )
     @images = []
-    @viewport = @el
+    @viewport = $('.items', @el)
     @thumbSize = 240
     
     @defaults =

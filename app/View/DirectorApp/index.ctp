@@ -85,7 +85,7 @@
             <div class="items flex nopad fadein">Photo</div>
           </div>
           <div id="slideshow" class="view content vbox flex data parent autoflow">
-            <div class="items flex" data-toggle="blueimp-gallery" data-target="#blueimp-gallery" data-selector="a.thumbnail"></div>
+            <div class="items flex fadein" data-toggle="blueimp-gallery" data-target="#blueimp-gallery" data-selector="a.thumbnail"></div>
           </div>
         </div>
         <div id="views" class="settings bg-light hbox autoflow bg-medium">
