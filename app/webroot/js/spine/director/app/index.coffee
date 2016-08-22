@@ -306,10 +306,16 @@ class Main extends Spine.Controller
     
   changeMainCanvas: (controller) ->
     
-  changeContentCanvas: (controller) ->
-    controller.el.removeClass('in')
-    controller.el.addClass('in')
-      
+  changeContentCanvas: (controller, b) ->
+    @controllers = (c for c in @contentManager.controllers when c isnt controller)
+    c.el.removeClass('in') for c in @controllers
+    
+    _1 = => controller.el.addClass('in')
+    
+    window.setTimeout( =>
+      _1()
+    , 500)
+    
   changeEditCanvas: (controller) ->
   
   initializeFileupload: ->

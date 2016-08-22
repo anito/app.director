@@ -51,7 +51,7 @@
       <div class="vdivide draghandle"></div>
     </div>
     <div id="content" class="views bg-medium vbox flex">
-      <div tabindex="1" id="show" class="view canvas bg-dark vbox flex fade">
+      <div tabindex="1" id="show" class="view canvas bg-dark vbox flex fadein">
         <div id="modal-action " class="modal fade"></div>
         <div id="modal-addAlbum" class="modal fade"></div>
         <div id="modal-addPhoto" class="modal fade"></div>
@@ -72,17 +72,17 @@
           <div class="view  galleries opt-SelectNone content vbox flex data parent autoflow" style="">
             <div class="items fadein">Galleries</div>
           </div>
-          <div class="view albums opt-SelectNone content vbox flex data parent autoflow fadeelement" style="">
+          <div class="view albums opt-SelectNone content vbox flex data parent autoflow" style="">
             <div class="hoverinfo fadeslow"></div>
             <div class="items flex fadein">Albums</div>
           </div>
-          <div class="view photos opt-SelectNone content vbox flex data parent autoflow fadeelement" style="">
+          <div class="view photos opt-SelectNone content vbox flex data parent autoflow" style="">
             <div class="hoverinfo fadeslow"></div>
             <div class="items flex fadein" data-toggle="modal-gallery" data-target="#modal-gallery" data-selector="a">Photos</div>
           </div>
-          <div tabindex="1" class="view photo content vbox flex data parent autoflow fadeelement nopad" style="">
+          <div tabindex="1" class="view photo content vbox flex data parent autoflow nopad" style="">
             <div class="hoverinfo fadeslow"></div>
-            <div class="items flex fadein nopad">Photo</div>
+            <div class="items flex nopad fadein">Photo</div>
           </div>
           <div id="slideshow" class="view content vbox flex data parent autoflow">
             <div class="items flex" data-toggle="blueimp-gallery" data-target="#blueimp-gallery" data-selector="a.thumbnail"></div>
@@ -144,7 +144,7 @@
           </div>
         </div>
       </div>
-      <div tabindex="1" id="overview" class="view content vbox flex data parent fade" style="position: relative;">
+      <div tabindex="1" id="overview" class="view content vbox flex data parent fadein" style="position: relative;">
         <div class="carousel-background bg-medium flex" style="z-index: 0;">
 <!--          The data-ride="carousel" attribute is used to mark a carousel as animating starting at page load.-->
 <!--          We can't use it here, since it must be triggered via the controller-->
@@ -173,13 +173,13 @@
           <button type="button" class="close white" data-dismiss="modal" aria-hidden="true" style="padding: 8px;">&times;</button>
         </div>
       </div>
-      <div id="missing" class="canvas view vbox flex fade">
+      <div id="missing" class="canvas view vbox flex fadein">
         <ul class="options hbox">
           <ul class="toolbar hbox"></ul>
         </ul>
         <div class="content vbox flex autoflow"></div>
       </div>
-      <div id="flickr" class="canvas view vbox flex fade" style="position: relative;">
+      <div id="flickr" class="canvas view vbox flex fadein" style="position: relative;">
         <ul class="options hbox">
           <li class="splitter flex"></li>
           <ul class="toolbarOne hbox nav"></ul>
