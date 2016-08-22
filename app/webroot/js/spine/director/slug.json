@@ -12,7 +12,6 @@
       "modules": [
         "es5-shimify", 
         "json2ify",
-        "jqueryify",
         "jquery.tmpl",
         "spine",
         "spine/lib/local",

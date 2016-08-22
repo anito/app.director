@@ -598,13 +598,12 @@
 
 <script id="headerGalleryTemplate" type="text/x-jquery-tmpl">
   <section class="top viewheader fadeelement">
-    <span>
-      Author:&nbsp;<span class="label label-default">${author}</span>
-    </span>
-    {{tmpl() "#gallerySpecsTemplate"}}
-    <div class="title">
-      <h2>Galleries Overview</h2>
+    <div class="left">
+      <div class="title">
+        <h1>Galleries Overview</h1>
+      </div>
     </div>
+    {{tmpl() "#gallerySpecsTemplate"}}
   </section>
   <section class="">
     <span class="fadeelement breadcrumb">
@@ -617,18 +616,23 @@
 
 <script id="headerAlbumTemplate" type="text/x-jquery-tmpl">
   <section class="top viewheader fadeelement">
-    <span>
+    <div class="left">  
       {{if model.record}}
-      Gallery:&nbsp;<span class="label label-{{if model.record}}default{{else}}warning{{/if}}">${model.record.name.slice(0, 25)}</span>
-      {{else}}
-      Author:&nbsp;<span class="label label-default">${author}</span>
+      <div class="">
+        You are here:
+      </div>
       {{/if}}
-    </span>
-    {{tmpl() "#albumSpecsTemplate"}}
-    <div class="title">
-      <h2>{{if model.record}}Albums in:&nbsp;{{else}}Album Library{{/if}}</h2>
-      {{if model.record}}<label class="h2 chopin">{{if model.record.name}}${model.record.name.slice(0, 25)}{{else}}...{{/if}}</label>{{/if}}
+      <div class="title">
+        {{if model.record}}
+        <h3>
+        <span class="label label-{{if gallery.name}}default{{else}}warning{{/if}}">Gallery: {{if gallery.name}}${gallery.name.slice(0, 25)}{{else}}none{{/if}}</span>
+        </h3>
+        {{else}}
+        <h1>Album Library</h1>
+        {{/if}}
+      </div>
     </div>
+    {{tmpl() "#albumSpecsTemplate"}}
   </section>
   <section class="">
     <span class="fadeelement breadcrumb">
@@ -645,25 +649,54 @@
 
 <script id="headerPhotosTemplate" type="text/x-jquery-tmpl">
   <section class="top viewheader fadeelement">
-    <span>
+    <div class="left">  
       {{if model.record}}
-      Gallery:&nbsp;<span class="label label-{{if gallery.name}}default{{else}}warning{{/if}}">{{if gallery.name}}${gallery.name.slice(0, 25)}{{else}}none{{/if}}</span>
-      Album:&nbsp;<span class="label label-{{if model.record}}default{{else}}warning{{/if}}">{{if modelAlbum.record}}{{if album.title}}${album.title.slice(0, 25)}{{else}}...{{/if}}{{else}}none{{/if}}</span>
-      {{else}}
-      Author:&nbsp;<span class="label label-default">${author}</span>
+      <div class="">
+        You are here:
+      </div>
       {{/if}}
-    </span>
-    {{tmpl() "#photoSpecsTemplate"}}
-    <div class="title">
-      <h2>{{if album}}Photos in:&nbsp;{{else}}Photo Library{{/if}}</h2>
-      {{if album}}<label class="h2 chopin">{{if album.title}}${album.title.slice(0, 25)}{{else}}...{{/if}}</label>{{/if}}
+      <div class="title">
+        {{if album}}
+        <h3>
+        <span class="label label-{{if gallery.name}}default{{else}}warning{{/if}}">Gallery: {{if gallery.name}}${gallery.name.slice(0, 25)}{{else}}none{{/if}}</span>
+        <span class="label label-{{if model.record}}default{{else}}warning{{/if}}">{{if modelAlbum.record}}Album: {{if album.title}}${album.title.slice(0, 25)}{{else}}...{{/if}}{{else}}none{{/if}}</span>
+        </h3>
+        {{else}}
+        <h1>Photo Library</h1>
+        {{/if}}
+      </div>
     </div>
+    {{tmpl() "#photoSpecsTemplate"}}
   </section>
   {{if zoomed}}
   {{tmpl() "#photoBreadcrumbTemplate"}}
   {{else}}
   {{tmpl() "#photosBreadcrumbTemplate"}}
   {{/if}}
+</script>
+
+<script id="headerPhotoTemplate" type="text/x-jquery-tmpl">
+  <section class="top viewheader fadeelement">
+    <div class="left">  
+      {{if model.record}}
+      <div class="">
+        You are here:
+      </div>
+      {{/if}}
+      <div class="title">
+        {{if album}}
+        <h3>
+        <span class="label label-{{if gallery.name}}default{{else}}warning{{/if}}">Gallery: {{if gallery.name}}${gallery.name.slice(0, 25)}{{else}}none{{/if}}</span>
+        <span class="label label-{{if model.record}}default{{else}}warning{{/if}}">{{if modelAlbum.record}}Album: {{if album.title}}${album.title.slice(0, 25)}{{else}}...{{/if}}{{else}}none{{/if}}</span>
+        </h3>
+        {{else}}
+        <h1>Photo Library</h1>
+        {{/if}}
+      </div>
+    </div>
+    {{tmpl() "#photoSpecsTemplate"}}
+  </section>
+  {{tmpl() "#photoBreadcrumbTemplate"}}
 </script>
 
 <script id="photosBreadcrumbTemplate" type="text/x-jquery-tmpl">
@@ -682,6 +715,7 @@
     </span>
   </section>
 </script>
+
 
 <script id="photoBreadcrumbTemplate" type="text/x-jquery-tmpl">
   <section class="">
@@ -703,23 +737,6 @@
   </section>
 </script>
 
-<script id="headerPhotoTemplate" type="text/x-jquery-tmpl">
-  <section class="top viewheader fadeelement">
-    <span>
-      {{if model.record}}
-      Gallery:&nbsp;<span class="label label-{{if gallery.name}}default{{else}}warning{{/if}}">{{if gallery.name}}${gallery.name}{{else}}none{{/if}}</span>
-      Album:&nbsp;<span class="label label-{{if model.record}}default{{else}}warning{{/if}}">{{if modelAlbum.record}}{{if album.title}}${album.title}{{else}}...{{/if}}{{else}}none{{/if}}</span>
-      {{else}}
-      Author:&nbsp;<span class="label label-default">${author}</span>
-      {{/if}}
-    </span>
-    {{tmpl() "#photoSpecsTemplate"}}
-    <br>
-    <h2>{{if album}}Photos in:&nbsp;{{else}}Photo Library{{/if}}</h2>
-    {{if album}}<label class="h2 chopin">{{if album.title}}${album.title}{{else}}...{{/if}}</label>{{/if}}
-  </section>
-  {{tmpl() "#photoBreadcrumbTemplate"}}
-</script>
 
 <script id="gallerySpecsTemplate" type="text/x-jquery-tmpl">
   <div class="right">
