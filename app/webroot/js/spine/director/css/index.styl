@@ -542,14 +542,14 @@ textarea {
 .header .h2.chopin {
   line-height: 0;
 }
-.header .view section:nth-child(1) {
+.header .view section:first-child {
+  box-shadow: 0 4px 4px rgba(0,0,0,0.5);
+}
+.header .view section:nth-child(2) {
+  position: absolute;
 }
 .header .btn:hover {
   border-radius: 0;
-}
-.header section:nth-child(2) {
-  background: url("/img/1.png") repeat-x scroll 0 -6px rgba(0, 0, 0, 0);
-  margin: 2px 0 -27px;
 }
 #sidebar {
   width: 300px;
@@ -1137,40 +1137,48 @@ li .thumbnail.image {
   position: absolute;
   z-index: 1
 }
-.viewheader {
-  min-width: 120px;
-  -moz-border-radius: 0px;
-  -webkit-border-radius: 0px;
-  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
-  background: -webkit-gradient(linear, left top, left bottom, from(rgba(200, 200, 200, 1)), to(rgba(140, 140, 140, 1)));
-  background: -moz-linear-gradient(center top , rgba(200, 200, 200, 1), rgba(140, 140, 140, 1));
-  background: linear-gradient(center top , rgba(200, 200, 200, 1), rgba(140, 140, 140, 1));
-  background: rgba(183, 184, 182, 1);
-  padding: 10px 15px;
-  position: absolute;
-  z-index: 1
-}
 .fadein.in {
   opacity: 1;
+  transition: opacity 1s ease 0s;
+}
+.fadein.in2 {
+  opacity: 1;
   transition: opacity 2s ease 0s;
+}
+.fadein.in3 {
+  opacity: 1;
+  transition: opacity 3s ease 0s;
 }
 .fadein {
   opacity: 0;
 }
-.fadeelement {
-  transition: background 0.5s linear 0s;
+.header .view .fadeelement {
+  min-width: 120px;
+  -moz-border-radius: 0px;
+  -webkit-border-radius: 0px;
 }
-.all .view.active {
-  background: none repeat scroll 0 0 rgba(0, 224, 241, 0.5);
+.views .header.views .view.active section:first-child {
+  padding: 20px;
 }
-.all .header .fadeelement {
-  background: rgba(0, 224, 241, .95)
+.views .view.active .fadeelement {
+  transition: background 1s linear 0s;
 }
-.all .fadeelement {
+.views .header.views .view.active .fadeelement {
   background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 224, 241, 1)), to(rgba(0, 224, 241, 1)));
   background: -moz-linear-gradient(center top , rgba(0, 224, 241, 1), rgba(0, 224, 241, 1));
   background: linear-gradient(center top , rgba(0, 224, 241, 1), rgba(0, 224, 241, 1));
-  background: rgba(0, 224, 241, .95)
+  background: rgba(220,220,220,.5);
+  transition: background 1s linear 0s;
+}
+.all.views .header.views .view.active .fadeelement {
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 224, 241, 1)), to(rgba(0, 224, 241, 1)));
+  background: -moz-linear-gradient(center top , rgba(0, 224, 241, 1), rgba(0, 224, 241, 1));
+  background: linear-gradient(center top , rgba(0, 224, 241, 1), rgba(0, 224, 241, 1));
+  background: rgba(0, 224, 241, .5);
+  transition: background 1s linear 0s;
+}
+.all.views .view.active .fadeelement {
+ transition: background 1s linear 0s;
 }
 .all .view .thumbnail {
   outline: 0px solid rgba(0, 224, 241, 0.8);

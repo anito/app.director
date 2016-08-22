@@ -270,7 +270,7 @@ class ShowView extends Spine.Controller
     
   changeCanvas: (controller, args) ->
     @controllers = (c for c in @canvasManager.controllers when c isnt controller)
-    $('.items', @el).removeClass('in') for c in @controllers
+    $('.items', @el).removeClass('in3') for c in @controllers
     #remove global selection if we've left from Album Library
 #    if @previous?.type is "Album" and !Gallery.record
 #      @resetSelection()
@@ -298,7 +298,7 @@ class ShowView extends Spine.Controller
         
     _2 = =>
       viewport = controller.viewport or controller.el
-      viewport.addClass('in')
+      viewport.addClass('in3')
       
       
     window.setTimeout( =>

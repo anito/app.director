@@ -69,22 +69,22 @@
             <div class="overview view"></div>
           </div>
           <div class="view wait content vbox flex autoflow" style=""></div>
-          <div class="view  galleries opt-SelectNone content vbox flex data parent autoflow" style="">
+          <div class="view  galleries opt-SelectNone nopad content vbox flex data parent autoflow" style="">
             <div class="items fadein">Galleries</div>
           </div>
-          <div class="view albums opt-SelectNone content vbox flex data parent autoflow" style="">
+          <div class="view albums opt-SelectNone nopad content vbox flex data parent autoflow" style="">
             <div class="hoverinfo fadeslow"></div>
             <div class="items flex fadein">Albums</div>
           </div>
-          <div class="view photos opt-SelectNone content vbox flex data parent autoflow" style="">
+          <div class="view photos opt-SelectNone nopad content vbox flex data parent autoflow" style="">
             <div class="hoverinfo fadeslow"></div>
             <div class="items flex fadein" data-toggle="modal-gallery" data-target="#modal-gallery" data-selector="a">Photos</div>
           </div>
-          <div tabindex="1" class="view photo content vbox flex data parent autoflow nopad" style="">
+          <div tabindex="1" class="view photo content nopad vbox flex data parent autoflow nopad" style="">
             <div class="hoverinfo fadeslow"></div>
             <div class="items flex nopad fadein">Photo</div>
           </div>
-          <div id="slideshow" class="view content vbox flex data parent autoflow">
+          <div id="slideshow" class="view content vbox nopad flex data parent autoflow">
             <div class="items flex fadein" data-toggle="blueimp-gallery" data-target="#blueimp-gallery" data-selector="a.thumbnail"></div>
           </div>
         </div>
