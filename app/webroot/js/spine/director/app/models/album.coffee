@@ -39,7 +39,7 @@ class Album extends Spine.Model
     super
     @createJoinTables objects
     key = @className
-    json = @fromArray(objects, key) if @isArray(objects)# and objects[key]#test for READ or PUT !
+    json = @make(objects, key) #if Array.isArray(objects)# and objects[key]#test for READ or PUT !
     json
 
   @nameSort: (a, b) ->
@@ -82,7 +82,7 @@ class Album extends Spine.Model
     
   @createJoin: (items=[], target, callback) ->
     @log 'createJoin'
-    unless @isArray items
+    unless Array.isArray items
       items = [items]
     
     return unless items.length and target
@@ -111,7 +111,7 @@ class Album extends Spine.Model
     ret
     
   @destroyJoin: (items=[], target, cb) ->
-    unless @isArray items
+    unless Array.isArray items
       items = [items]
     
     return unless items.length and target

@@ -143,7 +143,8 @@ Model.Extender =
         for key in joinTables
           Model[key].refresh(@createJoins(arr, key), clear: true)
         
-      fromArray: (arr, key) ->
+      make: (arr, key) ->
+        return new @(arr) if !Array.isArray arr
         new @(obj[key]) for obj in arr
         
       activePhotos: -> Gallery.activePhotos()

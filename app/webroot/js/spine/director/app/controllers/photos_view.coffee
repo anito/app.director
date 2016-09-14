@@ -129,7 +129,7 @@ class PhotosView extends Spine.Controller
     unless (ids)
       ids = []
   
-    unless Spine.isArray(ids)
+    unless Array.isArray(ids)
       ids = [ids]
     
     Photo.current ids[0]
@@ -138,7 +138,7 @@ class PhotosView extends Spine.Controller
     unless records
       records = Album.selectionList()
 
-    unless Spine.isArray(records)
+    unless Array.isArray(records)
       records = [records]
       
     list = []
@@ -160,7 +160,7 @@ class PhotosView extends Spine.Controller
     @select e, item.id
     
   select: (e, items = []) ->
-    unless Spine.isArray items
+    unless Array.isArray items
       items = [items]
       
     type = e.type

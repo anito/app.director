@@ -88,7 +88,7 @@ class AlbumsAddView extends Spine.Controller
     @select(item.id, @isCtrlClick(e))
     
   select: (items = [], exclusive) ->
-    unless Spine.isArray items
+    unless Array.isArray items
       items = [items]
     
     @selectionList = [] if exclusive

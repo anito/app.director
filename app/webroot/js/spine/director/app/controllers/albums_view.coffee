@@ -157,7 +157,7 @@ class AlbumsView extends Spine.Controller
     unless (ids)
       ids = []
   
-    unless Spine.isArray(ids)
+    unless Array.isArray(ids)
       ids = [ids]
     
     Album.current ids[0]
@@ -168,7 +168,7 @@ class AlbumsView extends Spine.Controller
       Album.current()
       noid = true
       
-    unless Spine.isArray(ids)
+    unless Array.isArray(ids)
       ids = [ids]
     
     list = []
@@ -371,7 +371,7 @@ class AlbumsView extends Spine.Controller
     @select(e, item.id)
     
   select: (e, items = []) ->
-    unless Spine.isArray items
+    unless Array.isArray items
       items = [items]
       
     type = e.type

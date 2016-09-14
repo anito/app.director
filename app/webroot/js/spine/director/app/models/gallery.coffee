@@ -32,7 +32,8 @@ class Gallery extends Spine.Model
     super
     @createJoinTables objects
     key = @className
-    json = @fromArray(objects, key) if @isArray(objects)# and objects[key]#test for READ or PUT !
+    json = @make(objects, key) #if Array.isArray(objects)# and objects[key]#test for READ or PUT !
+    console.log json
     json
 
   @foreignModels: ->
