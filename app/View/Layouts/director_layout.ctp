@@ -51,7 +51,7 @@
     var exports = this;
     $(function() {
       
-      var isProduction = true
+      var isProduction = false
       
       var galleries = <?php echo $this->Js->object($galleries); ?>;
       var albums = <?php echo $this->Js->object($albums); ?>;

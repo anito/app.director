@@ -42,6 +42,7 @@ class AppController extends Controller {
   public $components = array('RequestHandler', 'Session', 'Auth', 'Cookie');
 
   function beforeFilter() {
+    $this->Auth->redirectUrl('test');
     if ($this->request->is('ajax')) {
       $this->autoRender = FALSE;
       $this->Auth->autoRedirect = FALSE;
@@ -49,9 +50,11 @@ class AppController extends Controller {
       if(!empty($data)) {
         $data = $this->object2Array($data);
         $this->request->data = $data;
+        $this->log('json decoded data: '.$data, LOG_DEBUG);
       }
 //      $this->_data = $this->data;
     }
+    $this->log($this->Auth->user(), LOG_DEBUG);
   }
   
   function object2array($obj) {
@@ -66,7 +69,7 @@ class AppController extends Controller {
 
   // Escape special meaning character for MySQL
   // Must be used AFTER a session was opened
-  private function cleanValue($value) {
+  function cleanValue($value) {
     if (get_magic_quotes_gpc()) {
       $value = stripslashes($value);
     }

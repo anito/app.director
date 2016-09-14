@@ -1,3 +1,4 @@
+<?php $this->Html->css("cake.generic", null, array('inline' => false)); ?>
 <div class="users form">
 <?php echo $this->Form->create('User');?>
 	<fieldset>

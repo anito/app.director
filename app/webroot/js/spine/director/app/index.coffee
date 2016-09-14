@@ -292,6 +292,7 @@ class Main extends Spine.Controller
     @navigate rec.hash
     
   setupView: ->
+    @log 'setup View'
     Spine.unbind('uri:alldone')
     @mainView.trigger('active')
     @mainView.el.hide()
