@@ -688,6 +688,7 @@
         <h3>
         <span class="label label-{{if gallery.name}}default{{else}}warning{{/if}}">Gallery: {{if gallery.name}}${gallery.name.slice(0, 25)}{{else}}none{{/if}}</span>
         <span class="label label-{{if model.record}}default{{else}}warning{{/if}}">{{if modelAlbum.record}}Album: {{if album.title}}${album.title.slice(0, 25)}{{else}}...{{/if}}{{else}}none{{/if}}</span>
+        <span class="label label-{{if model.record}}default{{else}}warning{{/if}}">{{if modelPhoto.record}}Photo: {{if photo.title}}${photo.title.slice(0, 25)}{{else}}...{{/if}}{{else}}none{{/if}}</span>
         </h3>
         {{else}}
         <h1>Photo Library</h1>
