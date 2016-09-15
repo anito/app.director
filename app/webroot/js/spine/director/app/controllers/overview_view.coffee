@@ -54,7 +54,7 @@ class OverviewView extends Spine.Controller
     recents = []
     for item in json
       recents.push item['Photo']
-#    Recent.refresh(recents, {clear:true})
+    Recent.refresh(recents, {clear:true})
     
   render: (tests) ->
     #validate fresh records against existing model collection
