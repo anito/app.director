@@ -10,3 +10,4 @@ nbproject
 /app/webroot/js/spine/mobile/*
 /app/webroot/js/spine/myapp/*
 /app/webroot/js/spine/newapp/*
+node_modules
