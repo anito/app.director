@@ -29,7 +29,7 @@
           </form>
         </div>
         <div class="originals hbox">
-          <ul class="opt-ions flex">
+          <ul class="flex">
             <li id="" class="splitter flickr noborder disabled"></li>
           </ul>
         </div>

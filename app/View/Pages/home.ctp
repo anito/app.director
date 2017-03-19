@@ -16,35 +16,44 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 if (Configure::read('debug') == 0):
-	//throw new NotFoundException();
+//throw new NotFoundException();
 endif;
 //App::uses('Debugger', 'Utility');
 ?>
 <div itemscope itemtype="http://schema.org/SoftwareApplication" class="container">
-  <header class="jumbotron masthead">
-    <div class="inner">
-      <h1>Sweet...</h1>
-      <p>
-        Choose your App
-      </p>
-      <table class="download-info">
-        <tr style="text-align: center">
-          <td>
-            <a href="/director_app" class="btn btn-info btn-large" type="submit"><span itemprop="name">Photo Director</span></a>
-          </td>
-          <td>
-           <a href="https://data.<?php echo HOST; ?>.<?php echo TOPLEVEL; ?>" class="btn btn-primary btn-large" type="submit"><span itemprop="name">Datastore</span></a>
-          </td>
-          <td>
-            <a href="http://app.<?php echo HOST; ?>.<?php echo TOPLEVEL; ?>" class="btn btn-large" type="submit">More...</a>
-          </td>
-        </tr>
-        <tr style="text-align: center">
-          <td>Photo Manager with Spine.js</td>
-          <td>Store your App-Data</td>
-          <td></td>
-        </tr>
-      </table>
-    </div>
-  </header>
+		<header class="jumbotron masthead">
+				<div class="inner">
+						<h1>Sweet...</h1>
+						<p>
+								Pick your App
+						</p>
+						<table class="download-info button-wrap">
+								<tr style="text-align: center">
+										<td>
+												<a href="/director_app" class="btn btn-info btn-large" type="submit"><span itemprop="name">Photo Director</span></a>
+												<i class="info">Photo Library</i>
+										</td>
+										<td>
+												<a href="http://shop.<?php echo HOST; ?>.<?php echo TOPLEVEL; ?>" class="btn btn-primary btn-large" type="submit"><span itemprop="name">Shop Admin</span></a>
+												<i class="info">Managing Shop Products</i>
+										</td>
+										<td>
+												<a href="http://data.<?php echo HOST; ?>.<?php echo TOPLEVEL; ?>" class="btn btn-warning btn-large" type="submit"><span itemprop="name">Shop</span></a>
+												<i class="info">Sample Shop</i>
+										</td>
+								</tr>
+								<tr style="text-align: center">
+										<td>
+												
+										</td>
+										<td>
+												
+										</td>
+										<td>
+												<a href="http://app.<?php echo HOST; ?>.<?php echo TOPLEVEL; ?>" class="btn btn-large" type="submit">More...</a>
+										</td>
+								</tr>
+						</table>
+				</div>
+		</header>
 </div>

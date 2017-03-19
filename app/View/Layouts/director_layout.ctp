@@ -79,7 +79,6 @@
       exports.App = new Main({el: $("body")});
       User.ping();
       
-      
       Photo.refresh(photos, {clear: true});
       Album.refresh(albums, {clear: true});
       Gallery.refresh(galleries, {clear: true});

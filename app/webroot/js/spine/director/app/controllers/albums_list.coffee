@@ -188,27 +188,36 @@ class AlbumsList extends Spine.Controller
       ret[0]
     
     
+    sources = []
     css = []
-    for url in res
-      css.push 'url(' + url + ')'
-      @snap url, thumb, css
+    for jsn in json
+      for key, val of jsn
+        sources.push src if src = val.src
+        css.push 'url('+src+')'
+    
+    if sources.length
+      @snap thumb, src, css for src in sources
+    else
+      thumb.css('backgroundImage', ['url(/img/drag_info.png)'])
       
-    thumb.css('backgroundImage', 'url(/img/drag_info.png)') unless css.length
-      
-  snap: (src, el, css) ->
+  snap: (el, src, css) ->
     img = @createImage()
-    img.element = el
-    img.this = @
+    img.el = el
+    img.me = @
     img.css = css
+    img.src = src
     img.onload = @onLoad
     img.onerror = @onError
-    img.src = src
+    
       
   onLoad: ->
-    @element.css('backgroundImage', @css)
+      console.log 'image loaded'
+      @el.css('backgroundImage', @css)
     
-  onError: ->
-    @this.snap @src, @element, @css
+  onError: (e) ->
+    console.log 'could not load image, trying again'
+    @onload = this.onload
+    @src =  '/img/drag_info.png' #could be any existing image
       
   original: (e) ->
     id = $(e.currentTarget).item().id

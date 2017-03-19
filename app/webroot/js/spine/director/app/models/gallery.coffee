@@ -89,6 +89,7 @@ class Gallery extends Spine.Model
     
   
   init: (instance) ->
+    console.log instance
     return unless id = instance.id
     s = new Object()
     s[id] = []

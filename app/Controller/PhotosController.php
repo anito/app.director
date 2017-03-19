@@ -142,24 +142,24 @@ class PhotosController extends AppController {
     if ($this->Auth->user('id')) {
       $user_id = $uid = $this->Auth->user('id');
       
-      if (!empty($this->data)) {
-        foreach ($this->data as $data) {
-          $id = $data['id'];
-          $path = PHOTOS . DS . $uid . DS . $id . DS . 'lg' . DS . '*.*';
-          $files = glob($path);
-          if (!empty($files[0])) {
-            $fn = basename($files[0]);
-            $options = compact(array('uid', 'id', 'fn', 'width', 'height', 'square'));
-            if($square == 4)
-              $src = p($options);
-            else
-              $src = __p($options);
+    if (!empty($this->data)) {
+      foreach ($this->data as $data) {
+        $id = $data['id'];
+        $path = PHOTOS . DS . $uid . DS . $id . DS . 'lg' . DS . '*.*';
+        $files = glob($path);
+        if (!empty($files[0])) {
+          $fn = basename($files[0]);
+          $options = compact(array('uid', 'id', 'fn', 'width', 'height', 'square'));
+          if($square == 4)
+            $src = p($options);
+          else
+            $src = __p($options);
 
-            $return = array($id => array('src' => $src));
-            $json[] = $return;
-          }
+          $return = array($id => array('src' => $src));
+          $json[] = $return;
         }
       }
+    }
     } else {
       $json = array('flash' => '<strong style="color:red">No valid user</strong>');
       $this->response->header("WWW-Authenticate: Negotiate");
