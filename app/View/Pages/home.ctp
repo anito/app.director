@@ -38,7 +38,7 @@ endif;
 												<i class="info">Managing Shop Products</i>
 										</td>
 										<td>
-												<a href="http://data.<?php echo HOST; ?>.<?php echo TOPLEVEL; ?>" class="btn btn-warning btn-large" type="submit"><span itemprop="name">Shop</span></a>
+												<a href="http://shop.<?php echo HOST; ?>.<?php echo TOPLEVEL; ?>" class="btn btn-warning btn-large" type="submit"><span itemprop="name">Shop</span></a>
 												<i class="info">Sample Shop</i>
 										</td>
 								</tr>
