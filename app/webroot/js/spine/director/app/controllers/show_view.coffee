@@ -876,7 +876,8 @@ class ShowView extends Spine.Controller
     slides =
       [
         img: "/img/navigate.jpg"
-        width: '700px'
+        width: '311px'
+        top: '90px'
       ,
         items: [
             'What is Photo Director?',
