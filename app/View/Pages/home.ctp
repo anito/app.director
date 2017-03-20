@@ -34,7 +34,7 @@ endif;
 												<i class="info">Photo Library</i>
 										</td>
 										<td>
-												<a href="http://shop.<?php echo HOST; ?>.<?php echo TOPLEVEL; ?>" class="btn btn-primary btn-large" type="submit"><span itemprop="name">Shop Admin</span></a>
+												<a href="http://shop.<?php echo HOST; ?>.<?php echo TOPLEVEL; ?>/admin" class="btn btn-primary btn-large" type="submit"><span itemprop="name">Shop Admin</span></a>
 												<i class="info">Managing Shop Products</i>
 										</td>
 										<td>
