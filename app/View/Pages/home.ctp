@@ -37,16 +37,19 @@ endif;
 												<a href="http://shop.<?php echo HOST; ?>.<?php echo TOPLEVEL; ?>/admin" class="btn btn-success btn-large" type="submit" target="_blank"><span itemprop="name">Shop Admin</span></a>
 												<i class="info">Managing Shop Products</i>
 										</td>
-										<td>
-												<a href="http://shop.<?php echo HOST; ?>.<?php echo TOPLEVEL; ?>" class="btn btn-warning btn-large" type="submit" target="_blank"><span itemprop="name">Shop</span></a>
-												<i class="info">Sample Shop</i>
-										</td>
+										
 								</tr>
 								<tr style="text-align: center">
 										<td>
 												<a href="https://ha-lehmann.at" class="btn btn-danger btn-large" type="submit" target="_blank"><span itemprop="name">Online Shop</span></a>
 												<i class="info">Online-Shop</i>
 										</td>
+										<td>
+												<a href="http://shop.<?php echo HOST; ?>.<?php echo TOPLEVEL; ?>" class="btn btn-warning btn-large" type="submit" target="_blank"><span itemprop="name">Shop</span></a>
+												<i class="info">Sample Shop</i>
+										</td>
+								</tr>
+								<tr style="text-align: center">
 										<td>
 												
 										</td>
