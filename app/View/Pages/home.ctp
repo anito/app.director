@@ -34,7 +34,7 @@ endif;
 												<i class="info">Photo Library</i>
 										</td>
 										<td>
-												<a href="http://shop.<?php echo HOST; ?>.<?php echo TOPLEVEL; ?>/admin" class="btn btn-primary btn-large" type="submit" target="_blank"><span itemprop="name">Shop Admin</span></a>
+												<a href="http://shop.<?php echo HOST; ?>.<?php echo TOPLEVEL; ?>/admin" class="btn btn-success btn-large" type="submit" target="_blank"><span itemprop="name">Shop Admin</span></a>
 												<i class="info">Managing Shop Products</i>
 										</td>
 										<td>
@@ -44,7 +44,7 @@ endif;
 								</tr>
 								<tr style="text-align: center">
 										<td>
-												<a href="https://ha-lehmann.at" class="btn btn-info btn-large" type="submit" target="_blank"><span itemprop="name">Online Shop</span></a>
+												<a href="https://ha-lehmann.at" class="btn btn-danger btn-large" type="submit" target="_blank"><span itemprop="name">Online Shop</span></a>
 												<i class="info">Online-Shop</i>
 										</td>
 										<td>
