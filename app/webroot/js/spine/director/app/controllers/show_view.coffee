@@ -875,7 +875,7 @@ class ShowView extends Spine.Controller
     options = interval: 1000
     slides =
       [
-        img: "/img/keyboard.png"
+        img: "/img/keyboard.jpg"
         width: '700px'
       ,
         items: [

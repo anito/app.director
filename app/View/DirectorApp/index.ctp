@@ -429,7 +429,7 @@
       <span class="left">
         <a href="#" class="dd dropdown-toggle glyphicon glyphicon-chevron-down glyphicon-white" data-toggle="dropdown"></a>
         <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-          <li role="presentation" class="zoom"><a role="menuitem" tabindex="-1" data-toggle="tooltip" title="Open" href="#"><i class="tooltips glyphicon glyphicon-folder-close"></i>Open</a></li>
+          <li role="presentation" class="zoom"><a role="menuitem" tabindex="-1" data-toggle="tooltip" title="Open" href="#"><i class="tooltips glyphicon glyphicon-folder-close"></i>Open<span class="label label-primary">Enter</span></a></li>
           <li class="divider"></li>
           <li role="presentation" class="delete"><a role="menuitem" tabindex="-1" data-toggle="tooltip" title="Destroy" href="#"><i class="glyphicon glyphicon glyphicon-trash"></i>Destroy</a></li>
         </ul>
@@ -545,7 +545,7 @@
       <span class="left">
         <a href="#" class="dd dropdown-toggle glyphicon glyphicon-chevron-down glyphicon-white" data-toggle="dropdown"></a>
         <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-          <li role="presentation" class="zoom"><a role="menuitem" tabindex="-1" data-toggle="tooltip" title="Open" href="#"><i class="tooltips glyphicon glyphicon-folder-close"></i>Open</a></li>
+          <li role="presentation" class="zoom"><a role="menuitem" tabindex="-1" data-toggle="tooltip" title="Open" href="#"><i class="tooltips glyphicon glyphicon-folder-close"></i>Open<span class="label label-primary">Enter</span></a></li>
           {{if Gallery.record}}
           <li role="presentation" class="opt-original"><a role="menuitem" tabindex="-1" data-toggle="tooltip" title="Show in Library" href="#"><i class="glyphicon glyphicon glyphicon-file"></i>Show in Library</a></li>
           {{/if}}
@@ -857,7 +857,7 @@
     <span class="left">
       <a href="#" class="dd dropdown-toggle glyphicon glyphicon-chevron-down glyphicon-white" data-toggle="dropdown"></a>
       <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-        <li role="presentation" class="zoom"><a role="menuitem" tabindex="-1" data-toggle="tooltip" title="Open" href="#"><i class="tooltips glyphicon glyphicon-resize-full"></i>Open</a></li>
+        <li role="presentation" class="zoom"><a role="menuitem" tabindex="-1" data-toggle="tooltip" title="Open" href="#"><i class="tooltips glyphicon glyphicon-resize-full"></i>Open<span class="label label-primary">Enter</span></a></li>
         <li class="divider"></li>
         <li role="presentation" class="dropdown-header disabled"><a role="menuitem" tabindex="-1" data-toggle="tooltip" title="Rotate" href="#"><i class="tooltips"></i>Rotate:</a></li>
         <li role="presentation" class="rotate-cw"><a role="menuitem" tabindex="-1" data-toggle="tooltip" title="Rotate cw" href="#"><i class="tooltips glyphicon glyphicon glyphicon-circle-arrow-right"></i>cw</a></li>
