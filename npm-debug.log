@@ -1,0 +1,41 @@
+info it worked if it ends with ok
+verbose cli [ 'node', '/usr/local/bin/npm', 'install', 'karma', '--save-dev' ]
+info using npm@1.1.24
+info using node@v0.6.19
+verbose config file /var/www/vhosts/webpremiere.de/.npmrc
+verbose config file /usr/local/etc/npmrc
+verbose config file /usr/local/lib/node_modules/npm/npmrc
+verbose caching /var/www/vhosts/webpremiere.de/node_modules/express/package.json
+verbose cache add [ 'karma', null ]
+silly cache add: name, spec, args [ undefined, 'karma', [ 'karma', null ] ]
+verbose parsed url { pathname: 'karma', path: 'karma', href: 'karma' }
+verbose addNamed [ 'karma', '' ]
+verbose addNamed [ null, '' ]
+silly name, range, hasData [ 'karma', '', false ]
+verbose raw, before any munging karma
+verbose url resolving [ 'https://registry.npmjs.org/', './karma' ]
+verbose url resolved https://registry.npmjs.org/karma
+http GET https://registry.npmjs.org/karma
+ERR! Error: SSL Error: CERT_UNTRUSTED
+ERR!     at ClientRequest.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/main.js:483:26)
+ERR!     at ClientRequest.g (events.js:156:14)
+ERR!     at ClientRequest.emit (events.js:67:17)
+ERR!     at HTTPParser.parserOnIncomingClient [as onIncoming] (http.js:1256:7)
+ERR!     at HTTPParser.parserOnHeadersComplete [as onHeadersComplete] (http.js:91:29)
+ERR!     at CleartextStream.socketOnData [as ondata] (http.js:1288:20)
+ERR!     at CleartextStream._push (tls.js:375:27)
+ERR!     at SecurePair.cycle (tls.js:734:20)
+ERR!     at EncryptedStream.write (tls.js:130:13)
+ERR!     at Socket.ondata (stream.js:38:26)
+ERR! You may report this log at:
+ERR!     <http://github.com/isaacs/npm/issues>
+ERR! or email it to:
+ERR!     <npm-@googlegroups.com>
+ERR! 
+ERR! System Linux 2.6.32-042stab108.2
+ERR! command "node" "/usr/local/bin/npm" "install" "karma" "--save-dev"
+ERR! cwd /var/www/vhosts/webpremiere.de/subdomains/app/app.director
+ERR! node -v v0.6.19
+ERR! npm -v 1.1.24
+ERR! message SSL Error: CERT_UNTRUSTED
+verbose exit [ 1, true ]
