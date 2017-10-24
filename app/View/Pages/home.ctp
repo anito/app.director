@@ -36,7 +36,7 @@ endif;
                     </td>
                     <td>
                         <a href="http://armyshop.<?php echo HOST; ?>.<?php echo TOPLEVEL; ?>/admin" class="btn btn-success btn-large" type="" target="_blank"><span itemprop="name">Shop Admin</span></a>
-                        <i class="info">Managing Shop Products</i>
+                        <i class="info">Managing Sample Shop</i>
                     </td>
 
                 </tr>
