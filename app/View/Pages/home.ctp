@@ -42,7 +42,7 @@ endif;
                 </tr>
                 <tr style="text-align: center">
                     <td>
-                        <a href="https://ha-lehmann.at" class="btn btn-danger btn-large" type="" target="_top"><span itemprop="name">Online Shop</span></a>
+                        <a href="http://ha-lehmann.<?php echo TOPLEVEL == "de" ? 'at' : 'dev'; ?>" class="btn btn-danger btn-large" type="" target="_top"><span itemprop="name">Online Shop</span></a>
                         <i class="info">Online-Shop</i>
                     </td>
                     <td>
