@@ -52,7 +52,7 @@ endif;
                 </tr>
                 <tr style="text-align: center">
                     <td>
-                        <a href="http://dorcas-chili.<?php echo TOPLEVEL == "de" ? 'at' : 'dev'; ?>" class="btn btn-primary btn-large" type="" target="_top"><span itemprop="name">Dorcas Chili</span></a>
+                        <a href="http://dorcas-chili.<?php echo TOPLEVEL == "de" ? 'de' : 'dev'; ?>" class="btn btn-primary btn-large" type="" target="_top"><span itemprop="name">Dorcas Chili</span></a>
                         <i class="info">Scharfe Liköre</i>
                     </td>
                     <td>
