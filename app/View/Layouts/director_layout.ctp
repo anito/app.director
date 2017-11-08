@@ -22,8 +22,8 @@
   <head>
     <?php echo $this->Html->charset(); ?>
     <title>
-      <?php __('CakePHPP: Evaluating Spine.js:'); ?>
-      <?php echo $title_for_layout; ?>
+      <?php echo __('Photo Director'); ?>
+      <?php // echo $title_for_layout; ?>
     </title>
     <?php
     echo $this->Html->meta('icon');

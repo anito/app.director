@@ -23,7 +23,7 @@
 	<?php echo $this->Html->charset(); ?>
 	<title>
 		<?php __('CakePHP: Welcome to CakePHP: '); ?>
-		<?php echo $title_for_layout; ?>
+		<?php echo $title_for_layout; ?>TesT
 	</title>
 	<?php
 		echo $this->Html->meta('icon');
