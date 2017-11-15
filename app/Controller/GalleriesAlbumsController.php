@@ -56,15 +56,12 @@ class GalleriesAlbumsController extends AppController {
     if (empty($this->request->data)) {
       $this->request->data = $this->GalleriesAlbum->read(null, $id);
     }
-//    $galleries = $this->GalleriesAlbum->Gallery->find('list');
-//    $albums = $this->GalleriesAlbum->Album->find('list');
-//    $this->set(compact('galleries', 'albums'));
   }
 
   public function delete($id = null) {
     $this->GalleriesAlbum->recursive = 0;
-    $this->log('GalleriesAlbumsController::delete', LOG_DEBUG);
-    $this->log($id, LOG_DEBUG);
+//    $this->log('GalleriesAlbumsController::delete', LOG_DEBUG);
+//    $this->log($id, LOG_DEBUG);
     if (!$id) {
       $this->Session->setFlash(__('Invalid id for galleries album', true));
       $this->redirect(array('action' => 'index'));

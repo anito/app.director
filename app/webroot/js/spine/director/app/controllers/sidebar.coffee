@@ -7,10 +7,10 @@ Root           = require('models/root')
 GalleriesAlbum = require('models/galleries_album')
 AlbumsPhoto    = require('models/albums_photo')
 User           = require("models/user")
-Drag           = require("plugins/drag")
+Drag           = require("extensions/drag")
 SidebarList    = require('controllers/sidebar_list')
 RefreshView    = require('controllers/refresh_view')
-Extender       = require("plugins/controller_extender")
+Extender       = require("extensions/controller_extender")
 SpineDragItem  = require('models/drag_item')
 
 class Sidebar extends Spine.Controller
@@ -199,8 +199,8 @@ class Sidebar extends Spine.Controller
     list.children().each (index) ->
       album = $(@).item()
       for ga in gas
-        if ga.album_id is album.id and parseInt(ga.order) isnt index
-          ga.order = index
+        if ga.album_id is album.id and parseInt(ga.order_id) isnt index
+          ga.order_id = index
           result.push ga
         
           

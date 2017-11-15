@@ -8,10 +8,10 @@ Gallery         = require('models/gallery')
 GalleriesAlbum  = require('models/galleries_album')
 Info            = require('controllers/info')
 PhotosList      = require('controllers/photos_list')
-Drag            = require("plugins/drag")
-Extender        = require("plugins/controller_extender")
+Drag            = require("extensions/drag")
+Extender        = require("extensions/controller_extender")
 
-require("plugins/tmpl")
+require("extensions/tmpl")
 
 class PhotosView extends Spine.Controller
   
@@ -273,8 +273,8 @@ class PhotosView extends Spine.Controller
       item = $(@).item()
       if item and Album.record
         ap = AlbumsPhoto.filter(item.id, func: 'selectPhoto')[0]
-        if ap and parseInt(ap.order) isnt index
-          ap.order = index
+        if ap and parseInt(ap.order_id) isnt index
+          ap.order_id = index
           ap.save(ajax:false)
         # set a *invalid flag*, so when we return to albums cover view, thumbnails can get regenerated
         Album.record.invalid = true

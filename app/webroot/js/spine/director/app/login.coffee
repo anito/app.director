@@ -31,7 +31,7 @@ class Login extends Spine.Controller
     if lastError
       @render @flashEl, @flashTemplate, lastError 
       @render @infoEl, @infoTemplate, lastError if lastError.record
-    SpineError.destroyAll()
+#    SpineError.destroyAll()
     
   render: (el, tmpl, item) ->  
     el.html @template tmpl, item

@@ -1,8 +1,8 @@
 Spine    = require("spine")
 $        = Spine.$
-Extender = require("plugins/controller_extender")
+Extender = require("extensions/controller_extender")
 
-require("plugins/tmpl")
+require("extensions/tmpl")
 
 class SidebarFlickr extends Spine.Controller
 

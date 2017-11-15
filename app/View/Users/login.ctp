@@ -56,7 +56,7 @@
   </div>
 </div>
 
-<script type="text/x-jquery-tmpl" id="flashTemplate">
+<script type="text/html" id="flashTemplate">
   {{if flash}}
   {{html flash}}
   {{if success}}
@@ -68,7 +68,7 @@
   {{/if}}
 </script>
 
-<script type="text/x-jquery-tmpl" id="infoTemplate">
+<script type="text/html" id="infoTemplate">
   {{if record}}
   <span style="display: block;">Server action failed!</span>
   {{/if}}

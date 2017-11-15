@@ -1,19 +1,19 @@
 Spine           = require("spine")
 $               = Spine.$
 Model           = Spine.Model
-Filter          = require("plugins/filter")
+Filter          = require("extensions/filter")
 Gallery         = require('models/gallery')
 Model.Album     = require('models/album')
 Model.Photo     = require('models/photo')
 GalleriesAlbum  = require('models/galleries_album')
-Selector        = require("plugins/selector")
-Extender        = require("plugins/model_extender")
+Selector        = require("extensions/selector")
+Extender        = require("extensions/extender_model")
 
 require("spine/lib/ajax")
 
 class AlbumsPhoto extends Spine.Model
 
-  @configure "AlbumsPhoto", 'album_id', 'photo_id', 'order'
+  @configure "AlbumsPhoto", 'album_id', 'photo_id', 'order_id'
 
   @extend Model.Ajax
   @extend Filter

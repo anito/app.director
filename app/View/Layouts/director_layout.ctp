@@ -65,12 +65,13 @@
         }, 2500)
       };
       
-      Spine = require('spine');
-      Model = Spine.Model
-      Spine.isProduction = (localStorage.isProduction != null) ? !(localStorage.isProduction === 'false') : isProduction
-      User    = require("models/user");
-      Main    = require("index");
+      Spine       = require('spine');
       Spine.Route = require('spine/lib/route');
+      Model       = Spine.Model
+      User        = require("models/user");
+      Main        = require("index");
+      
+      Spine.isProduction = (localStorage.isProduction != null) ? !(localStorage.isProduction === 'false') : isProduction
       
       Gallery= require('models/gallery')
       Album = require('models/album')
@@ -85,6 +86,7 @@
       
       Spine.Route.setup()
       startScript()
+      
       
     });
     <?php

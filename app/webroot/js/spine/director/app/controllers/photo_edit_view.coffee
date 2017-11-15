@@ -1,7 +1,7 @@
 Spine       = require("spine")
 $           = Spine.$
-KeyEnhancer = require("plugins/key_enhancer")
-Extender    = require('plugins/controller_extender')
+KeyEnhancer = require("extensions/key_enhancer")
+Extender    = require('extensions/controller_extender')
 AlbumsPhoto = require('models/albums_photo')
 
 class PhotoEditView extends Spine.Controller

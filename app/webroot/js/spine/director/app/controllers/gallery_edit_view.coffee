@@ -1,6 +1,6 @@
 Spine       = require("spine")
-KeyEnhancer = require("plugins/key_enhancer")
-Extender    = require('plugins/controller_extender')
+KeyEnhancer = require("extensions/key_enhancer")
+Extender    = require('extensions/controller_extender')
 Gallery     = require("models/gallery")
 Root        = require("models/root")
 $           = Spine.$

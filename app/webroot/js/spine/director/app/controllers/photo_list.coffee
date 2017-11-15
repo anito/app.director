@@ -1,9 +1,9 @@
 Spine           = require("spine")
 $               = Spine.$
 Album           = require('models/album')
-Extender        = require('plugins/controller_extender')
+Extender        = require('extensions/controller_extender')
 
-require("plugins/tmpl")
+require("extensions/tmpl")
 
 class PhotoList extends Spine.Controller
   

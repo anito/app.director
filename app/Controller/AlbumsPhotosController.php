@@ -27,7 +27,7 @@ class AlbumsPhotosController extends AppController {
     if (!empty($this->request->data)) {
       $this->AlbumsPhoto->create();
       $data = $this->request->data;
-      $this->log($data, LOG_DEBUG);
+//      $this->log($data, LOG_DEBUG);
       $data['id'] = null;
       if ($this->AlbumsPhoto->saveAll($data)) {
         $this->Session->setFlash(__('The albums photo has been saved', true));

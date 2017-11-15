@@ -1,7 +1,7 @@
 Spine   = require("spine")
 $       = Spine.$
 Model   = Spine.Model
-Filter  = require("plugins/filter")
+Filter  = require("extensions/filter")
 
 require('spine/lib/local')
 

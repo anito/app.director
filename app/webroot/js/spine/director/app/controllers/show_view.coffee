@@ -27,8 +27,8 @@ SlideshowHeader = require('controllers/slideshow_header')
 OverviewHeader  = require('controllers/overview_header')
 OverviewView    = require('controllers/overview_view')
 ModalSimpleView = require("controllers/modal_simple_view")
-Extender        = require('plugins/controller_extender')
-Drag            = require("plugins/drag")
+Extender        = require('extensions/controller_extender')
+Drag            = require("extensions/drag")
 require('spine/lib/manager')
 
 class ShowView extends Spine.Controller

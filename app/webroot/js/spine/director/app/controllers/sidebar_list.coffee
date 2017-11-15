@@ -5,10 +5,10 @@ Album           = require('models/album')
 Gallery         = require('models/gallery')
 AlbumsPhoto     = require('models/albums_photo')
 GalleriesAlbum  = require('models/galleries_album')
-Drag            = require("plugins/drag")
-Extender        = require('plugins/controller_extender')
+Drag            = require("extensions/drag")
+Extender        = require('extensions/controller_extender')
 
-require("plugins/tmpl")
+require("extensions/tmpl")
 
 class SidebarList extends Spine.Controller
 

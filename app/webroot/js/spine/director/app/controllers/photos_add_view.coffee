@@ -1,7 +1,7 @@
 Spine = require('spine')
 $               = Spine.$
 Controller      = Spine.Controller
-Drag            = require("plugins/drag")
+Drag            = require("extensions/drag")
 User            = require("models/user")
 Album           = require('models/album')
 Gallery         = require('models/gallery')
@@ -10,9 +10,9 @@ AlbumsPhoto     = require('models/albums_photo')
 Info            = require('controllers/info')
 PhotosList      = require('controllers/photos_list')
 User            = require('models/user')
-Extender        = require("plugins/controller_extender")
+Extender        = require("extensions/controller_extender")
 
-require("plugins/tmpl")
+require("extensions/tmpl")
 
 class PhotosAddView extends Spine.Controller
 

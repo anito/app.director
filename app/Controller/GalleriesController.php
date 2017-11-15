@@ -47,7 +47,7 @@ class GalleriesController extends AppController {
     
     if (!empty($this->request->data)) {
       if ($this->Gallery->saveAssociated($this->request->data, array('deep' => true))) {
-        $this->log($this->data, LOG_DEBUG);
+//        $this->log($this->data, LOG_DEBUG);
         $this->set('_serialize', array('id' => $this->Gallery->id));
         $this->render(SIMPLE_JSON);
         $this->Session->setFlash(__('The gallery has been saved', true));

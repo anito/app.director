@@ -5,10 +5,10 @@ User                  = require('models/user')
 Photo                 = require('models/photo')
 GalleriesAlbum        = require('models/galleries_album')
 AlbumsPhoto           = require('models/albums_photo')
-Filter                = require("plugins/filter")
-AjaxRelations         = require("plugins/ajax_relations")
-Uri                   = require("plugins/uri")
-Extender              = require("plugins/model_extender")
+Filter                = require("extensions/filter")
+AjaxRelations         = require("extensions/ajax_relations")
+Uri                   = require("extensions/uri")
+Extender              = require("extensions/model_extender")
 
 require("spine/lib/ajax")
 
@@ -89,7 +89,6 @@ class Gallery extends Spine.Model
     
   
   init: (instance) ->
-    console.log instance
     return unless id = instance.id
     s = new Object()
     s[id] = []

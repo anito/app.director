@@ -20,11 +20,11 @@
           throw err;
         }
       } else {
-        throw 'module \'' + name + '\' not found';
+        throw 'module ' + name + ' not found';
       }
     }, expand = function(root, name) {
       var results = [], parts, part;
-      if (/^\.\.?(\/|$)/.test(name)) {
+      if (/^..?(\/|$)/.test(name)) {
         parts = [root, name].join('/').split('/');
       } else {
         parts = name.split('/');
@@ -54,6 +54,51 @@
   return this.specs.define;
 }).call(this)({
   
+  "controllers/albums_add_view": function(exports, require, module) { (function() {
+  var require;
+
+  require = window.require;
+
+  describe('AlbumsAddView', function() {
+    var AlbumsAddView;
+    AlbumsAddView = require('controllers/albumsaddview');
+    return it('can noop', function() {});
+  });
+
+}).call(this);
+ },"controllers/users_": function(exports, require, module) { (function() {
+  var require;
+
+  require = window.require;
+
+  describe('The Users Controller', function() {
+    var Users;
+    Users = require('controllers/users');
+    return it('can noop', function() {});
+  });
+
+}).call(this);
+ },"models/settings": function(exports, require, module) { (function() {
+  var require;
+
+  require = window.require;
+
+  describe('The Settings Model', function() {
+    var Settings;
+    Settings = require('models/settings');
+    return it('can noop', function() {});
+  });
+
+}).call(this);
+ }
 });
 
-require('lib/setup'); for (var key in specs.modules) specs(key);
+
+require('lib/setup')// HEM: load in specs from test js file
+var onlyMatchingModules = "";
+for (var key in specs.modules) {
+  if (onlyMatchingModules && key.indexOf(onlyMatchingModules) == -1) {
+    continue;
+  }
+  specs(key);
+}

@@ -50,11 +50,10 @@ class AppController extends Controller {
       if(!empty($data)) {
         $data = $this->object2Array($data);
         $this->request->data = $data;
-        $this->log('json decoded data: '.$data, LOG_DEBUG);
       }
 //      $this->_data = $this->data;
     }
-    $this->log($this->Auth->user(), LOG_DEBUG);
+//    $this->log($this->Auth->user(), LOG_DEBUG);
   }
   
   function object2array($obj) {

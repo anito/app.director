@@ -5,7 +5,7 @@ Gallery   = require('models/gallery')
 Album     = require('models/album')
 Clipboard = require('models/clipboard')
 Settings  = require('models/settings')
-Filter    = require("plugins/filter")
+Filter    = require("extensions/filter")
 
 class Toolbar extends Spine.Model
 

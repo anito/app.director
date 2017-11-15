@@ -183,6 +183,19 @@ class UsersController extends AppController {
       $this->render(SIMPLE_JSON);
     }
   }
+  
+  function isValid() {
+    $session = Configure::read('Session');
+//    $this->log($session['countdown'], LOG_DEBUG);
+    if($this->request->is('ajax')) {
+      if ($this->Auth->user()) {
+        $this->set('_serialize', array('success' => TRUE, 'timeout' => $session['timeout'], 'sessionid' => $this->Session->id()));
+      } else {
+        $this->set('_serialize', array('success' => FALSE));
+      }
+      $this->render(SIMPLE_JSON);
+    }
+  }
 }
 
 ?>

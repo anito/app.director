@@ -4,6 +4,7 @@ Log       = Spine.Log
 Model     = Spine.Model
 Settings  = require("models/settings")
 Clipboard = require("models/clipboard")
+#Extender  = require("extensions/model_extender")
 
 require('spine/lib/local')
 
@@ -11,6 +12,7 @@ class User extends Spine.Model
 
   @configure 'User', 'id', 'username', 'name', 'groupname', 'sessionid', 'hash'
 
+#  @extend Extender
   @extend Model.Local
   @include Log
   
@@ -49,5 +51,14 @@ class User extends Spine.Model
     @log 'error'
     @constructor.logout()
     @constructor.redirect 'users/login'
+    
+  isValid: (callback) ->
+    $.ajax
+      headers: {'X-Requested-With': 'XMLHttpRequest'}
+      url: base_url + 'users/isValid'
+      type: 'GET'
+      processData: false
+      success: (json) -> callback.call @, json
+      error: @proxy @errorHandler
       
 module?.exports = User

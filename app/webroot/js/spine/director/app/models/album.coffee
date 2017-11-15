@@ -5,13 +5,13 @@ Model.Gallery     = require('models/gallery')
 GalleriesAlbum    = require('models/galleries_album')
 AlbumsPhoto       = require('models/albums_photo')
 Clipboard         = require('models/clipboard')
-Filter            = require("plugins/filter")
-Extender          = require("plugins/model_extender")
-AjaxRelations     = require("plugins/ajax_relations")
-Uri               = require("plugins/uri")
-Utils             = require("plugins/utils")
+Filter            = require("extensions/filter")
+Extender_2      = require("extensions/model_extender")
+AjaxRelations     = require("extensions/ajax_relations")
+Uri               = require("extensions/uri")
+Utils             = require("extensions/utils")
 
-require("plugins/cache")
+require("extensions/cache")
 require("spine/lib/ajax")
 
 
@@ -25,7 +25,8 @@ class Album extends Spine.Model
   @extend Utils
   @extend AjaxRelations
   @extend Filter
-  @extend Extender
+  console.log Extender_2
+  @extend Extender_2
 
   @selectAttributes: ['title']
   
@@ -98,7 +99,7 @@ class Album extends Spine.Model
         gallery_id  : target.id
         album_id    : id
         ignore      : true
-        order       : parseInt(GalleriesAlbum.albums(target.id).last()?.order)+1 or 0
+        order       : parseInt(GalleriesAlbum.albums(target.id).last()?.order_id)+1 or 0
       valid = ga.save
         validate: true
         ajax: false
@@ -186,7 +187,7 @@ class Album extends Spine.Model
   # loops over each record and make sure to set the copy property
   select: (joinTableItems) ->
     for record in joinTableItems
-      return true if record.album_id is @id and (@['order'] = record.order)?
+      return true if record.album_id is @id and (@['order_id'] = record.order_id)?
       
   select_: (joinTableItems) ->
     return true if @id in joinTableItems

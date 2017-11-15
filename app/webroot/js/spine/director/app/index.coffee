@@ -1,6 +1,6 @@
 Spine                   = require("spine")
 $                       = Spine.$
-Drag                    = require("plugins/drag")
+Drag                    = require("extensions/drag")
 User                    = require('models/user')
 Config                  = require('models/config')
 Album                   = require('models/album')
@@ -27,12 +27,12 @@ GalleryEditView         = require("controllers/gallery_edit_view")
 OverviewView            = require('controllers/overview_view')
 MissingView             = require("controllers/missing_view")
 FlickrView              = require("controllers/flickr_view")
-Extender                = require('plugins/controller_extender')
+Extender                = require('extensions/controller_extender')
 SpineDragItem           = require('models/drag_item')
 
 require('spine/lib/route')
 require('spine/lib/manager')
-require("plugins/manager")
+require("extensions/manager")
 
 class Main extends Spine.Controller
   
@@ -248,8 +248,10 @@ class Main extends Spine.Controller
     unless valid
       User.logout()
     else
+      @user = User.user = user
       @loadUserSettings(user.id)
       @delay @setupView, 1000
+      @setInterval 10000
       
   drop: (e) ->
     @log 'drop'
@@ -271,7 +273,7 @@ class Main extends Spine.Controller
       
   loadUserSettings: (id) ->
     Settings.fetch()
-    
+
     unless settings = Settings.findByAttribute('user_id', id)
       @notify 'You seem to be using this App for the first time.<br>The Auto Upload will be set to '+ @autoupload + '.<br>To change this setting<br>go to Photo->Auto Upload'
       
@@ -279,7 +281,20 @@ class Main extends Spine.Controller
         user_id   : id
         autoupload: @autoupload
         hash: '#/overview/'
-        previousHash: '#/overview/'
+        
+  setInterval: (time) ->
+    callback = (json) =>
+      json = $.parseJSON(json)
+      success = json.success
+      sessionid = json.sessionid
+      @user.sessionid = sessionid
+      @user.save()
+    func = => @user.isValid(callback)
+    
+    if @user
+      clearInterval(@uuid) if @uuid
+      @uuid = $().uuid()
+      @uuid = setInterval(func, time)
         
   refreshSettings: (records) ->
     if hash = location.hash

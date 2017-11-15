@@ -1,12 +1,12 @@
 Spine         = require("spine")
 $             = Spine.$
-Drag          = require("plugins/drag")
+Drag          = require("extensions/drag")
 Root          = require('models/root')
 Gallery       = require('models/gallery')
 GalleriesAlbum  = require('models/galleries_album')
 GalleriesList = require("controllers/galleries_list")
 AlbumsPhoto   = require('models/albums_photo')
-Extender      = require('plugins/controller_extender')
+Extender      = require('extensions/controller_extender')
 
 class GalleriesView extends Spine.Controller
   

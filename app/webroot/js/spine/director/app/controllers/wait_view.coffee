@@ -4,7 +4,7 @@ Model           = Spine.Model
 Controller      = Spine.Controller
 ModalSimpleView = require("controllers/modal_simple_view")
 
-Extender = require("plugins/controller_extender")
+Extender = require("extensions/controller_extender")
 
 class WaitView extends Spine.Controller
   

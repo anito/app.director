@@ -7,7 +7,7 @@
     "stylus": "~0.52.0",
     "es5-shimify": "~2.0.0",
     "serveup": "~0.0.5",
-    "hem": "~0.3.6",
+    "hem": "~1.0.10",
     "json2ify": "~0.0.1",
     "jqueryify": "~1.9.0",
     "jquery.tmpl": "~0.0.1",

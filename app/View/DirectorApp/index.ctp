@@ -208,13 +208,13 @@
 <!-- /.modal -->
 
 <!-- Templates -->
-<script id="flickrTemplate" type="text/x-jquery-tmpl">
+<script id="flickrTemplate" type="text/html">
   <a href='http://farm${farm}.static.flickr.com/${server}/${id}_${secret}_b.jpg' title="${title}" data-gallery>
     <img src='http://farm${farm}.static.flickr.com/${server}/${id}_${secret}_s.jpg'>
   </a>
 </script>
 
-<script id="flickrIntroTemplate" type="text/x-jquery-tmpl">
+<script id="flickrIntroTemplate" type="text/html">
   <div class="dark xxl">
     <i class="glyphicon glyphicon-picture"></i>
     <span class="cover-header">flickr</span>
@@ -225,7 +225,7 @@
   </div>
 </script>
 
-<script id="addTemplate" type="text/x-jquery-tmpl">
+<script id="addTemplate" type="text/html">
   <div class="modal-dialog ${type}" style="width: 55%;">
     <div class="bg-dark content modal-content">
       <div class="modal-header dark">
@@ -243,7 +243,7 @@
 </script>
 
 
-<script id="footerTemplate" type="text/x-jquery-tmpl">
+<script id="footerTemplate" type="text/html">
   <div class="btn-group left">
     <button type="button" class="opt-SelectInv dark {{if !contains}}disabled{{/if}}">Invert</button>
     <button type="button" class="opt-SelectAll dark {{if !contains}}disabled{{/if}}">All</button>
@@ -254,7 +254,7 @@
   </div>
 </script>
 
-<script id="modalSimpleHelpTemplate" type="text/x-jquery-tmpl">
+<script id="modalSimpleHelpTemplate" type="text/html">
   <ul>
     <li>Axel</li>
     <li>Nitzschner</li>
@@ -262,7 +262,7 @@
   </ul>
 </script>
   
-<script id="modalActionTemplate" type="text/x-jquery-tmpl">
+<script id="modalActionTemplate" type="text/html">
   <form>
   <div class="modal-dialog">
     <div class="modal-content">
@@ -300,19 +300,19 @@
   </form>
 </script>
 
-<script id="modalActionColTemplate" type="text/x-jquery-tmpl">
+<script id="modalActionColTemplate" type="text/html">
   {{tmpl($item.data.items) "#modalActionContentTemplate"}}
 </script>
 
-<script id="modalActionContentTemplate" type="text/x-jquery-tmpl">
+<script id="modalActionContentTemplate" type="text/html">
   <a class="list-group-item item" id="${id}">{{if name}}${name}{{else}}${title}{{/if}}</a>
 </script>
 
-<script id="modalSmallTemplate" type="text/x-jquery-tmpl">
+<script id="modalSmallTemplate" type="text/html">
   
 </script>
 
-<script id="modalSimpleTemplate" type="text/x-jquery-tmpl">
+<script id="modalSimpleTemplate" type="text/html">
   <div class="modal-dialog {{if small}}modal-sm{{else}}modal-lg{{/if}}">
     <div class="modal-content bg-dark">
       {{if header}}
@@ -341,11 +341,11 @@
   </div>
 </script>
 
-<script id="modalSimpleTemplateBody" type="text/x-jquery-tmpl">
+<script id="modalSimpleTemplateBody" type="text/html">
   <div>test</div>
 </script>
 
-<script id="modal2ButtonTemplate" type="text/x-jquery-tmpl">
+<script id="modal2ButtonTemplate" type="text/html">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header dark">
@@ -370,7 +370,7 @@
   </div>
 </script>
 
-<script id="sidebarTemplate" type="text/x-jquery-tmpl">
+<script id="sidebarTemplate" type="text/html">
   <li data-id="${id}" class="gal gal-trigger-edit item data parent">
     <div class="item-header">
       <div class="expander"></div>
@@ -381,14 +381,14 @@
   </li>
 </script>
 
-<script id="sidebarContentTemplate" type="text/x-jquery-tmpl">
+<script id="sidebarContentTemplate" type="text/html">
   <div class="item-content">
     <span class="name">{{if name}}${name.slice(0, 20)}{{else}}${title.slice(0, 20)}{{/if}}</span>
     <span class="gal cta gal-trigger-edit">{{tmpl($item.data.details()) "#galleryDetailsTemplate"}}</span>
   </div>
 </script>
 
-<script id="sidebarFlickrTemplate" type="text/x-jquery-tmpl">
+<script id="sidebarFlickrTemplate" type="text/html">
   <li class="gal item parent" title="">
     <div class="item-header">
       <div class="expander"></div>
@@ -403,21 +403,21 @@
   </li>
 </script>
 
-<script id="sidebarFlickrSublistTemplate" type="text/x-jquery-tmpl">
+<script id="sidebarFlickrSublistTemplate" type="text/html">
   <li class="sublist-item item item-content ${klass}">
     <span class="glyphicon glyphicon-${icon}"></span>
     <span class="">${name}</span>
   </li>
 </script>
 
-<script id="overviewHeaderTemplate" type="text/x-jquery-tmpl">
+<script id="overviewHeaderTemplate" type="text/html">
 </script>
 
-<script id="galleryDetailsTemplate" type="text/x-jquery-tmpl">
+<script id="galleryDetailsTemplate" type="text/html">
     <span>${aCount} </span><span style="font-size: 0.6em;"> (${iCount})</span>
 </script>
 
-<script id="galleriesTemplate" type="text/x-jquery-tmpl">
+<script id="galleriesTemplate" type="text/html">
   <li id="${id}" data-id="${id}" class="item container data fade in gal-trigger-edit" data-drag-over="thumbnail">
     <div class="thumbnail">
       <div class="inner">
@@ -438,7 +438,7 @@
   </li>
 </script>
 
-<script id="modalGalleriesActionTemplate" type="text/x-jquery-tmpl">
+<script id="modalGalleriesActionTemplate" type="text/html">
   <div class="modal-header dark">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
     <h3>${header}</h3>
@@ -457,13 +457,13 @@
   </div>
 </script>
 
-<script id="galleryActionTemplate" type="text/x-jquery-tmpl">
+<script id="galleryActionTemplate" type="text/html">
   <label class="btn btn-primary">
     <input type="radio" name="options" id="option1">${name}
   </label>
 </script>
 
-<script id="defaultActionTemplate" type="text/x-jquery-tmpl">
+<script id="defaultActionTemplate" type="text/html">
   <div class="modal-header dark">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
     <h3>${header}</h3>
@@ -484,7 +484,7 @@
   </div>
 </script>
 
-<script id="missingViewTemplate" type="text/x-jquery-tmpl">
+<script id="missingViewTemplate" type="text/html">
   <div class="dark xxl">
     <i class="glyphicon glyphicon-question-sign"></i>
     <span class="cover-header">404</span><span>Not Found Error</span>
@@ -494,7 +494,7 @@
   </div>
 </script>
 
-<script id="galDetailsTemplate" type="text/x-jquery-tmpl">
+<script id="galDetailsTemplate" type="text/html">
   <div style="">{{if name}}${name.slice(0, 15)}{{else}}...{{/if}}</div>
   <div style="font-size: 0.8em; font-style: oblique;">Albums: ${aCount}</div>
   <div style="font-size: 0.8em; font-style: oblique;">Images: ${iCount}</div>
@@ -509,7 +509,7 @@
   {{/if}}
 </script>
 
-<script id="editGalleryTemplate" type="text/x-jquery-tmpl">
+<script id="editGalleryTemplate" type="text/html">
   <div class="content">
     <div class="editGallery">
       <div class="galleryEditor">
@@ -530,7 +530,7 @@
   </div>
 </script>
 
-<script id="albumsTemplate" type="text/x-jquery-tmpl">
+<script id="albumsTemplate" type="text/html">
   <li id="${id}" data-id="${id}" class="item fade in alb-trigger-edit {{if Gallery.record}}{{if ignore}}ignore{{/if}}{{/if}}" draggable="true">
     <div class="thumbnail"></div>
     {{if Gallery.record}}
@@ -558,7 +558,7 @@
   </li>
 </script>
 
-<script id="editAlbumTemplate" type="text/x-jquery-tmpl">
+<script id="editAlbumTemplate" type="text/html">
   <div class="content">
     <label class="">
       <span class="enlightened">Album Title</span>
@@ -575,7 +575,7 @@
   </div>
 </script>
 
-<script id="editPhotoTemplate" type="text/x-jquery-tmpl">
+<script id="editPhotoTemplate" type="text/html">
   <div class="content">
     <label class="">
       <span class="enlightened">Photo Title</span>
@@ -592,11 +592,11 @@
   </div>
 </script>
 
-<script id="albumSelectTemplate" type="text/x-jquery-tmpl">
+<script id="albumSelectTemplate" type="text/html">
   <option {{if ((constructor.record) && (constructor.record.id == id))}}selected{{/if}} value="${id}">${title}</option>
 </script>
 
-<script id="headerGalleryTemplate" type="text/x-jquery-tmpl">
+<script id="headerGalleryTemplate" type="text/html">
   <section class="top viewheader fadeelement">
     <div class="left">
       <div class="title">
@@ -614,7 +614,7 @@
   </section>
 </script>
 
-<script id="headerAlbumTemplate" type="text/x-jquery-tmpl">
+<script id="headerAlbumTemplate" type="text/html">
   <section class="top viewheader fadeelement">
     <div class="left">  
       {{if model.record}}
@@ -647,7 +647,7 @@
   </section>
 </script>
 
-<script id="headerPhotosTemplate" type="text/x-jquery-tmpl">
+<script id="headerPhotosTemplate" type="text/html">
   <section class="top viewheader fadeelement">
     <div class="left">  
       {{if model.record}}
@@ -675,7 +675,7 @@
   {{/if}}
 </script>
 
-<script id="headerPhotoTemplate" type="text/x-jquery-tmpl">
+<script id="headerPhotoTemplate" type="text/html">
   <section class="top viewheader fadeelement">
     <div class="left">  
       {{if model.record}}
@@ -700,7 +700,7 @@
   {{tmpl() "#photoBreadcrumbTemplate"}}
 </script>
 
-<script id="photosBreadcrumbTemplate" type="text/x-jquery-tmpl">
+<script id="photosBreadcrumbTemplate" type="text/html">
   <section class="">
     <span class="fadeelement breadcrumb">
       <li style="padding: 0px 19px;" class="opt-Prev">
@@ -718,7 +718,7 @@
 </script>
 
 
-<script id="photoBreadcrumbTemplate" type="text/x-jquery-tmpl">
+<script id="photoBreadcrumbTemplate" type="text/html">
   <section class="">
     <span class="fadeelement breadcrumb">
       <li style="padding: 0px 19px;" class="opt-Prev">
@@ -739,7 +739,7 @@
 </script>
 
 
-<script id="gallerySpecsTemplate" type="text/x-jquery-tmpl">
+<script id="gallerySpecsTemplate" type="text/html">
   <div class="right">
     <span class="">
     <div class="btn btn-sm">Galleries<b><div>${model.count()}</div></b></div>
@@ -753,7 +753,7 @@
   </div>
 </script>
 
-<script id="albumSpecsTemplate" type="text/x-jquery-tmpl">
+<script id="albumSpecsTemplate" type="text/html">
   <div class="right">
     <span class="">
       <div class="opt-Select{{if model.details().sCount>0}}None deselect{{else}}All select{{/if}} btn btn-sm {{if model.details().sCount>0}}btn-info{{/if}}"><b class=""><div>${model.details().sCount}</div></b></div>
@@ -767,7 +767,7 @@
   </div>
 </script>
 
-<script id="photoSpecsTemplate" type="text/x-jquery-tmpl">
+<script id="photoSpecsTemplate" type="text/html">
   <div class="right">
     <span class="">
     <div class="opt-Select{{if model.details().sCount>0}}None deselect{{else}}All select{{/if}} btn btn-sm {{if model.details().sCount>0}}btn-info{{/if}}"><b class=""><div>${model.details().sCount}</div></b></div>
@@ -778,11 +778,11 @@
   </div>
 </script>
 
-<script id="albumCountTemplate" type="text/x-jquery-tmpl">
+<script id="albumCountTemplate" type="text/html">
   <span class="cta">${iCount}</span>
 </script>
 
-<script id="albumsSublistTemplate" type="text/x-jquery-tmpl">
+<script id="albumsSublistTemplate" type="text/html">
   {{if flash}}
   <span class="author">${flash}</span>
   {{else}}
@@ -794,7 +794,7 @@
   {{/if}}
 </script>
 
-<script id="albumInfoTemplate" type="text/x-jquery-tmpl">
+<script id="albumInfoTemplate" type="text/html">
   <ul>
     <li class="tr name">
       <span class="td left">{{if title}}${title}{{else}}no title{{/if}} </span><span class="td"></span><span class="td right"> {{tmpl($item.data.details()) "#albumCountTemplate"}}</span>
@@ -805,7 +805,7 @@
   </ul>
 </script>
 
-<script id="photosDetailsTemplate" type="text/x-jquery-tmpl">
+<script id="photosDetailsTemplate" type="text/html">
   Author:  <span class="label label-default">${author}</span>
   Gallery:  <span class="label label-{{if gallery}}default{{else}}warning{{/if}}">{{if gallery}}{{if gallery.name}}${gallery.name}{{else}}no name{{/if}}{{else}}not found{{/if}}</span>
   <br>
@@ -816,7 +816,7 @@
   </span>
 </script>
 
-<script id="photoDetailsTemplate" type="text/x-jquery-tmpl">
+<script id="photoDetailsTemplate" type="text/html">
   Author:&nbsp;<span class="label label-default">{{if author}}${author}{{/if}}</span>
   Gallery:&nbsp;<span class="label label-{{if gallery}}default{{else}}warning{{/if}}">{{if gallery}}{{if gallery.name}}${gallery.name}{{else}}no name{{/if}}{{else}}not found{{/if}}</span>
   Album:&nbsp;<span class="label label-{{if album}}default{{else}}warning{{/if}}">{{if album}}{{if album.title}}${album.title}{{else}}no title{{/if}}{{else}}not found{{/if}}</span>
@@ -831,26 +831,26 @@
   </label>
 </script>
 
-<script id="photosTemplate" type="text/x-jquery-tmpl">
+<script id="photosTemplate" type="text/html">
   <li  id="${id}" data-id="${id}" class="item data fade in pho-trigger-edit" draggable="true">
     {{tmpl "#photosThumbnailTemplate"}}
     <div class="title center hide">{{if title}}${title.substring(0, 15)}{{else}}{{if src}}${src.substring(0, 15)}{{else}}no title{{/if}}{{/if}}</div>
   </li>
 </script>
 
-<script id="photosSlideshowTemplate" type="text/x-jquery-tmpl">
+<script id="photosSlideshowTemplate" type="text/html">
   <li  class="item data ">
     <a class="thumbnail image left fadeslow in"></a>
   </li>
 </script>
 
-<script id="photoTemplate" type="text/x-jquery-tmpl">
+<script id="photoTemplate" type="text/html">
   <li data-id="${id}" class="item pho-trigger-edit">
     {{tmpl "#photoThumbnailTemplate"}}
   </li>
 </script>
 
-<script id="photosThumbnailTemplate" type="text/x-jquery-tmpl">
+<script id="photosThumbnailTemplate" type="text/html">
   <div class="thumbnail image left fadeslow"></div>
   <div class="glyphicon-set right blue fade out" style="">
     <span class="tooltips downloading glyphicon glyphicon-download-alt glyphicon-white hide left fade" data-toggle="tooltip"></span>
@@ -873,7 +873,7 @@
   </div>
 </script>
 
-<script id="photoThumbnailTemplate" type="text/x-jquery-tmpl">
+<script id="photoThumbnailTemplate" type="text/html">
   <div class="thumbnail image left"></div>
   <div class="glyphicon-set right blue fade out" style="">
     <span class="tooltips downloading glyphicon glyphicon-download-alt glyphicon-white hide left fade" data-toggle="tooltip"></span>
@@ -893,11 +893,11 @@
   <div class="title center hide">{{if title}}${title.substring(0, 15)}{{else}}{{if src}}${src.substring(0, 15)}{{else}}no title{{/if}}{{/if}}</div>
 </script>
 
-<script id="photoThumbnailSimpleTemplate" type="text/x-jquery-tmpl">
+<script id="photoThumbnailSimpleTemplate" type="text/html">
   <div class="opt- thumbnail image left"></div>
 </script>
 
-<script id="preloaderTemplate" type="text/x-jquery-tmpl">
+<script id="preloaderTemplate" type="text/html">
   <div class="preloader">
     <div class="content">
       <div></div
@@ -905,7 +905,7 @@
   </div>
 </script>
 
-<script id="photoInfoTemplate" type="text/x-jquery-tmpl">
+<script id="photoInfoTemplate" type="text/html">
   <ul>
     <li class="">
       <span class="">{{if title}}{{html title}}{{else}}${src}{{/if}}</span>
@@ -934,7 +934,7 @@
   </ul>
 </script>
 
-<script id="toolsTemplate" type="text/x-jquery-tmpl">
+<script id="toolsTemplate" type="text/html">
   {{if dropdown}}
     {{tmpl(itemGroup)  "#dropdownTemplate"}}
   {{else}}
@@ -954,7 +954,7 @@
   {{/if}}
 </script>
 
-<script id="dropdownTemplate" type="text/x-jquery-tmpl">
+<script id="dropdownTemplate" type="text/html">
   <li class="dropdown" {{if id}} id="${id}"{{/if}} >
     <a class="dropdown-toggle" data-toggle="dropdown">
       {{if icon}}<i class="glyphicon glyphicon-${icon}  {{if iconcolor}}glyphicon glyphicon-${iconcolor}{{/if}}"></i>{{/if}}
@@ -967,7 +967,7 @@
   </li>
 </script>
 
-<script id="dropdownListItemTemplate" type="text/x-jquery-tmpl">
+<script id="dropdownListItemTemplate" type="text/html">
   {{if devider}}
   <li class="divider"></li>
   {{else}}
@@ -983,15 +983,15 @@
   {{/if}}
 </script>
 
-<script id="testTemplate" type="text/x-jquery-tmpl">
+<script id="testTemplate" type="text/html">
   {{if eval}}{{tmpl($item.data.eval()) "#testTemplate"}}{{/if}}
 </script>
 
-<script id="noSelectionTemplate" type="text/x-jquery-tmpl">
+<script id="noSelectionTemplate" type="text/html">
   {{html type}}
 </script>
 
-<script id="loginTemplate" type="text/x-jquery-tmpl">
+<script id="loginTemplate" type="text/html">
   <div class="btn-group">
     <button type="button" class="dropdown-toggle dark clear" style="min-width: 180px;" data-toggle="dropdown">
       <i class="glyphicon glyphicon-user"></i>
@@ -1008,7 +1008,7 @@
   </div>
 </script>
 
-<script id="overviewTemplate" type="text/x-jquery-tmpl">
+<script id="overviewTemplate" type="text/html">
   <div class="item recents active">
     <img src="/img/overview-background.png" style="width: 800px; height: 370px;">
     <div class="carousel-item">
@@ -1030,13 +1030,13 @@
   </div>
 </script>
 
-<script id="overviewPhotosTemplate" type="text/x-jquery-tmpl">
+<script id="overviewPhotosTemplate" type="text/html">
   <div class="item">
     {{tmpl "#photoThumbnailSimpleTemplate"}}
   </div>
 </script>
 
-<script id="overviewSummaryTemplate" type="text/x-jquery-tmpl">
+<script id="overviewSummaryTemplate" type="text/html">
   <table class="carousel table center">
     <tbody>
       <tr>
@@ -1060,7 +1060,7 @@
   </button>
 </script>
 
-<script id="fileuploadTemplate" type="text/x-jquery-tmpl">
+<script id="fileuploadTemplate" type="text/html">
   <span style="font-size: 0.6em;" class=" alert alert-success">
     <span style="font-size: 2.9em; font-family: cursive; margin-right: 20px;" class="alert alert-error">"</span>
     {{if album}}{{if album.title}}${album.title}{{else}}...{{/if}}{{else}}all photos{{/if}}
@@ -1069,7 +1069,7 @@
 </script>
 
 <!-- The template to display files available for upload -->
-<script id="template-upload" type="text/x-tmpl">
+<script id="template-upload" type="text/html">
 {% for (var i=0, file; file=o.files[i]; i++) { %}
     <tr class="template-upload fade">
         <td>
@@ -1105,7 +1105,7 @@
 {% } %}
 </script>
 <!-- The template to display files available for download -->
-<script id="template-download" type="text/x-tmpl">
+<script id="template-download" type="text/html">
 {% for (var i=0, file; file=o.files[i]; i++) { %}
     <tr class="template-download fade dark">
         <td>

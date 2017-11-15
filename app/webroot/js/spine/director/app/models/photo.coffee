@@ -1,16 +1,16 @@
 Spine         = require("spine")
 $             = Spine.$
 Model         = Spine.Model
-Filter        = require("plugins/filter")
+Filter        = require("extensions/filter")
 Gallery       = require('models/gallery')
 Album         = require('models/album')
-Clipboard     = require('models/clipboard')
-AlbumsPhoto   = require('models/albums_photo')
-Extender      = require("plugins/model_extender")
-AjaxRelations = require("plugins/ajax_relations")
-Uri           = require("plugins/uri")
-Dev           = require("plugins/dev")
-Cache         = require("plugins/cache")
+Clipboard     = require("models/clipboard")
+AlbumsPhoto   = require("models/albums_photo")
+Extender      = require("extensions/model_extender")
+AjaxRelations = require("extensions/ajax_relations")
+Uri           = require("extensions/uri")
+Dev           = require("extensions/dev")
+Cache         = require("extensions/cache")
 require("spine/lib/ajax")
 
 class Photo extends Spine.Model
@@ -22,6 +22,7 @@ class Photo extends Spine.Model
   @extend Dev
   @extend AjaxRelations
   @extend Filter
+  console.log Extender
   @extend Extender
 
   @selectAttributes: ['title', "description", 'user_id']
@@ -95,7 +96,7 @@ class Photo extends Spine.Model
       ap = new AlbumsPhoto
         album_id    : target.id
         photo_id    : item.id or item
-        order       : parseInt(AlbumsPhoto.photos(target.id).last()?.order)+1 or 0
+        order       : parseInt(AlbumsPhoto.photos(target.id).last()?.order_id)+1 or 0
       valid = ap.save
         validate: true
         ajax: false
@@ -150,7 +151,7 @@ class Photo extends Spine.Model
 
   select: (joinTableItems) ->
     for record in joinTableItems
-      return true if record.photo_id is @id and (@['order'] = record.order)?
+      return true if record.photo_id is @id and (@['order_id'] = record.order_id)?
       
   select_: (joinTableItems) ->
     return true if @id in joinTableItems

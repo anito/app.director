@@ -1,7 +1,7 @@
 Spine           = require("spine")
 $               = Spine.$
 Controller      = Spine.Controller
-Drag            = require("plugins/drag")
+Drag            = require("extensions/drag")
 User            = require("models/user")
 Album           = require('models/album')
 Gallery         = require('models/gallery')
@@ -9,10 +9,10 @@ GalleriesAlbum  = require('models/galleries_album')
 AlbumsPhoto     = require('models/albums_photo')
 Info            = require('controllers/info')
 AlbumsList      = require('controllers/albums_list')
-Extender        = require("plugins/controller_extender")
+Extender        = require("extensions/controller_extender")
 User            = require('models/user')
 
-require("plugins/tmpl")
+require("extensions/tmpl")
 
 class AlbumsView extends Spine.Controller
   
@@ -193,7 +193,7 @@ class AlbumsView extends Spine.Controller
       author  : User.first().name
       invalid : false
       user_id : User.first().id
-      order   : Album.count()
+      order_id   : Album.count()
     else
       User.ping()
   
@@ -353,8 +353,8 @@ class AlbumsView extends Spine.Controller
       item = $(@).item()
       if item
         ga = GalleriesAlbum.filter(item.id, func: 'selectAlbum')[0]
-        if ga and parseInt(ga.order) isnt index
-          ga.order = index
+        if ga and parseInt(ga.order_id) isnt index
+          ga.order_id = index
           ga.save(ajax:false)
           
     Gallery.record.save(done: cb)

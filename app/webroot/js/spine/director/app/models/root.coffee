@@ -2,8 +2,8 @@ Spine             = require("spine")
 $                 = Spine.$
 Model             = Spine.Model
 Gallery           = require('models/gallery')
-Filter            = require("plugins/filter")
-Extender          = require("plugins/model_extender")
+Filter            = require("extensions/filter")
+Extender          = require("extensions/extender_model")
 
 class Root extends Spine.Model
 

@@ -4,10 +4,10 @@ Album         = require('models/album')
 AlbumsPhoto   = require('models/albums_photo')
 PhotoList     = require('controllers/photo_list')
 Info          = require('controllers/info')
-Drag          = require("plugins/drag")
-Extender      = require('plugins/controller_extender')
+Drag          = require("extensions/drag")
+Extender      = require('extensions/controller_extender')
 
-require("plugins/tmpl")
+require("extensions/tmpl")
 
 class PhotoView extends Spine.Controller
   

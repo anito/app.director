@@ -3,9 +3,9 @@ $       = Spine.$
 Recent  = require('models/recent')
 Photo   = require('models/photo')
 Settings= require('models/settings')
-Extender= require("plugins/controller_extender")
+Extender= require("extensions/controller_extender")
 
-require("plugins/tmpl")
+require("extensions/tmpl")
 
 class OverviewView extends Spine.Controller
 
@@ -80,7 +80,7 @@ class OverviewView extends Spine.Controller
     catch e
       @log e
       alert "New photos found. \n\nRestarting Application!"
-      User.redirect 'director_app'
+#      User.redirect 'director_app'
   
   callback: (json, items) =>
     @log 'callback'

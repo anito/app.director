@@ -1,6 +1,6 @@
 Spine     = require("spine")
 $         = Spine.$
-Extender  = require('plugins/controller_extender')
+Extender  = require('extensions/controller_extender')
 
 class MainView extends Spine.Controller
 

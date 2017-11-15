@@ -5,11 +5,11 @@ Controller      = Spine.Controller
 Photo           = require('models/photo')
 AlbumsPhoto     = require('models/albums_photo')
 Settings        = require('models/settings')
-Extender        = require("plugins/controller_extender")
+Extender        = require("extensions/controller_extender")
 
-require('plugins/uri')
-require('plugins/tmpl')
-require('plugins/utils')
+require('extensions/uri')
+require('extensions/tmpl')
+require('extensions/utils')
 
 class SlideshowView extends Spine.Controller
   

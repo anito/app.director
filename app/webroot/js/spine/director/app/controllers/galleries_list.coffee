@@ -4,10 +4,10 @@ Root            = require("models/root")
 Gallery         = require('models/gallery')
 GalleriesAlbum  = require('models/galleries_album')
 AlbumsPhoto     = require('models/albums_photo')
-Drag            = require("plugins/drag")
-Extender        = require('plugins/controller_extender')
+Drag            = require("extensions/drag")
+Extender        = require('extensions/controller_extender')
 
-require("plugins/tmpl")
+require("extensions/tmpl")
 
 class GalleriesList extends Spine.Controller
 
