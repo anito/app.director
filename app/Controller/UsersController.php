@@ -191,7 +191,7 @@ class UsersController extends AppController {
       if ($this->Auth->user()) {
         $this->set('_serialize', array('success' => TRUE, 'timeout' => $session['timeout'], 'sessionid' => $this->Session->id()));
       } else {
-        $this->set('_serialize', array('success' => FALSE));
+        $this->set('_serialize', array('success' => FALSE, 'timeout' => $session['timeout'], 'sessionid' => $this->Session->id()));
       }
       $this->render(SIMPLE_JSON);
     }

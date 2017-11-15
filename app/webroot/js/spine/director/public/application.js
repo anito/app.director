@@ -38262,20 +38262,17 @@ Released under the MIT License
     };
 
     Main.prototype.setInterval = function(time) {
-      var callback, func;
-      callback = (function(_this) {
-        return function(json) {
-          var sessionid, success;
-          json = $.parseJSON(json);
-          success = json.success;
-          sessionid = json.sessionid;
-          _this.user.sessionid = sessionid;
-          return _this.user.save();
-        };
-      })(this);
+      var func, successHandler;
+      successHandler = function(json) {
+        var success;
+        json = $.parseJSON(json);
+        success = json.success;
+        this.sessionid = json.sessionid;
+        return this.save();
+      };
       func = (function(_this) {
         return function() {
-          return _this.user.isValid(callback);
+          return _this.user.isValid(successHandler);
         };
       })(this);
       if (this.user) {
@@ -40975,6 +40972,10 @@ Released under the MIT License
       return this.constructor.redirect('users/login');
     };
 
+    User.prototype.logout = function() {
+      return this.constructor.logout();
+    };
+
     User.prototype.isValid = function(callback) {
       return $.ajax({
         headers: {
@@ -40983,10 +40984,18 @@ Released under the MIT License
         url: base_url + 'users/isValid',
         type: 'GET',
         processData: false,
-        success: function(json) {
-          return callback.call(this, json);
-        },
-        error: this.proxy(this.errorHandler)
+        success: (function(_this) {
+          return function(json) {
+            return callback.call(_this, json);
+          };
+        })(this),
+        error: (function(_this) {
+          return function(xhr, status) {
+            if (status === "error") {
+              return _this.logout();
+            }
+          };
+        })(this)
       });
     };
 

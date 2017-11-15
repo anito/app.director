@@ -52,13 +52,17 @@ class User extends Spine.Model
     @constructor.logout()
     @constructor.redirect 'users/login'
     
+  logout: ->
+    @constructor.logout()
+    
   isValid: (callback) ->
     $.ajax
       headers: {'X-Requested-With': 'XMLHttpRequest'}
       url: base_url + 'users/isValid'
       type: 'GET'
       processData: false
-      success: (json) -> callback.call @, json
-      error: @proxy @errorHandler
+      success: (json) => callback.call @, json
+      error: (xhr, status) =>
+        if status is "error" then @logout()
       
 module?.exports = User

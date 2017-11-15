@@ -283,13 +283,12 @@ class Main extends Spine.Controller
         hash: '#/overview/'
         
   setInterval: (time) ->
-    callback = (json) =>
+    successHandler = (json) ->
       json = $.parseJSON(json)
       success = json.success
-      sessionid = json.sessionid
-      @user.sessionid = sessionid
-      @user.save()
-    func = => @user.isValid(callback)
+      @sessionid = json.sessionid
+      @save()
+    func = => @user.isValid(successHandler)
     
     if @user
       clearInterval(@uuid) if @uuid
