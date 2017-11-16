@@ -22,7 +22,6 @@ class Photo extends Spine.Model
   @extend Dev
   @extend AjaxRelations
   @extend Filter
-  console.log Extender
   @extend Extender
 
   @selectAttributes: ['title', "description", 'user_id']
@@ -80,23 +79,23 @@ class Photo extends Spine.Model
     
   @activePhotos: -> [ @record ]
     
-  @createJoin: (items=[], target, callback) ->
-    unless Array.isArray items
-      items = [items]
+  @createJoin: (ids=[], target, callback) ->
+    ids = [ids] unless Array.isArray ids
+      
 
-    return unless items.length
+    return unless ids.length
     isValid = true
     cb = ->
       Album.trigger('change:collection', target)
       if typeof callback is 'function'
         callback.call(@)
     
-    items = items.toID()
-    ret = for item in items
+    ret = for id in ids
       ap = new AlbumsPhoto
+        id          : $().uuid()
         album_id    : target.id
-        photo_id    : item.id or item
-        order       : parseInt(AlbumsPhoto.photos(target.id).last()?.order_id)+1 or 0
+        photo_id    : id
+        order_id    : parseInt(AlbumsPhoto.photos(target.id).last()?.order_id)+1 or 0
       valid = ap.save
         validate: true
         ajax: false
@@ -108,17 +107,15 @@ class Photo extends Spine.Model
       Spine.trigger('refresh:all')
     ret
     
-  @destroyJoin: (items=[], target, cb) ->
-    unless Array.isArray items
-      items = [items]
+  @destroyJoin: (ids, target, cb) ->
+    ids = [ids] unless Array.isArray ids
       
-    return unless items.length and target
+      
+    return unless ids.length and target
     
-    items = items.toID()
-    for id in items
+    for id in ids
       aps = AlbumsPhoto.filter(id, key: 'photo_id')
-      ap = AlbumsPhoto.albumPhotoExists(id, target.id)
-      ap.destroy(done: cb) if ap
+      ap.destroy() if ap = AlbumsPhoto.albumPhotoExists(id, target.id)
       
     Album.trigger('change:collection', target)
       

@@ -26717,18 +26717,10 @@ Released under the MIT License
       return this.el.sortable();
     };
 
-    AlbumsList.prototype.exposeSelection = function(selection, id) {
-      var first, i, len, ref, sel;
+    AlbumsList.prototype.exposeSelection = function(selection) {
+      var first, i, len, sel;
       if (selection == null) {
         selection = Gallery.selectionList();
-      }
-      if (id == null) {
-        id = (ref = Gallery.record) != null ? ref.id : void 0;
-      }
-      if (Gallery.record) {
-        if (Gallery.record.id !== id) {
-          return;
-        }
       }
       this.deselect();
       for (i = 0, len = selection.length; i < len; i++) {
@@ -27166,41 +27158,10 @@ Released under the MIT License
       return Album.current(ids[0]);
     };
 
-    AlbumsView.prototype.activateRecord_ = function(ids) {
-      var album, id, j, len, list, noid;
-      if (!ids) {
-        ids = Gallery.selectionList();
-        Album.current();
-        noid = true;
-      }
-      if (!Array.isArray(ids)) {
-        ids = [ids];
-      }
-      list = [];
-      for (j = 0, len = ids.length; j < len; j++) {
-        id = ids[j];
-        if (album = Album.find(id)) {
-          list.push(album.id);
-        }
-      }
-      id = list[0];
-      if (id) {
-        if (!noid) {
-          Album.current(id);
-        }
-        App.sidebar.list.expand(Gallery.record, true);
-      }
-      Gallery.updateSelection(list);
-      if (Album.record) {
-        return Photo.trigger('activate', Album.selectionList());
-      } else {
-        return Photo.trigger('activate');
-      }
-    };
-
     AlbumsView.prototype.newAttributes = function() {
       if (User.first()) {
         return {
+          id: $().uuid(),
           title: this.albumName(),
           author: User.first().name,
           invalid: false,
@@ -27242,10 +27203,8 @@ Released under the MIT License
       cb = function(record, ido) {
         if (target) {
           record.createJoin(target);
-          target.updateSelection(record.id);
-        } else {
-          Gallery.updateSelection(null, record.id);
         }
+        Gallery.updateSelection(record.id);
         record.updateSelectionID();
         $().extend(options, {
           album: record
@@ -27262,7 +27221,6 @@ Released under the MIT License
         if (options.cb) {
           options.cb.apply(this, [record, options.deferred]);
         }
-        Album.trigger('activate', album.id);
         return this.navigate('/gallery', (target != null ? target.id : void 0) || '');
       };
       album = new Album(this.newAttributes());
@@ -27294,7 +27252,7 @@ Released under the MIT License
     };
 
     AlbumsView.prototype.destroyAlbum = function(ids) {
-      var album, albums, el, func, gallery, id, item, j, k, len, len1, results;
+      var album, el, func, gallery, id, item, j, k, len, len1, results;
       this.log('destroyAlbum');
       this.stopInfo();
       func = (function(_this) {
@@ -27302,23 +27260,23 @@ Released under the MIT License
           return $(el).detach();
         };
       })(this);
-      albums = ids || Gallery.selectionList().slice(0);
-      if (!Album.isArray(albums)) {
-        albums = [albums];
+      ids = ids || Gallery.selectionList().slice(0);
+      if (!Album.isArray(ids)) {
+        ids = [ids];
       }
-      for (j = 0, len = albums.length; j < len; j++) {
-        id = albums[j];
+      for (j = 0, len = ids.length; j < len; j++) {
+        id = ids[j];
         if (item = Album.find(id)) {
           el = this.list.findModelElement(item);
           el.removeClass('in');
         }
       }
       if (gallery = Gallery.record) {
-        return this.destroyJoin(albums, Gallery.record);
+        return this.destroyJoin(ids, Gallery.record);
       } else {
         results = [];
-        for (k = 0, len1 = albums.length; k < len1; k++) {
-          id = albums[k];
+        for (k = 0, len1 = ids.length; k < len1; k++) {
+          id = ids[k];
           if (album = Album.find(id)) {
             results.push(album.destroy());
           } else {
@@ -27363,8 +27321,7 @@ Released under the MIT License
     };
 
     AlbumsView.prototype.createJoin = function(albums, gallery, callback) {
-      Album.createJoin(albums, gallery, callback);
-      return gallery.updateSelection(albums);
+      return Album.createJoin(albums, gallery, callback);
     };
 
     AlbumsView.prototype.destroyJoin = function(albums, gallery) {
@@ -27470,7 +27427,7 @@ Released under the MIT License
     };
 
     AlbumsView.prototype.select = function(e, items) {
-      var id, j, len, ref, ref1, selection, type;
+      var id, j, len, ref, selection, type;
       if (items == null) {
         items = [];
       }
@@ -27495,8 +27452,8 @@ Released under the MIT License
             selection.addRemoveSelection(id);
           }
       }
-      Gallery.updateSelection(selection, (ref = Gallery.record) != null ? ref.id : void 0);
-      return Album.updateSelection(Album.selectionList(), (ref1 = Album.record) != null ? ref1.id : void 0);
+      Gallery.updateSelection(selection);
+      return Album.updateSelection(Album.selectionList(), (ref = Album.record) != null ? ref.id : void 0);
     };
 
     AlbumsView.prototype.infoUp = function(e) {
@@ -27900,7 +27857,7 @@ Released under the MIT License
       this.infoBye = bind(this.infoBye, this);
       this.infoUp = bind(this.infoUp, this);
       GalleriesList.__super__.constructor.apply(this, arguments);
-      Gallery.bind('change:current', this.proxy(this.exposeSelection));
+      Root.bind('change:selection', this.proxy(this.exposeSelection));
       Album.bind('change:collection', this.proxy(this.renderRelated));
       Gallery.bind('change', this.proxy(this.renderOne));
       GalleriesAlbum.bind('change', this.proxy(this.renderOneRelated));
@@ -28014,12 +27971,18 @@ Released under the MIT License
       }
     };
 
-    GalleriesList.prototype.exposeSelection = function() {
-      this.log('exposeSelection');
+    GalleriesList.prototype.exposeSelection = function(selection) {
+      var j, len, results, sel;
+      if (selection == null) {
+        selection = Root.selectionList();
+      }
       this.deselect();
-      $('#' + Gallery.record.id, this.el).addClass("active hot");
-      App.showView.trigger('change:toolbarOne');
-      return this.parent.focus();
+      results = [];
+      for (j = 0, len = selection.length; j < len; j++) {
+        sel = selection[j];
+        results.push($('#' + sel, this.el).addClass("active hot"));
+      }
+      return results;
     };
 
     GalleriesList.prototype.dropdownToggle = function(e) {
@@ -28152,7 +28115,6 @@ Released under the MIT License
       Gallery.one('refresh', this.proxy(this.render));
       Gallery.bind('beforeDestroy', this.proxy(this.beforeDestroy));
       Gallery.bind('destroy', this.proxy(this.destroy));
-      Gallery.bind('refresh:gallery', this.proxy(this.render));
     }
 
     GalleriesView.prototype.render = function(items) {
@@ -28167,62 +28129,36 @@ Released under the MIT License
       }
     };
 
+    GalleriesView.prototype.renderOne = function(gallery) {
+      return this.render([gallery]);
+    };
+
     GalleriesView.prototype.active = function() {
       if (!this.isActive()) {
         return;
-      }
-      if (!Gallery.record) {
-        Gallery.updateSelection();
       }
       App.showView.trigger('change:toolbarOne', ['Default']);
       App.showView.trigger('change:toolbarTwo', ['Slideshow']);
       return this.render();
     };
 
-    GalleriesView.prototype.click = function(e) {
+    GalleriesView.prototype.click = function(e, excl) {
       var item;
       e.preventDefault();
       e.stopPropagation();
-      App.showView.trigger('change:toolbarOne', ['Default']);
       item = $(e.currentTarget).item();
       return this.select(e, item.id);
     };
 
-    GalleriesView.prototype.select_ = function(item) {
-      return Gallery.trigger('activate', item.id);
-    };
-
-    GalleriesView.prototype.select__ = function(ids, exclusive) {
-      var i, id, len, selection;
+    GalleriesView.prototype.select = function(e, ids) {
       if (ids == null) {
         ids = [];
       }
       if (!Array.isArray(ids)) {
         ids = [ids];
       }
-      if (exclusive) {
-        Root.emptySelection();
-      }
-      selection = Root.selectionList().slice(0);
-      for (i = 0, len = ids.length; i < len; i++) {
-        id = ids[i];
-        selection.addRemoveSelection(id);
-      }
-      Root.updateSelection(selection);
-      Gallery.updateSelection(Gallery.selectionList());
-      return Album.updateSelection(Album.selectionList());
-    };
-
-    GalleriesView.prototype.select = function(e, items) {
-      if (items == null) {
-        items = [];
-      }
-      if (!Array.isArray(items)) {
-        items = [items];
-      }
-      Root.updateSelection(items.first());
-      Gallery.updateSelection(Gallery.selectionList());
-      return Album.updateSelection(Album.selectionList());
+      Root.updateSelection(ids);
+      return Gallery.updateSelection(Gallery.selectionList());
     };
 
     GalleriesView.prototype.beforeDestroy = function(item) {
@@ -28236,29 +28172,16 @@ Released under the MIT License
           Gallery.current();
         }
         item.removeSelectionID();
-        Root.removeFromSelection(item.id);
+        Root.updateSelection([]);
       }
       if (!Gallery.count()) {
         if (/^#\/galleries\//.test(location.hash)) {
-          this.navigate('/galleries');
+          return this.navigate('/galleries', $().uuid());
         }
-        return this.navigate('/galleries', '');
       } else {
         if (!/^#\/galleries\//.test(location.hash)) {
           return this.navigate('/gallery', Gallery.first().id);
         }
-      }
-    };
-
-    GalleriesView.prototype.newAttributes = function() {
-      if (User.first()) {
-        return {
-          name: 'New Name',
-          user_id: User.first().id,
-          author: User.first().name
-        };
-      } else {
-        return User.ping();
       }
     };
 
@@ -29478,7 +29401,6 @@ Released under the MIT License
       'dragstart .item': 'dragstart',
       'drop .item': 'drop',
       'click .dropdown-toggle': 'dropdownToggle',
-      'click .delete': 'deletePhoto',
       'click .zoom': 'zoom',
       'click .rotate': 'rotate'
     };
@@ -29634,18 +29556,6 @@ Released under the MIT License
       el.dropdown();
       e.preventDefault();
       return e.stopPropagation();
-    };
-
-    PhotoView.prototype.deletePhoto = function(e) {
-      var item, ref;
-      item = $(e.currentTarget).item();
-      if ((item != null ? (ref = item.constructor) != null ? ref.className : void 0 : void 0) !== 'Photo') {
-        return;
-      }
-      Spine.trigger('destroy:photo', [item.id], this.proxy(this.back));
-      this.stopInfo(e);
-      e.stopPropagation();
-      return e.preventDefault();
     };
 
     PhotoView.prototype.rotate = function(e) {
@@ -30381,9 +30291,8 @@ Released under the MIT License
         $('#' + id, this.el).addClass("active");
       }
       if (first = selection.first()) {
-        $('#' + first, this.el).addClass("hot");
+        return $('#' + first, this.el).addClass("hot");
       }
-      return this.parent.focus();
     };
 
     PhotosList.prototype.remove = function(ap) {
@@ -30581,6 +30490,8 @@ Released under the MIT License
 
   require("extensions/tmpl");
 
+  require("extensions/tmpl");
+
   PhotosView = (function(superClass) {
     extend(PhotosView, superClass);
 
@@ -30725,26 +30636,6 @@ Released under the MIT License
       return Photo.current(ids[0]);
     };
 
-    PhotosView.prototype.activateRecord_ = function(records) {
-      var i, id, len, list, photo;
-      if (!records) {
-        records = Album.selectionList();
-      }
-      if (!Array.isArray(records)) {
-        records = [records];
-      }
-      list = [];
-      for (i = 0, len = records.length; i < len; i++) {
-        id = records[i];
-        if (photo = Photo.find(id)) {
-          list.push(photo.id);
-        }
-      }
-      id = list[0];
-      Album.updateSelection(list);
-      return Photo.current(id);
-    };
-
     PhotosView.prototype.click = function(e) {
       var item;
       e.preventDefault();
@@ -30755,7 +30646,7 @@ Released under the MIT License
     };
 
     PhotosView.prototype.select = function(e, items) {
-      var i, id, len, ref, selection, type;
+      var i, id, len, selection, type;
       if (items == null) {
         items = [];
       }
@@ -30780,7 +30671,7 @@ Released under the MIT License
             selection.addRemoveSelection(id);
           }
       }
-      return Album.updateSelection(selection, (ref = Album.record) != null ? ref.id : void 0);
+      return Album.updateSelection(selection);
     };
 
     PhotosView.prototype.clearPhotoCache = function() {
@@ -30788,8 +30679,10 @@ Released under the MIT License
     };
 
     PhotosView.prototype.beforeDestroyPhoto = function(photo) {
-      var album, albums, i, len, results;
-      Album.removeFromSelection(null, photo.id);
+      var album, albums, i, len, results, selection;
+      selection = Album.selectionList().slice(0);
+      selection.addRemoveSelection(photo.id);
+      Album.updateSelection(selection);
       albums = AlbumsPhoto.albums(photo.id);
       results = [];
       for (i = 0, len = albums.length; i < len; i++) {
@@ -30828,15 +30721,15 @@ Released under the MIT License
     };
 
     PhotosView.prototype.destroyPhoto = function(ids, callback) {
-      var album, el, i, id, item, j, len, len1, photo, photos;
+      var album, el, i, id, item, j, len, len1, photo;
       this.log('destroyPhoto');
       this.stopInfo();
-      photos = ids || Album.selectionList().slice(0);
-      if (!Photo.isArray(photos)) {
-        photos = [photos];
+      ids = ids || Album.selectionList().slice(0);
+      if (!Photo.isArray(ids)) {
+        ids = [ids];
       }
-      for (i = 0, len = photos.length; i < len; i++) {
-        id = photos[i];
+      for (i = 0, len = ids.length; i < len; i++) {
+        id = ids[i];
         if (item = Photo.find(id)) {
           el = this.list.findModelElement(item);
           el.removeClass('in');
@@ -30844,12 +30737,12 @@ Released under the MIT License
       }
       if (album = Album.record) {
         this.destroyJoin({
-          photos: photos,
+          photos: ids,
           album: album
         });
       } else {
-        for (j = 0, len1 = photos.length; j < len1; j++) {
-          id = photos[j];
+        for (j = 0, len1 = ids.length; j < len1; j++) {
+          id = ids[j];
           if (photo = Photo.find(id)) {
             photo.destroy();
           }
@@ -31411,8 +31304,6 @@ Released under the MIT License
         };
       })(this), 500);
     };
-
-    ShowView.prototype.resetSelection = function(controller) {};
 
     ShowView.prototype.changeHeader = function(controller) {};
 
@@ -32352,8 +32243,7 @@ Released under the MIT License
       var active, activeEl, el, elements, first, id, index, isMeta, last, lastIndex, list, models, next, parent, prev, record, ref, selection;
       this.log('selectByKey');
       isMeta = e.metaKey || e.ctrlKey;
-      index = null;
-      lastIndex = null;
+      lastIndex = index = null;
       list = ((ref = this.controller.list) != null ? ref.listener : void 0) || this.controller.list;
       elements = list ? $('.item', list.el) : $();
       models = this.controller.el.data('current').models;
@@ -32774,6 +32664,7 @@ Released under the MIT License
     Sidebar.prototype.newAttributes = function() {
       if (User.first()) {
         return {
+          id: $().uuid(),
           name: this.galleryName(),
           author: User.first().name,
           user_id: User.first().id
@@ -32818,9 +32709,7 @@ Released under the MIT License
           }
         }
         if (!/^#\/galleries\//.test(location.hash)) {
-          return this.navigate('/gallery', gallery.id);
-        } else {
-          return Gallery.trigger('activate', gallery.id);
+          return this.navigate('/gallery', (gallery != null ? gallery.id : void 0) || '');
         }
       };
       gallery = new Gallery(this.newAttributes());
@@ -33578,8 +33467,6 @@ Released under the MIT License
 
   require('extensions/tmpl');
 
-  require('extensions/utils');
-
   SlideshowView = (function(superClass) {
     extend(SlideshowView, superClass);
 
@@ -34161,6 +34048,7 @@ Released under the MIT License
       var album, i, j, len, len1, options, photo, photos, raw, raws, selection;
       album = Album.find(this.data.link);
       raws = $.parseJSON(data.jqXHR.responseText);
+      console.log(raws);
       selection = [];
       photos = [];
       for (i = 0, len = raws.length; i < len; i++) {
@@ -34184,7 +34072,7 @@ Released under the MIT License
         this.navigate('/gallery', '', '');
       }
       Spine.trigger('loading:done', album);
-      Photo.trigger('activate', selection.last());
+      Album.updateSelection(selection);
       return e.preventDefault();
     };
 
@@ -34611,6 +34499,8 @@ Released under the MIT License
   $ = Spine.$;
 
   Controller = Spine.Controller;
+
+  require("extensions/utils");
 
   Controller.Extender = {
     extended: function() {
@@ -35222,1068 +35112,6 @@ Released under the MIT License
 
   if (typeof module !== "undefined" && module !== null) {
     module.exports = Drag = Controller.Drag;
-  }
-
-}).call(this);
- },"extensions/extender_model": function(exports, require, module) { (function() {
-  var $, Log, Model, Spine, SpineError,
-    indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
-
-  Spine = require("spine");
-
-  $ = Spine.$;
-
-  Model = Spine.Model;
-
-  Log = Spine.Log;
-
-  Model.Gallery = require('models/gallery');
-
-  Model.Album = require('models/album');
-
-  Model.Photo = require('models/photo');
-
-  Model.AlbumsPhoto = require('models/albums_photo');
-
-  Model.GalleriesAlbum = require('models/galleries_album');
-
-  SpineError = require("models/spine_error");
-
-  Model.TestExtender_2 = {
-    extended: function() {
-      var Extend, Include;
-      Extend = {
-        trace: !Spine.isProduction,
-        logPrefix: '(' + this.className + ')',
-        guid: function() {
-          var back, diff, mask, milli, re1, re2, re3, re4, res, ret, sub;
-          mask = [8, 4, 4, 4, 12];
-          ret = [];
-          ret = (function() {
-            var i, len, results;
-            results = [];
-            for (i = 0, len = mask.length; i < len; i++) {
-              sub = mask[i];
-              res = null;
-              milli = new Date().getTime();
-              back = new Date().setTime(milli * (-200));
-              diff = milli - back;
-              re1 = diff.toString(16).split('');
-              re2 = re1.slice(sub * (-1));
-              re3 = re2.join('');
-              results.push(re3);
-            }
-            return results;
-          })();
-          re4 = ret.join('-');
-          return re4;
-        },
-        uuid: function() {
-          var s4;
-          s4 = function() {
-            return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
-          };
-          return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
-        },
-        selectAttributes: [],
-        record: false,
-        selection: [
-          {
-            global: []
-          }
-        ],
-        current: function(recordOrID) {
-          var id, prev, rec, ref, same;
-          id = (recordOrID != null ? recordOrID.id : void 0) || recordOrID;
-          rec = this.find(id) || false;
-          prev = this.record;
-          this.record = rec;
-          same = !!(((ref = this.record) != null ? typeof ref.eql === "function" ? ref.eql(prev) : void 0 : void 0) && !!prev);
-          Model[this.className].trigger('current', this.record, !same);
-          if (!same) {
-            Model[this.className].trigger('change:current', this.record, this.className);
-          }
-          return this.record;
-        },
-        selectionList: function(recordID) {
-          var i, id, item, len, ref, ref1, ref2, ret;
-          ret = [];
-          id = recordID || ((ref = this.record) != null ? ref.id : void 0) || ((ref1 = this.record) != null ? ref1.cid : void 0);
-          if (!id) {
-            return this.selection[0].global;
-          }
-          ref2 = this.selection;
-          for (i = 0, len = ref2.length; i < len; i++) {
-            item = ref2[i];
-            if (item[id]) {
-              return item[id];
-            }
-          }
-          return ret;
-        },
-        updateSelection: function(list, id, options) {
-          var defaults, option, ret;
-          defaults = {
-            trigger: true
-          };
-          option = $().extend(defaults, options);
-          ret = this.emptySelection(id, list);
-          if (option.trigger) {
-            this.trigger('change:selection', ret, id);
-          }
-          Model[this.childType].current(ret.first());
-          return ret;
-        },
-        emptySelection: function(id, idOrList) {
-          var originalList;
-          if (idOrList == null) {
-            idOrList = [];
-          }
-          if (!this.isArray(idOrList)) {
-            idOrList = [idOrList];
-          }
-          originalList = this.selectionList(id);
-          [].splice.apply(originalList, [0, originalList.length - 0].concat(idOrList)), idOrList;
-          return originalList;
-        },
-        removeFromSelection: function(id, idOrList, options) {
-          var i, index, len, list, originalList;
-          if (idOrList == null) {
-            idOrList = [];
-          }
-          originalList = this.selectionList(id);
-          if (!this.isArray(idOrList)) {
-            idOrList = [idOrList];
-          }
-          for (i = 0, len = idOrList.length; i < len; i++) {
-            id = idOrList[i];
-            if ((index = originalList.indexOf(id)) !== -1) {
-              originalList.splice(index, 1);
-            }
-          }
-          list = this.updateSelection(id, originalList.slice(0), options);
-          return list;
-        },
-        isArray: function(value) {
-          return Object.prototype.toString.call(value) === "[object Array]";
-        },
-        isObject: function(value) {
-          return Object.prototype.toString.call(value) === "[object Object]";
-        },
-        isString: function(value) {
-          return Object.prototype.toString.call(value) === "[object String]";
-        },
-        selected: function() {
-          return this.record;
-        },
-        toID: function(records) {
-          var i, len, record, results;
-          if (records == null) {
-            records = this.records;
-          }
-          results = [];
-          for (i = 0, len = records.length; i < len; i++) {
-            record = records[i];
-            results.push(record.id);
-          }
-          return results;
-        },
-        toRecords: function(ids) {
-          var i, id, len, results;
-          if (ids == null) {
-            ids = [];
-          }
-          results = [];
-          for (i = 0, len = ids.length; i < len; i++) {
-            id = ids[i];
-            results.push(this.find(id));
-          }
-          return results;
-        },
-        successHandler: function(data, status, xhr) {},
-        errorHandler: function(record, xhr, statusText, error) {
-          var status;
-          status = xhr.status;
-          if (status !== 200) {
-            error = new SpineError({
-              record: record,
-              xhr: xhr,
-              statusText: statusText,
-              error: error
-            });
-            error.save();
-            return User.redirect('users/login');
-          }
-        },
-        customErrorHandler: function(record, xhr) {
-          var error, status;
-          status = xhr.status;
-          if (status !== 200) {
-            error = new Error({
-              flash: '<strong style="color:red">Login failed</strong>',
-              xhr: xhr
-            });
-            error.save();
-            return User.redirect('users/login');
-          }
-        },
-        contains: function() {
-          return [];
-        },
-        createJoinTables: function(arr) {
-          var i, joinTables, key, len, results;
-          if (!this.isArray(arr)) {
-            return;
-          }
-          joinTables = this.joinTables();
-          results = [];
-          for (i = 0, len = joinTables.length; i < len; i++) {
-            key = joinTables[i];
-            results.push(Model[key].refresh(this.createJoins(arr, key), {
-              clear: true
-            }));
-          }
-          return results;
-        },
-        make: function(arr, key) {
-          var i, len, obj, results;
-          if (!Array.isArray(arr)) {
-            return new this(arr);
-          }
-          results = [];
-          for (i = 0, len = arr.length; i < len; i++) {
-            obj = arr[i];
-            results.push(new this(obj[key]));
-          }
-          return results;
-        },
-        activePhotos: function() {
-          return Gallery.activePhotos();
-        },
-        joinTables: function() {
-          var fModels, joinTables, key, value;
-          fModels = this.foreignModels();
-          joinTables = (function() {
-            var results;
-            results = [];
-            for (key in fModels) {
-              value = fModels[key];
-              results.push(fModels[key]['joinTable']);
-            }
-            return results;
-          })();
-          return joinTables;
-        },
-        createJoins: function(json, tableName) {
-          var i, introspect, len, obj, res;
-          res = [];
-          introspect = (function(_this) {
-            return function(obj) {
-              var i, item, j, key, len, len1, results, val;
-              if (_this.isObject(obj)) {
-                for (key in obj) {
-                  val = obj[key];
-                  if (key === tableName) {
-                    for (i = 0, len = val.length; i < len; i++) {
-                      item = val[i];
-                      res.push(item);
-                    }
-                  } else {
-                    introspect(obj[key]);
-                  }
-                }
-              }
-              if (_this.isArray(obj)) {
-                results = [];
-                for (j = 0, len1 = obj.length; j < len1; j++) {
-                  val = obj[j];
-                  results.push(introspect(val));
-                }
-                return results;
-              }
-            };
-          })(this);
-          for (i = 0, len = json.length; i < len; i++) {
-            obj = json[i];
-            introspect(obj);
-          }
-          return res;
-        }
-      };
-      Include = {
-        trace: !Spine.isProduction,
-        logPrefix: this.className + '::',
-        selectionList: function() {
-          return this.constructor.selectionList(this.id);
-        },
-        selectionParentList: function() {
-          var e, modelName;
-          modelName = this.constructor['parent'];
-          try {
-            return Model[modelName].selectionList();
-          } catch (error1) {
-            e = error1;
-            return [];
-          }
-        },
-        updateSelectionID: function() {
-          var i, idx, index, item, len, ref;
-          ref = this.constructor.selection;
-          for (idx = i = 0, len = ref.length; i < len; idx = ++i) {
-            item = ref[idx];
-            if (item[this.cid]) {
-              index = idx;
-            }
-          }
-          if (index) {
-            this.constructor.selection.splice(index, 1);
-          }
-          return this.init(this);
-        },
-        removeSelectionID: function() {
-          var __itm, __key, __val, __x, _idx, _item, _x, i, j, len, len1, list, modelName, ref, results;
-          ref = this.constructor.selection;
-          for (_idx = i = 0, len = ref.length; i < len; _idx = ++i) {
-            _item = ref[_idx];
-            if (_item[this.id]) {
-              _x = _idx;
-            }
-          }
-          if (_x) {
-            this.constructor.selection.splice(_x, 1);
-          }
-          modelName = this.constructor['parent'];
-          if (!modelName) {
-            return;
-          }
-          list = Model[modelName].selection;
-          results = [];
-          for (j = 0, len1 = list.length; j < len1; j++) {
-            __itm = list[j];
-            results.push((function() {
-              var results1;
-              results1 = [];
-              for (__key in __itm) {
-                __val = __itm[__key];
-                if (!(__x = __val.indexOf(this.id) === -1)) {
-                  results1.push(__val.splice(__x, 1));
-                } else {
-                  results1.push(void 0);
-                }
-              }
-              return results1;
-            }).call(this));
-          }
-          return results;
-        },
-        removeFromSelection: function(list, options) {
-          return this.constructor.removeFromSelection(this.id, list, options);
-        },
-        updateSelection: function(list, options) {
-          if (list == null) {
-            list = [];
-          }
-          if (!this.constructor.isArray(list)) {
-            list = [list];
-          }
-          return list = this.constructor.updateSelection(list, this.id, options);
-        },
-        emptySelection: function() {
-          var list;
-          return list = this.constructor.emptySelection(this.id);
-        },
-        addRemoveSelection: function(isMetaKey) {
-          var originalList;
-          originalList = this.constructor.selectionList(this.id);
-          if (!originalList) {
-            return;
-          }
-          if (isMetaKey) {
-            this.addUnique(originalList);
-          } else {
-            this.toggleSelected(originalList);
-          }
-          return originalList;
-        },
-        addToSelection: function(isMetaKey) {
-          var originalList, ref;
-          originalList = this.constructor.selectionList(this.id);
-          if (!originalList) {
-            return;
-          }
-          if (isMetaKey) {
-            this.addUnique(originalList);
-          } else {
-            if (ref = this.id, indexOf.call(originalList, ref) < 0) {
-              originalList.unshift(this.id);
-            }
-          }
-          return originalList;
-        },
-        shiftSelection: function() {
-          var index, originalList, rm;
-          originalList = this.constructor.selectionList(this.id);
-          if (!originalList) {
-            return;
-          }
-          if (index = originalList.indexOf(this.id) === 0) {
-            return originalList;
-          }
-          rm = originalList.splice(0, 1, originalList[index]);
-          originalList.splice(index, 1);
-          originalList.push(rm[0]);
-          index = originalList.indexOf(this.id);
-          return originalList;
-        },
-        updateChangedAttributes: function(atts) {
-          var invalid, key, origAtts, value;
-          origAtts = this.attributes();
-          for (key in atts) {
-            value = atts[key];
-            if (origAtts[key] !== value) {
-              invalid = true;
-              this[key] = value;
-            }
-          }
-          if (invalid) {
-            return this.save();
-          }
-        },
-        addUnique: function(list) {
-          var ref;
-          [].splice.apply(list, [0, list.length - 0].concat(ref = [this.id])), ref;
-          return list;
-        },
-        toggleSelected: function(list) {
-          var index, ref;
-          if (ref = this.id, indexOf.call(list, ref) < 0) {
-            list.unshift(this.id);
-          } else {
-            index = list.indexOf(this.id);
-            if (index !== -1) {
-              list.splice(index, 1);
-            }
-          }
-          return list;
-        },
-        allGalleryAlbums: (function(_this) {
-          return function() {
-            var albums, ga, gallery, gas, i, len;
-            gallery = Gallery.record;
-            if (!gallery) {
-              return;
-            }
-            albums = [];
-            gas = GalleriesAlbum.filter(gallery.id, {
-              key: 'gallery_id'
-            });
-            for (i = 0, len = gas.length; i < len; i++) {
-              ga = gas[i];
-              if (Album.exists(ga.album_id)) {
-                albums.push(Album.find(ga.album_id));
-              }
-            }
-            return albums;
-          };
-        })(this),
-        allAlbumPhotos: (function(_this) {
-          return function() {
-            var album, ap, aps, i, len, photos;
-            album = Album.record;
-            if (!album) {
-              return;
-            }
-            photos = [];
-            aps = AlbumsPhoto.filter(album.id, {
-              key: 'album_id'
-            });
-            for (i = 0, len = aps.length; i < len; i++) {
-              ap = aps[i];
-              if (Photo.exists(ap.album_id)) {
-                photos.push(Photo.find(ap.album_id));
-              }
-            }
-            return photos;
-          };
-        })(this),
-        searchSelect: function(query) {
-          var atts, key, value;
-          query = query.toLowerCase();
-          atts = this.selectAttributes.apply(this);
-          for (key in atts) {
-            value = atts[key];
-            value = value.toLowerCase();
-            if (!((value != null ? value.indexOf(query) : void 0) === -1)) {
-              return true;
-            }
-          }
-          return false;
-        },
-        idSelect: function(query) {
-          var value;
-          query = query.toLowerCase();
-          value = this.id.toLowerCase();
-          if (!((value != null ? value.indexOf(query) : void 0) === -1)) {
-            return true;
-          }
-          return false;
-        },
-        idExcludeSelect: function(query) {
-          if (query.indexOf(this.id) === -1) {
-            return true;
-          }
-          return false;
-        },
-        toRecords: function(ids) {
-          return this.constructor.toRecords(ids);
-        },
-        defaultDetails: {
-          iCount: 0,
-          aCount: 0,
-          sCount: 0,
-          author: ''
-        }
-      };
-      this.include(Log);
-      this.extend(Log);
-      this.extend(Extend);
-      return this.include(Include);
-    }
-  };
-
-  if (typeof module !== "undefined" && module !== null) {
-    module.exports = Model.TestExtender_2;
-  }
-
-}).call(this);
- },"extensions/extender_model_1": function(exports, require, module) { (function() {
-  var $, Log, Model, Spine, SpineError,
-    indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
-
-  Spine = require("spine");
-
-  $ = Spine.$;
-
-  Model = Spine.Model;
-
-  Log = Spine.Log;
-
-  Model.Gallery = require('models/gallery');
-
-  Model.Album = require('models/album');
-
-  Model.Photo = require('models/photo');
-
-  Model.AlbumsPhoto = require('models/albums_photo');
-
-  Model.GalleriesAlbum = require('models/galleries_album');
-
-  SpineError = require("models/spine_error");
-
-  Model.TestExtender_1 = {
-    extended: function() {
-      var Extend, Include;
-      Extend = {
-        trace: !Spine.isProduction,
-        logPrefix: '(' + this.className + ')',
-        guid: function() {
-          var back, diff, mask, milli, re1, re2, re3, re4, res, ret, sub;
-          mask = [8, 4, 4, 4, 12];
-          ret = [];
-          ret = (function() {
-            var i, len, results;
-            results = [];
-            for (i = 0, len = mask.length; i < len; i++) {
-              sub = mask[i];
-              res = null;
-              milli = new Date().getTime();
-              back = new Date().setTime(milli * (-200));
-              diff = milli - back;
-              re1 = diff.toString(16).split('');
-              re2 = re1.slice(sub * (-1));
-              re3 = re2.join('');
-              results.push(re3);
-            }
-            return results;
-          })();
-          re4 = ret.join('-');
-          return re4;
-        },
-        uuid: function() {
-          var s4;
-          s4 = function() {
-            return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
-          };
-          return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
-        },
-        selectAttributes: [],
-        record: false,
-        selection: [
-          {
-            global: []
-          }
-        ],
-        current: function(recordOrID) {
-          var id, prev, rec, ref, same;
-          id = (recordOrID != null ? recordOrID.id : void 0) || recordOrID;
-          rec = this.find(id) || false;
-          prev = this.record;
-          this.record = rec;
-          same = !!(((ref = this.record) != null ? typeof ref.eql === "function" ? ref.eql(prev) : void 0 : void 0) && !!prev);
-          Model[this.className].trigger('current', this.record, !same);
-          if (!same) {
-            Model[this.className].trigger('change:current', this.record, this.className);
-          }
-          return this.record;
-        },
-        selectionList: function(recordID) {
-          var i, id, item, len, ref, ref1, ref2, ret;
-          ret = [];
-          id = recordID || ((ref = this.record) != null ? ref.id : void 0) || ((ref1 = this.record) != null ? ref1.cid : void 0);
-          if (!id) {
-            return this.selection[0].global;
-          }
-          ref2 = this.selection;
-          for (i = 0, len = ref2.length; i < len; i++) {
-            item = ref2[i];
-            if (item[id]) {
-              return item[id];
-            }
-          }
-          return ret;
-        },
-        updateSelection: function(list, id, options) {
-          var defaults, option, ret;
-          defaults = {
-            trigger: true
-          };
-          option = $().extend(defaults, options);
-          ret = this.emptySelection(id, list);
-          if (option.trigger) {
-            this.trigger('change:selection', ret, id);
-          }
-          Model[this.childType].current(ret.first());
-          return ret;
-        },
-        emptySelection: function(id, idOrList) {
-          var originalList;
-          if (idOrList == null) {
-            idOrList = [];
-          }
-          if (!this.isArray(idOrList)) {
-            idOrList = [idOrList];
-          }
-          originalList = this.selectionList(id);
-          [].splice.apply(originalList, [0, originalList.length - 0].concat(idOrList)), idOrList;
-          return originalList;
-        },
-        removeFromSelection: function(id, idOrList, options) {
-          var i, index, len, list, originalList;
-          if (idOrList == null) {
-            idOrList = [];
-          }
-          originalList = this.selectionList(id);
-          if (!this.isArray(idOrList)) {
-            idOrList = [idOrList];
-          }
-          for (i = 0, len = idOrList.length; i < len; i++) {
-            id = idOrList[i];
-            if ((index = originalList.indexOf(id)) !== -1) {
-              originalList.splice(index, 1);
-            }
-          }
-          list = this.updateSelection(id, originalList.slice(0), options);
-          return list;
-        },
-        isArray: function(value) {
-          return Object.prototype.toString.call(value) === "[object Array]";
-        },
-        isObject: function(value) {
-          return Object.prototype.toString.call(value) === "[object Object]";
-        },
-        isString: function(value) {
-          return Object.prototype.toString.call(value) === "[object String]";
-        },
-        selected: function() {
-          return this.record;
-        },
-        toID: function(records) {
-          var i, len, record, results;
-          if (records == null) {
-            records = this.records;
-          }
-          results = [];
-          for (i = 0, len = records.length; i < len; i++) {
-            record = records[i];
-            results.push(record.id);
-          }
-          return results;
-        },
-        toRecords: function(ids) {
-          var i, id, len, results;
-          if (ids == null) {
-            ids = [];
-          }
-          results = [];
-          for (i = 0, len = ids.length; i < len; i++) {
-            id = ids[i];
-            results.push(this.find(id));
-          }
-          return results;
-        },
-        successHandler: function(data, status, xhr) {},
-        errorHandler: function(record, xhr, statusText, error) {
-          var status;
-          status = xhr.status;
-          if (status !== 200) {
-            error = new SpineError({
-              record: record,
-              xhr: xhr,
-              statusText: statusText,
-              error: error
-            });
-            error.save();
-            return User.redirect('users/login');
-          }
-        },
-        customErrorHandler: function(record, xhr) {
-          var error, status;
-          status = xhr.status;
-          if (status !== 200) {
-            error = new Error({
-              flash: '<strong style="color:red">Login failed</strong>',
-              xhr: xhr
-            });
-            error.save();
-            return User.redirect('users/login');
-          }
-        },
-        contains: function() {
-          return [];
-        },
-        createJoinTables: function(arr) {
-          var i, joinTables, key, len, results;
-          if (!this.isArray(arr)) {
-            return;
-          }
-          joinTables = this.joinTables();
-          results = [];
-          for (i = 0, len = joinTables.length; i < len; i++) {
-            key = joinTables[i];
-            results.push(Model[key].refresh(this.createJoins(arr, key), {
-              clear: true
-            }));
-          }
-          return results;
-        },
-        make: function(arr, key) {
-          var i, len, obj, results;
-          if (!Array.isArray(arr)) {
-            return new this(arr);
-          }
-          results = [];
-          for (i = 0, len = arr.length; i < len; i++) {
-            obj = arr[i];
-            results.push(new this(obj[key]));
-          }
-          return results;
-        },
-        activePhotos: function() {
-          return Gallery.activePhotos();
-        },
-        joinTables: function() {
-          var fModels, joinTables, key, value;
-          fModels = this.foreignModels();
-          joinTables = (function() {
-            var results;
-            results = [];
-            for (key in fModels) {
-              value = fModels[key];
-              results.push(fModels[key]['joinTable']);
-            }
-            return results;
-          })();
-          return joinTables;
-        },
-        createJoins: function(json, tableName) {
-          var i, introspect, len, obj, res;
-          res = [];
-          introspect = (function(_this) {
-            return function(obj) {
-              var i, item, j, key, len, len1, results, val;
-              if (_this.isObject(obj)) {
-                for (key in obj) {
-                  val = obj[key];
-                  if (key === tableName) {
-                    for (i = 0, len = val.length; i < len; i++) {
-                      item = val[i];
-                      res.push(item);
-                    }
-                  } else {
-                    introspect(obj[key]);
-                  }
-                }
-              }
-              if (_this.isArray(obj)) {
-                results = [];
-                for (j = 0, len1 = obj.length; j < len1; j++) {
-                  val = obj[j];
-                  results.push(introspect(val));
-                }
-                return results;
-              }
-            };
-          })(this);
-          for (i = 0, len = json.length; i < len; i++) {
-            obj = json[i];
-            introspect(obj);
-          }
-          return res;
-        }
-      };
-      Include = {
-        trace: !Spine.isProduction,
-        logPrefix: this.className + '::',
-        selectionList: function() {
-          return this.constructor.selectionList(this.id);
-        },
-        selectionParentList: function() {
-          var e, modelName;
-          modelName = this.constructor['parent'];
-          try {
-            return Model[modelName].selectionList();
-          } catch (error1) {
-            e = error1;
-            return [];
-          }
-        },
-        updateSelectionID: function() {
-          var i, idx, index, item, len, ref;
-          ref = this.constructor.selection;
-          for (idx = i = 0, len = ref.length; i < len; idx = ++i) {
-            item = ref[idx];
-            if (item[this.cid]) {
-              index = idx;
-            }
-          }
-          if (index) {
-            this.constructor.selection.splice(index, 1);
-          }
-          return this.init(this);
-        },
-        removeSelectionID: function() {
-          var __itm, __key, __val, __x, _idx, _item, _x, i, j, len, len1, list, modelName, ref, results;
-          ref = this.constructor.selection;
-          for (_idx = i = 0, len = ref.length; i < len; _idx = ++i) {
-            _item = ref[_idx];
-            if (_item[this.id]) {
-              _x = _idx;
-            }
-          }
-          if (_x) {
-            this.constructor.selection.splice(_x, 1);
-          }
-          modelName = this.constructor['parent'];
-          if (!modelName) {
-            return;
-          }
-          list = Model[modelName].selection;
-          results = [];
-          for (j = 0, len1 = list.length; j < len1; j++) {
-            __itm = list[j];
-            results.push((function() {
-              var results1;
-              results1 = [];
-              for (__key in __itm) {
-                __val = __itm[__key];
-                if (!(__x = __val.indexOf(this.id) === -1)) {
-                  results1.push(__val.splice(__x, 1));
-                } else {
-                  results1.push(void 0);
-                }
-              }
-              return results1;
-            }).call(this));
-          }
-          return results;
-        },
-        removeFromSelection: function(list, options) {
-          return this.constructor.removeFromSelection(this.id, list, options);
-        },
-        updateSelection: function(list, options) {
-          if (list == null) {
-            list = [];
-          }
-          if (!this.constructor.isArray(list)) {
-            list = [list];
-          }
-          return list = this.constructor.updateSelection(list, this.id, options);
-        },
-        emptySelection: function() {
-          var list;
-          return list = this.constructor.emptySelection(this.id);
-        },
-        addRemoveSelection: function(isMetaKey) {
-          var originalList;
-          originalList = this.constructor.selectionList(this.id);
-          if (!originalList) {
-            return;
-          }
-          if (isMetaKey) {
-            this.addUnique(originalList);
-          } else {
-            this.toggleSelected(originalList);
-          }
-          return originalList;
-        },
-        addToSelection: function(isMetaKey) {
-          var originalList, ref;
-          originalList = this.constructor.selectionList(this.id);
-          if (!originalList) {
-            return;
-          }
-          if (isMetaKey) {
-            this.addUnique(originalList);
-          } else {
-            if (ref = this.id, indexOf.call(originalList, ref) < 0) {
-              originalList.unshift(this.id);
-            }
-          }
-          return originalList;
-        },
-        shiftSelection: function() {
-          var index, originalList, rm;
-          originalList = this.constructor.selectionList(this.id);
-          if (!originalList) {
-            return;
-          }
-          if (index = originalList.indexOf(this.id) === 0) {
-            return originalList;
-          }
-          rm = originalList.splice(0, 1, originalList[index]);
-          originalList.splice(index, 1);
-          originalList.push(rm[0]);
-          index = originalList.indexOf(this.id);
-          return originalList;
-        },
-        updateChangedAttributes: function(atts) {
-          var invalid, key, origAtts, value;
-          origAtts = this.attributes();
-          for (key in atts) {
-            value = atts[key];
-            if (origAtts[key] !== value) {
-              invalid = true;
-              this[key] = value;
-            }
-          }
-          if (invalid) {
-            return this.save();
-          }
-        },
-        addUnique: function(list) {
-          var ref;
-          [].splice.apply(list, [0, list.length - 0].concat(ref = [this.id])), ref;
-          return list;
-        },
-        toggleSelected: function(list) {
-          var index, ref;
-          if (ref = this.id, indexOf.call(list, ref) < 0) {
-            list.unshift(this.id);
-          } else {
-            index = list.indexOf(this.id);
-            if (index !== -1) {
-              list.splice(index, 1);
-            }
-          }
-          return list;
-        },
-        allGalleryAlbums: (function(_this) {
-          return function() {
-            var albums, ga, gallery, gas, i, len;
-            gallery = Gallery.record;
-            if (!gallery) {
-              return;
-            }
-            albums = [];
-            gas = GalleriesAlbum.filter(gallery.id, {
-              key: 'gallery_id'
-            });
-            for (i = 0, len = gas.length; i < len; i++) {
-              ga = gas[i];
-              if (Album.exists(ga.album_id)) {
-                albums.push(Album.find(ga.album_id));
-              }
-            }
-            return albums;
-          };
-        })(this),
-        allAlbumPhotos: (function(_this) {
-          return function() {
-            var album, ap, aps, i, len, photos;
-            album = Album.record;
-            if (!album) {
-              return;
-            }
-            photos = [];
-            aps = AlbumsPhoto.filter(album.id, {
-              key: 'album_id'
-            });
-            for (i = 0, len = aps.length; i < len; i++) {
-              ap = aps[i];
-              if (Photo.exists(ap.album_id)) {
-                photos.push(Photo.find(ap.album_id));
-              }
-            }
-            return photos;
-          };
-        })(this),
-        searchSelect: function(query) {
-          var atts, key, value;
-          query = query.toLowerCase();
-          atts = this.selectAttributes.apply(this);
-          for (key in atts) {
-            value = atts[key];
-            value = value.toLowerCase();
-            if (!((value != null ? value.indexOf(query) : void 0) === -1)) {
-              return true;
-            }
-          }
-          return false;
-        },
-        idSelect: function(query) {
-          var value;
-          query = query.toLowerCase();
-          value = this.id.toLowerCase();
-          if (!((value != null ? value.indexOf(query) : void 0) === -1)) {
-            return true;
-          }
-          return false;
-        },
-        idExcludeSelect: function(query) {
-          if (query.indexOf(this.id) === -1) {
-            return true;
-          }
-          return false;
-        },
-        toRecords: function(ids) {
-          return this.constructor.toRecords(ids);
-        },
-        defaultDetails: {
-          iCount: 0,
-          aCount: 0,
-          sCount: 0,
-          author: ''
-        }
-      };
-      this.include(Log);
-      this.extend(Log);
-      this.extend(Extend);
-      return this.include(Include);
-    }
-  };
-
-  if (typeof module !== "undefined" && module !== null) {
-    module.exports = Model.TestExtender_1;
   }
 
 }).call(this);
@@ -38166,7 +36994,8 @@ Released under the MIT License
           Root.updateSelection(params.gid || null);
           return this.showView.trigger('active', this.showView.albumsView);
         },
-        '/galleries/*': function() {
+        '/galleries/:gid': function(params) {
+          Root.updateSelection(params.gid || null);
           return this.showView.trigger('active', this.showView.galleriesView);
         },
         '/overview/*': function() {
@@ -38665,7 +37494,7 @@ Released under the MIT License
 
 }).call(this);
  },"models/album": function(exports, require, module) { (function() {
-  var $, AjaxRelations, Album, AlbumsPhoto, Clipboard, Extender_2, Filter, GalleriesAlbum, Model, Spine, Uri, Utils,
+  var $, AjaxRelations, Album, AlbumsPhoto, Clipboard, Extender, Filter, GalleriesAlbum, Model, Spine, Uri,
     bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
     extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
     hasProp = {}.hasOwnProperty,
@@ -38687,13 +37516,11 @@ Released under the MIT License
 
   Filter = require("extensions/filter");
 
-  Extender_2 = require("extensions/model_extender");
+  Extender = require("extensions/model_extender");
 
   AjaxRelations = require("extensions/ajax_relations");
 
   Uri = require("extensions/uri");
-
-  Utils = require("extensions/utils");
 
   require("extensions/cache");
 
@@ -38716,19 +37543,17 @@ Released under the MIT License
 
     Album.extend(Uri);
 
-    Album.extend(Utils);
-
     Album.extend(AjaxRelations);
 
     Album.extend(Filter);
 
-    console.log(Extender_2);
-
-    Album.extend(Extender_2);
+    Album.extend(Extender);
 
     Album.selectAttributes = ['title'];
 
     Album.parent = 'Gallery';
+
+    Album.childType = 'Photo';
 
     Album.previousID = false;
 
@@ -38833,10 +37658,11 @@ Released under the MIT License
         for (i = 0, len = ids.length; i < len; i++) {
           id = ids[i];
           ga = new GalleriesAlbum({
+            id: $().uuid(),
             gallery_id: target.id,
             album_id: id,
-            ignore: true,
-            order: parseInt((ref = GalleriesAlbum.albums(target.id).last()) != null ? ref.order_id : void 0) + 1 || 0
+            ignore: false,
+            order_id: parseInt((ref = GalleriesAlbum.albums(target.id).last()) != null ? ref.order_id : void 0) + 1 || 0
           });
           valid = ga.save({
             validate: true,
@@ -38860,20 +37686,19 @@ Released under the MIT License
       return ret;
     };
 
-    Album.destroyJoin = function(items, target, cb) {
+    Album.destroyJoin = function(ids, target, cb) {
       var ga, gas, i, id, len;
-      if (items == null) {
-        items = [];
+      if (ids == null) {
+        ids = [];
       }
-      if (!Array.isArray(items)) {
-        items = [items];
+      if (!Array.isArray(ids)) {
+        ids = [ids];
       }
-      if (!(items.length && target)) {
+      if (!(ids.length && target)) {
         return;
       }
-      items = items.toID();
-      for (i = 0, len = items.length; i < len; i++) {
-        id = items[i];
+      for (i = 0, len = ids.length; i < len; i++) {
+        id = ids[i];
         gas = GalleriesAlbum.filter(id, {
           key: 'album_id'
         });
@@ -38927,8 +37752,7 @@ Released under the MIT License
       }
       s = new Object();
       s[id] = [];
-      this.constructor.selection.push(s);
-      return this.constructor.childType = 'Photo';
+      return this.constructor.selection.push(s);
     };
 
     Album.prototype.parent = function() {
@@ -39035,7 +37859,7 @@ Released under the MIT License
 
   Selector = require("extensions/selector");
 
-  Extender = require("extensions/extender_model");
+  Extender = require("extensions/model_extender");
 
   require("spine/lib/ajax");
 
@@ -39287,7 +38111,7 @@ Released under the MIT License
 
   AlbumsPhoto = require('models/albums_photo');
 
-  Extender = require("extensions/extender_model");
+  Extender = require("extensions/model_extender");
 
   require("spine/lib/ajax");
 
@@ -39496,7 +38320,7 @@ Released under the MIT License
       return Gallery.__super__.constructor.apply(this, arguments);
     }
 
-    Gallery.configure('Gallery', 'id', 'cid', 'name', "description", 'user_id');
+    Gallery.configure('Gallery', 'id', 'name', "description", 'user_id');
 
     Gallery.extend(Filter);
 
@@ -39511,6 +38335,8 @@ Released under the MIT License
     Gallery.selectAttributes = ['name'];
 
     Gallery.parent = 'Root';
+
+    Gallery.childType = 'Album';
 
     Gallery.url = '' + base_url + 'galleries';
 
@@ -39623,8 +38449,7 @@ Released under the MIT License
       }
       s = new Object();
       s[id] = [];
-      this.constructor.selection.push(s);
-      return this.constructor.childType = 'Album';
+      return this.constructor.selection.push(s);
     };
 
     Gallery.prototype.activePhotos = function() {
@@ -39784,8 +38609,6 @@ Released under the MIT License
 
     Photo.extend(Filter);
 
-    console.log(Extender);
-
     Photo.extend(Extender);
 
     Photo.selectAttributes = ['title', "description", 'user_id'];
@@ -39873,15 +38696,15 @@ Released under the MIT License
       return [this.record];
     };
 
-    Photo.createJoin = function(items, target, callback) {
-      var ap, cb, isValid, item, ret, valid;
-      if (items == null) {
-        items = [];
+    Photo.createJoin = function(ids, target, callback) {
+      var ap, cb, id, isValid, ret, valid;
+      if (ids == null) {
+        ids = [];
       }
-      if (!Array.isArray(items)) {
-        items = [items];
+      if (!Array.isArray(ids)) {
+        ids = [ids];
       }
-      if (!items.length) {
+      if (!ids.length) {
         return;
       }
       isValid = true;
@@ -39891,16 +38714,16 @@ Released under the MIT License
           return callback.call(this);
         }
       };
-      items = items.toID();
       ret = (function() {
         var i, len, ref, results;
         results = [];
-        for (i = 0, len = items.length; i < len; i++) {
-          item = items[i];
+        for (i = 0, len = ids.length; i < len; i++) {
+          id = ids[i];
           ap = new AlbumsPhoto({
+            id: $().uuid(),
             album_id: target.id,
-            photo_id: item.id || item,
-            order: parseInt((ref = AlbumsPhoto.photos(target.id).last()) != null ? ref.order_id : void 0) + 1 || 0
+            photo_id: id,
+            order_id: parseInt((ref = AlbumsPhoto.photos(target.id).last()) != null ? ref.order_id : void 0) + 1 || 0
           });
           valid = ap.save({
             validate: true,
@@ -39924,28 +38747,21 @@ Released under the MIT License
       return ret;
     };
 
-    Photo.destroyJoin = function(items, target, cb) {
+    Photo.destroyJoin = function(ids, target, cb) {
       var ap, aps, i, id, len;
-      if (items == null) {
-        items = [];
+      if (!Array.isArray(ids)) {
+        ids = [ids];
       }
-      if (!Array.isArray(items)) {
-        items = [items];
-      }
-      if (!(items.length && target)) {
+      if (!(ids.length && target)) {
         return;
       }
-      items = items.toID();
-      for (i = 0, len = items.length; i < len; i++) {
-        id = items[i];
+      for (i = 0, len = ids.length; i < len; i++) {
+        id = ids[i];
         aps = AlbumsPhoto.filter(id, {
           key: 'photo_id'
         });
-        ap = AlbumsPhoto.albumPhotoExists(id, target.id);
-        if (ap) {
-          ap.destroy({
-            done: cb
-          });
+        if (ap = AlbumsPhoto.albumPhotoExists(id, target.id)) {
+          ap.destroy();
         }
       }
       return Album.trigger('change:collection', target);
@@ -40130,7 +38946,7 @@ Released under the MIT License
 
   Filter = require("extensions/filter");
 
-  Extender = require("extensions/extender_model");
+  Extender = require("extensions/model_extender");
 
   Root = (function(superClass) {
     extend(Root, superClass);

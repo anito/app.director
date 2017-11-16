@@ -1,6 +1,8 @@
 Spine       = require("spine")
 $           = Spine.$
 Controller  = Spine.Controller
+require("extensions/utils")
+
 
 Controller.Extender =
   

@@ -7,7 +7,7 @@ Model.Album     = require('models/album')
 Model.Photo     = require('models/photo')
 GalleriesAlbum  = require('models/galleries_album')
 Selector        = require("extensions/selector")
-Extender        = require("extensions/extender_model")
+Extender        = require("extensions/model_extender")
 
 require("spine/lib/ajax")
 

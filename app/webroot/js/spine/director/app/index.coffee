@@ -207,7 +207,8 @@ class Main extends Spine.Controller
       '/gallery/:gid': (params) ->
         Root.updateSelection params.gid or null
         @showView.trigger('active', @showView.albumsView)
-      '/galleries/*': ->
+      '/galleries/:gid': (params) ->
+        Root.updateSelection params.gid or null
         @showView.trigger('active', @showView.galleriesView)
       '/overview/*': ->
         @overviewView.trigger('active')

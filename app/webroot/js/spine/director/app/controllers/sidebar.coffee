@@ -119,6 +119,7 @@ class Sidebar extends Spine.Controller
   
   newAttributes: ->
     if User.first()
+      id      : $().uuid()
       name    : @galleryName()
       author  : User.first().name
       user_id : User.first().id
@@ -146,9 +147,7 @@ class Sidebar extends Spine.Controller
         Album.trigger('destroy:join', options.albums, options.deleteFromOrigin) if options.deleteFromOrigin
         
       unless /^#\/galleries\//.test(location.hash)
-        @navigate '/gallery', gallery.id
-      else
-        Gallery.trigger('activate', gallery.id)
+        @navigate '/gallery', gallery?.id or ''
         
     gallery = new Gallery @newAttributes()
     gallery.one('ajaxSuccess', @proxy cb)

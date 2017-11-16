@@ -9,7 +9,6 @@ Extender        = require("extensions/controller_extender")
 
 require('extensions/uri')
 require('extensions/tmpl')
-require('extensions/utils')
 
 class SlideshowView extends Spine.Controller
   

@@ -6,10 +6,9 @@ GalleriesAlbum    = require('models/galleries_album')
 AlbumsPhoto       = require('models/albums_photo')
 Clipboard         = require('models/clipboard')
 Filter            = require("extensions/filter")
-Extender_2      = require("extensions/model_extender")
+Extender      = require("extensions/model_extender")
 AjaxRelations     = require("extensions/ajax_relations")
 Uri               = require("extensions/uri")
-Utils             = require("extensions/utils")
 
 require("extensions/cache")
 require("spine/lib/ajax")
@@ -22,15 +21,15 @@ class Album extends Spine.Model
   @extend Model.Cache
   @extend Model.Ajax
   @extend Uri
-  @extend Utils
   @extend AjaxRelations
   @extend Filter
-  console.log Extender_2
-  @extend Extender_2
+  @extend Extender
 
   @selectAttributes: ['title']
   
   @parent: 'Gallery'
+  
+  @childType = 'Photo'
   
   @previousID: false
 
@@ -96,10 +95,11 @@ class Album extends Spine.Model
     ids = items.toID()
     ret = for id in ids
       ga = new GalleriesAlbum
+        id          : $().uuid()
         gallery_id  : target.id
         album_id    : id
-        ignore      : true
-        order       : parseInt(GalleriesAlbum.albums(target.id).last()?.order_id)+1 or 0
+        ignore      : false
+        order_id    : parseInt(GalleriesAlbum.albums(target.id).last()?.order_id)+1 or 0
       valid = ga.save
         validate: true
         ajax: false
@@ -111,14 +111,12 @@ class Album extends Spine.Model
       Spine.trigger('refresh:all')
     ret
     
-  @destroyJoin: (items=[], target, cb) ->
-    unless Array.isArray items
-      items = [items]
+  @destroyJoin: (ids=[], target, cb) ->
+    ids = [ids] unless Array.isArray ids
     
-    return unless items.length and target
+    return unless ids.length and target
     
-    items = items.toID()
-    for id in items
+    for id in ids
       gas = GalleriesAlbum.filter(id, key: 'album_id')
       ga = GalleriesAlbum.galleryAlbumExists(id, target.id)
       ga.destroy(done: cb) if ga
@@ -151,7 +149,6 @@ class Album extends Spine.Model
     s = new Object()
     s[id] = []
     @constructor.selection.push s
-    @constructor.childType = 'Photo'
     
   parent: -> @constructor.parent
     

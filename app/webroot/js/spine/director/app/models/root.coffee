@@ -3,7 +3,7 @@ $                 = Spine.$
 Model             = Spine.Model
 Gallery           = require('models/gallery')
 Filter            = require("extensions/filter")
-Extender          = require("extensions/extender_model")
+Extender          = require("extensions/model_extender")
 
 class Root extends Spine.Model
 
@@ -15,7 +15,6 @@ class Root extends Spine.Model
   
   init: (instance) ->
     return unless id = instance.id
-    
     
 module?.exports = Model.Root = Root
 

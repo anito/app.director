@@ -27,7 +27,7 @@ class GalleriesList extends Spine.Controller
   
   constructor: ->
     super
-    Gallery.bind('change:current', @proxy @exposeSelection)
+    Root.bind('change:selection', @proxy @exposeSelection)
     Album.bind('change:collection', @proxy @renderRelated)
     Gallery.bind('change', @proxy @renderOne)
     GalleriesAlbum.bind('change', @proxy @renderOneRelated)
@@ -103,13 +103,11 @@ class GalleriesList extends Spine.Controller
     else if idxBeforeSort > idxAfterSort
       newEl.before oldEl
 
-  exposeSelection: ->
-    @log 'exposeSelection'
+  exposeSelection: (selection=Root.selectionList()) ->
+    
     @deselect()
-    $('#'+Gallery.record.id, @el).addClass("active hot")
-      
-    App.showView.trigger('change:toolbarOne')
-    @parent.focus()
+    for sel in selection
+      $('#'+sel, @el).addClass("active hot")
         
   dropdownToggle: (e) ->
     e.preventDefault()

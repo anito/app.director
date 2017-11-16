@@ -43,7 +43,8 @@ class GalleriesView extends Spine.Controller
     
     Gallery.bind('beforeDestroy', @proxy @beforeDestroy)
     Gallery.bind('destroy', @proxy @destroy)
-    Gallery.bind('refresh:gallery', @proxy @render)
+#    Gallery.bind('refresh:gallery', @proxy @render)
+#    Gallery.bind('create', @proxy @renderOne)
 
   render: (items) ->
     return unless @isActive()
@@ -53,45 +54,28 @@ class GalleriesView extends Spine.Controller
     else  
       @list.el.html '<label class="invite"><span class="enlightened">This Application has no galleries. &nbsp;<button class="opt-CreateGallery dark large">New Gallery</button>'
           
+  renderOne: (gallery) ->
+    @render [gallery]
+          
   active: ->
     return unless @isActive()
-    unless Gallery.record
-      Gallery.updateSelection()
     App.showView.trigger('change:toolbarOne', ['Default'])
     App.showView.trigger('change:toolbarTwo', ['Slideshow'])
     @render()
     
-  click: (e) ->
+  click: (e, excl) ->
     e.preventDefault()
     e.stopPropagation()
     
-    App.showView.trigger('change:toolbarOne', ['Default'])
     item = $(e.currentTarget).item()
-    @select(e, item.id) #one gallery selected at a time
     
-  select_: (item) ->
-    Gallery.trigger('activate', item.id)
+    @select(e, item.id)
     
-  select__: (ids = [], exclusive) ->
-    unless Array.isArray ids
-      ids = [ids]
-    Root.emptySelection() if exclusive
-      
-    selection = Root.selectionList()[..]
-    for id in ids
-      selection.addRemoveSelection(id)
+  select: (e, ids = []) ->
+    ids = [ids] unless Array.isArray ids
     
-    Root.updateSelection(selection)
+    Root.updateSelection(ids)
     Gallery.updateSelection(Gallery.selectionList())
-    Album.updateSelection(Album.selectionList())
-    
-  select: (e, items = []) ->
-    unless Array.isArray items
-      items = [items]
-      
-    Root.updateSelection(items.first())
-    Gallery.updateSelection(Gallery.selectionList())
-    Album.updateSelection(Album.selectionList())
     
   beforeDestroy: (item) ->
     @list.findModelElement(item).detach()
@@ -100,23 +84,14 @@ class GalleriesView extends Spine.Controller
     if item
       Gallery.current() if Gallery.record?.id is item?.id
       item.removeSelectionID()
-      Root.removeFromSelection item.id
+      Root.updateSelection []
       
     unless Gallery.count()
       #force to rerender
       if /^#\/galleries\//.test(location.hash)
-        @navigate '/galleries'
-      @navigate '/galleries', ''
+        @navigate '/galleries', $().uuid()
     else
       unless /^#\/galleries\//.test(location.hash)
         @navigate '/gallery', Gallery.first().id
-  
-  newAttributes: ->
-    if User.first()
-      name   : 'New Name'
-      user_id : User.first().id
-      author: User.first().name
-    else
-      User.ping()
   
 module?.exports = GalleriesView

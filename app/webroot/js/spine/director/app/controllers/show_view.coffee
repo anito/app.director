@@ -272,8 +272,6 @@ class ShowView extends Spine.Controller
     @controllers = (c for c in @canvasManager.controllers when c isnt controller)
     $('.items', @el).removeClass('in3') for c in @controllers
     #remove global selection if we've left from Album Library
-#    if @previous?.type is "Album" and !Gallery.record
-#      @resetSelection()
         
     t = switch controller.type
       when "Gallery"
@@ -304,9 +302,6 @@ class ShowView extends Spine.Controller
     window.setTimeout( =>
       _1()
     , 500)
-    
-  resetSelection: (controller) ->
-#    Gallery.updateSelection(null)
     
   changeHeader: (controller) ->
     
@@ -1030,8 +1025,8 @@ class ShowView extends Spine.Controller
   selectByKey: (e, direction) ->
     @log 'selectByKey'
     isMeta = e.metaKey or e.ctrlKey
-    index = null
-    lastIndex = null
+    
+    lastIndex = index = null
     list = @controller.list?.listener or @controller.list
     elements = if list then $('.item', list.el) else $()
     models = @controller.el.data('current').models
@@ -1049,6 +1044,7 @@ class ShowView extends Spine.Controller
         index = idx
         
     last    = elements[lastIndex] or false
+    
     unless index?
       prev = next = first = elements[0] or false
     else if isMeta
@@ -1070,7 +1066,6 @@ class ShowView extends Spine.Controller
         el = $(next)
       when 'down'
         el = $(last)
-        
         
     id = el.attr('data-id')
     

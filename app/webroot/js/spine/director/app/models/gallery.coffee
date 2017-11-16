@@ -14,7 +14,7 @@ require("spine/lib/ajax")
 
 class Gallery extends Spine.Model
 
-  @configure 'Gallery', 'id', 'cid', 'name', "description", 'user_id'
+  @configure 'Gallery', 'id', 'name', "description", 'user_id'
 
   @extend Filter
   @extend Model.Ajax
@@ -25,6 +25,8 @@ class Gallery extends Spine.Model
   @selectAttributes: ['name']
   
   @parent: 'Root'
+  
+  @childType = 'Album'
   
   @url: '' + base_url + 'galleries'
 
@@ -93,7 +95,6 @@ class Gallery extends Spine.Model
     s = new Object()
     s[id] = []
     @constructor.selection.push s
-    @constructor.childType = 'Album'
     
   activePhotos: ->
     @constructor.activePhotos(@id)

@@ -28,10 +28,9 @@ class AlbumsPhotosController extends AppController {
       $this->AlbumsPhoto->create();
       $data = $this->request->data;
 //      $this->log($data, LOG_DEBUG);
-      $data['id'] = null;
       if ($this->AlbumsPhoto->saveAll($data)) {
         $this->Session->setFlash(__('The albums photo has been saved', true));
-        $this->set('_serialize', array('id' => $this->AlbumsPhoto->id));
+        $this->set('_serialize', $this->AlbumsPhoto->id);
         $this->render(SIMPLE_JSON);
       } else {
         $this->Session->setFlash(__('The albums photo could not be saved. Please, try again.', true));

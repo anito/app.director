@@ -251,8 +251,6 @@ class PhotosList extends Spine.Controller
     if first = selection.first()
       $('#'+first, @el).addClass("hot")
       
-    @parent.focus()
-      
   remove: (ap) ->
     item = Photo.find ap.photo_id
     @findModelElement(item).detach() if item

@@ -28,7 +28,6 @@ class PhotoView extends Spine.Controller
     'drop .item'                      : 'drop'
     
     'click .dropdown-toggle'          : 'dropdownToggle'
-    'click .delete'                   : 'deletePhoto'
     'click .zoom'                     : 'zoom'
     'click .rotate'                   : 'rotate'
     
@@ -138,17 +137,6 @@ class PhotoView extends Spine.Controller
     el.dropdown()
     e.preventDefault()
     e.stopPropagation()
-  
-  deletePhoto: (e) ->
-    item = $(e.currentTarget).item()
-    return unless item?.constructor?.className is 'Photo' 
-    
-    Spine.trigger('destroy:photo', [item.id], @proxy @back)
-    
-    @stopInfo(e)
-    
-    e.stopPropagation()
-    e.preventDefault()
   
   rotate: (e) ->
     @photosView.list.rotate(e)

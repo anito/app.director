@@ -72,8 +72,6 @@ class AlbumsView extends Spine.Controller
     GalleriesAlbum.bind('destroy', @proxy @destroyGalleriesAlbum)
     GalleriesAlbum.bind('ignore', @proxy @ignoreAlbum)
     
-#    Gallery.bind('change:collection', @proxy @collectionChanged)
-    
     Album.bind('refresh:one', @proxy @refreshOne)
     Album.bind('ajaxError', Album.errorHandler)
     Album.bind('create', @proxy @create)
@@ -81,10 +79,7 @@ class AlbumsView extends Spine.Controller
     Album.bind('destroy', @proxy @destroy)
     Album.bind('create:join', @proxy @createJoin)
     Album.bind('destroy:join', @proxy @destroyJoin)
-#    Gallery.bind('change:selection', @proxy @activateRecord)
     Album.bind('change:collection', @proxy @renderBackgrounds)
-    
-#    GalleriesAlbum.bind('ajaxError', Album.errorHandler)
     
     Spine.bind('reorder', @proxy @reorder)
     Spine.bind('create:album', @proxy @createAlbum)
@@ -102,9 +97,6 @@ class AlbumsView extends Spine.Controller
     
   deactivate: ->
     @el.removeClass('active')
-#    if !Gallery.record
-#      Gallery.updateSelection(null)
-#      Gallery.preservedSel.update Gallery.selectionList()
     @
     
   refreshOne: ->
@@ -161,34 +153,10 @@ class AlbumsView extends Spine.Controller
       ids = [ids]
     
     Album.current ids[0]
-  
-  activateRecord_: (ids) ->
-    unless (ids)
-      ids = Gallery.selectionList()
-      Album.current()
-      noid = true
-      
-    unless Array.isArray(ids)
-      ids = [ids]
-    
-    list = []
-    for id in ids
-      list.push album.id if album = Album.find(id)
-
-    id = list[0]
-    
-    if id
-      Album.current(id) unless noid
-      App.sidebar.list.expand(Gallery.record, true) 
-      
-    Gallery.updateSelection(list)
-    if Album.record
-      Photo.trigger('activate', Album.selectionList())
-    else
-      Photo.trigger('activate')
       
   newAttributes: ->
     if User.first()
+      id      : $().uuid()
       title   : @albumName()
       author  : User.first().name
       invalid : false
@@ -210,9 +178,8 @@ class AlbumsView extends Spine.Controller
     cb = (record, ido) ->
       if target
         record.createJoin(target)
-        target.updateSelection(record.id)
-      else
-        Gallery.updateSelection(null, record.id)
+        
+      Gallery.updateSelection record.id
         
       record.updateSelectionID()
       
@@ -228,8 +195,6 @@ class AlbumsView extends Spine.Controller
       if options.cb
         options.cb.apply(@, [record, options.deferred])
         
-      Album.trigger('activate', album.id)
-      
       @navigate '/gallery', target?.id or ''
     
     album = new Album @newAttributes()
@@ -252,30 +217,28 @@ class AlbumsView extends Spine.Controller
   
   destroyAlbum: (ids) ->
     @log 'destroyAlbum'
-  
     @stopInfo()
   
     func = (el) =>
       $(el).detach()
   
-    albums = ids || Gallery.selectionList().slice(0)
-    albums = [albums] unless Album.isArray(albums)
-    
-    for id in albums
+    ids = ids || Gallery.selectionList().slice(0)
+    ids = [ids] unless Album.isArray(ids)
+
+    for id in ids
       if item = Album.find(id)
         el = @list.findModelElement(item)
         el.removeClass('in')
       
-#      setTimeout(func, 300, el)
-    
     if gallery = Gallery.record
-      @destroyJoin albums, Gallery.record
+      @destroyJoin ids, Gallery.record
     else
-      for id in albums
+      for id in ids
         album.destroy() if album = Album.find(id)
   
   create: (album) ->
-    @render([album], 'append') unless Gallery.record 
+    unless Gallery.record
+      @render([album], 'append')
    
   beforeDestroyAlbum: (album) ->
     
@@ -306,7 +269,6 @@ class AlbumsView extends Spine.Controller
       
   createJoin: (albums, gallery, callback) ->
     Album.createJoin albums, gallery, callback
-    gallery.updateSelection albums
     
   destroyJoin: (albums, gallery) ->
     @log 'destroyJoin'
@@ -371,8 +333,7 @@ class AlbumsView extends Spine.Controller
     @select(e, item.id)
     
   select: (e, items = []) ->
-    unless Array.isArray items
-      items = [items]
+    items = [items] unless Array.isArray items
       
     type = e.type
     switch type
@@ -385,7 +346,7 @@ class AlbumsView extends Spine.Controller
         for id in items
           selection.addRemoveSelection(id)
     
-    Gallery.updateSelection(selection, Gallery.record?.id)
+    Gallery.updateSelection(selection)
     Album.updateSelection(Album.selectionList(), Album.record?.id)
     
   infoUp: (e) =>

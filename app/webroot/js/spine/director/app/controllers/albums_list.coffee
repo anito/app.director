@@ -122,9 +122,7 @@ class AlbumsList extends Spine.Controller
       contentEl.attr('style', style)
     @el.sortable()
   
-  exposeSelection: (selection=Gallery.selectionList(), id=Gallery.record?.id) ->
-    if Gallery.record
-      return unless Gallery.record.id is id
+  exposeSelection: (selection=Gallery.selectionList()) ->
     @deselect()
     for sel in selection
       $('#'+sel, @el).addClass("active")
@@ -258,7 +256,6 @@ class AlbumsList extends Spine.Controller
     @log 'deleteAlbum'
     item = $(e.currentTarget).item()
     return unless item?.constructor?.className is 'Album'
-    
     Spine.trigger('destroy:album', [item.id])
     
     e.stopPropagation()

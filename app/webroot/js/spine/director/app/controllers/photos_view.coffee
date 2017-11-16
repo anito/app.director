@@ -12,6 +12,7 @@ Drag            = require("extensions/drag")
 Extender        = require("extensions/controller_extender")
 
 require("extensions/tmpl")
+require("extensions/tmpl")
 
 class PhotosView extends Spine.Controller
   
@@ -133,22 +134,6 @@ class PhotosView extends Spine.Controller
       ids = [ids]
     
     Photo.current ids[0]
-    
-  activateRecord_: (records) ->
-    unless records
-      records = Album.selectionList()
-
-    unless Array.isArray(records)
-      records = [records]
-      
-    list = []
-    for id in records
-      list.push photo.id if photo = Photo.find(id)
-    
-    id = list[0]
-    
-    Album.updateSelection(list)
-    Photo.current(id)
   
   click: (e) ->
     e.preventDefault()
@@ -174,14 +159,16 @@ class PhotosView extends Spine.Controller
         for id in items
           selection.addRemoveSelection(id)
     
-    Album.updateSelection(selection, Album.record?.id)
+    Album.updateSelection(selection)
       
   clearPhotoCache: ->
     Photo.clearCache()
   
   beforeDestroyPhoto: (photo) ->
     # remove selection from root
-    Album.removeFromSelection null, photo.id
+    selection = Album.selectionList()[..]
+    selection.addRemoveSelection photo.id
+    Album.updateSelection selection
     
     # all involved albums
     albums = AlbumsPhoto.albums(photo.id)
@@ -213,20 +200,20 @@ class PhotosView extends Spine.Controller
     
     @stopInfo()
     
-    photos = ids || Album.selectionList().slice(0)
-    photos = [photos] unless Photo.isArray photos
+    ids = ids || Album.selectionList()[..]
+    ids = [ids] unless Photo.isArray ids
     
-    for id in photos
+    for id in ids
       if item = Photo.find(id)
         el = @list.findModelElement(item)
         el.removeClass('in')
       
     if album = Album.record
       @destroyJoin
-        photos: photos
+        photos: ids
         album: album
     else
-      for id in photos
+      for id in ids
         photo.destroy() if photo = Photo.find(id)
         
     if typeof callback is 'function'
