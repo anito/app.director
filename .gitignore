@@ -2,7 +2,7 @@
 .DS_Store
 =======
 nbproject
-/app/tmp/*
+
 /uploads/photos/
 /app/Config/database.php
 /app/webroot/js/spine/director/node_modules
