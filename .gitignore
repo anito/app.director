@@ -2,11 +2,11 @@
 .DS_Store
 =======
 nbproject
-/app/tmp/cache/*
-/app/tmp/sessions/*
-/app/tmp/logs/*
-/app/tmp/tests/*
-/uploads/photos/*
+app/tmp/cache/*
+app/tmp/sessions/*
+app/tmp/logs/*
+app/tmp/tests/*
+uploads/photos/*
 /app/Config/database.php
 /app/webroot/js/spine/director/node_modules
 *.graffle

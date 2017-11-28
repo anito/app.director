@@ -15,7 +15,7 @@
 <div id="main" class="view vbox flex">
   <header id="title" class="">
     <div class="left" style="position: relative;">
-      <h1 class="header"><a href="/"><span class="chopin">Photo Director</span></a></h1>
+      <h1 class="header"><a href="/"><span class="chopin">Foto Director</span></a></h1>
       <span style="position: absolute; top: 10px; right: 67px;"><a href="http://glyphicons.com/" target="_blank" style="font-size: 0.7em;" class="anim-link" title="GLYPHICONS is a library of precisely prepared monochromatic icons and symbols, created with an emphasis on simplicity and easy orientation.">GLYPHICONS.com</a></span>
     </div>
     <div id="login" class="right" style="margin: 15px 5px;"></div>
