@@ -28,6 +28,7 @@ endif;
             <p>
                 Pick your App
             </p>
+            <hr>
             <div class="button-wrapper download-info flex flex-wrap">
                     <div>
                         <a href="/director_app" class="btn btn-info btn-large" type="" target="_top"><span itemprop="name">Photo Director</span></a>
@@ -57,3 +58,8 @@ endif;
         </div>
     </header>
 </div>
+<footer class="footer">
+    <div class="footer__content">
+        <?php echo 'powered'; ?> <a href="/" target="_self"><img class="logo" src="/img/webpremiere-logo-1.svg" alt="webPremiere"></a>
+    </div>
+</footer>
