@@ -30,7 +30,7 @@
   echo $this->Html->meta("keywords", "spine, spinejs, spine.js, javascript, application, sample, example, photo, album, gallery,twitter, bootstrap, html5, web, app, apps, image, upload, drag and drop");
   echo $this->Html->meta("description", "Photo Library, Photo Director, Sample Application made with Spine.js, Web App");
   
-  echo $this->Html->css('twitter/bootstrap/css/bootstrap');
+  echo $this->Html->css('bootstrap/bootstrap');
   echo $this->Html->css('app');
         
 		echo $scripts_for_layout;
