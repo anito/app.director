@@ -60,6 +60,6 @@ endif;
 </div>
 <footer class="footer">
     <div class="footer__content">
-        <?php echo 'powered'; ?> <a href="/" target="_self"><img class="logo" src="/img/webpremiere-logo-1.svg" alt="webPremiere"></a>
+        <?php echo 'powered'; ?> <a href="/" target="_self"><img class="logo" src="https://webpremiere.de/files/public-docs/logos/webpremiere-logo-3.svg" alt="webPremiere"></a>
     </div>
 </footer>
