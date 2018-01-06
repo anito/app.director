@@ -6,7 +6,7 @@ GalleriesAlbum    = require('models/galleries_album')
 AlbumsPhoto       = require('models/albums_photo')
 Clipboard         = require('models/clipboard')
 Filter            = require("extensions/filter")
-Extender      = require("extensions/model_extender")
+Extender          = require("extensions/model_extender")
 AjaxRelations     = require("extensions/ajax_relations")
 Uri               = require("extensions/uri")
 
