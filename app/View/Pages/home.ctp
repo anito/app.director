@@ -24,31 +24,35 @@ endif;
 <div itemscope itemtype="http://schema.org/SoftwareApplication" class="container">
     <header class="jumbotron masthead">
         <div class="">
-            <h1>Sweet...</h1>
+            <h1>WebPremiere</h1>
             <p>
-                Pick your App
+                Pick your Site
             </p>
             <hr>
             <div class="button-wrapper download-info flex flex-wrap">
                     <div>
-                        <a href="/director_app" class="btn btn-info btn-large" type="" target="_top"><span itemprop="name">Photo Director</span></a>
-                        <i class="info">Photo Library</i>
+                        <a href="https://bretl.webpremiere.de" class="btn btn-secondary btn-large" type="" target="_blank"><span itemprop="name">Kfz-Service Bretl</span></a>
+                        <i class="info">Online Shop</i>
                     </div>
                     <div>
-                        <a href="http://armyshop.<?php echo HOST; ?>.<?php echo TOPLEVEL; ?>/admin" class="btn btn-success btn-large" type="" target="_top"><span itemprop="name">Shop Admin</span></a>
+                        <a href="/director_app" class="btn btn-info btn-large" type="" target="_blank"><span itemprop="name">Photo Director</span></a>
+                        <i class="info">Photo Manager</i>
+                    </div>
+                    <div>
+                        <a href="http://armyshop.<?php echo HOST; ?>.<?php echo TOPLEVEL; ?>/admin" class="btn btn-success btn-large" type="" target="_blank"><span itemprop="name">Shop Admin</span></a>
                         <i class="info">Managing Sample Shop</i>
                     </div>
 
                     <div>
-                        <a href="http://ha-lehmann.<?php echo TOPLEVEL == "de" ? 'at' : 'dev'; ?>" class="btn btn-danger btn-large" type="" target="_top"><span itemprop="name">Online Shop</span></a>
+                        <a href="http://ha-lehmann.<?php echo TOPLEVEL == "de" ? 'at' : 'dev'; ?>" class="btn btn-danger btn-large" type="" target="_blank"><span itemprop="name">Army Shop</span></a>
                         <i class="info">Online-Shop</i>
                     </div>
                     <div>
-                        <a href="http://armyshop.<?php echo HOST; ?>.<?php echo TOPLEVEL; ?>" class="btn btn-warning btn-large" type="" target="_top"><span itemprop="name">Shop</span></a>
+                        <a href="http://armyshop.<?php echo HOST; ?>.<?php echo TOPLEVEL; ?>" class="btn btn-warning btn-large" type="" target="_blank"><span itemprop="name">Shop App</span></a>
                         <i class="info">Sample Shop</i>
                     </div>
                     <div>
-                        <a href="http://dorcas-chili.<?php echo TOPLEVEL == "de" ? 'de' : 'dev'; ?>" class="btn btn-primary btn-large" type="" target="_top"><span itemprop="name">Dorcas Chili</span></a>
+                        <a href="http://dorcas-chili.<?php echo TOPLEVEL == "de" ? 'de' : 'dev'; ?>" class="btn btn-primary btn-large" type="" target="_blank"><span itemprop="name">Dorcas Chili</span></a>
                         <i class="info">Scharfe Liköre</i>
                     </div>
                     <div>
