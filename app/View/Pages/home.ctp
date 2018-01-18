@@ -32,7 +32,7 @@ endif;
             <div class="button-wrapper download-info flex flex-wrap">
                     <div>
                         <a href="https://bretl.webpremiere.de" class="btn btn-secondary btn-large" type="" target="_blank"><span itemprop="name">Kfz-Service Bretl</span></a>
-                        <i class="info">Online Shop</i>
+                        <i class="info">WooCommerce Online Shop</i>
                     </div>
                     <div>
                         <a href="/director_app" class="btn btn-info btn-large" type="" target="_blank"><span itemprop="name">Photo Director</span></a>
@@ -40,12 +40,12 @@ endif;
                     </div>
                     <div>
                         <a href="http://armyshop.<?php echo HOST; ?>.<?php echo TOPLEVEL; ?>/admin" class="btn btn-success btn-large" type="" target="_blank"><span itemprop="name">Shop Admin</span></a>
-                        <i class="info">Managing Sample Shop</i>
+                        <i class="info">Shop Admin for Sample Shop</i>
                     </div>
 
                     <div>
                         <a href="http://ha-lehmann.<?php echo TOPLEVEL == "de" ? 'at' : 'dev'; ?>" class="btn btn-danger btn-large" type="" target="_blank"><span itemprop="name">Army Shop</span></a>
-                        <i class="info">Online-Shop</i>
+                        <i class="info">WooCommerce Online-Shop</i>
                     </div>
                     <div>
                         <a href="http://armyshop.<?php echo HOST; ?>.<?php echo TOPLEVEL; ?>" class="btn btn-warning btn-large" type="" target="_blank"><span itemprop="name">Shop App</span></a>
@@ -53,7 +53,7 @@ endif;
                     </div>
                     <div>
                         <a href="http://dorcas-chili.<?php echo TOPLEVEL == "de" ? 'de' : 'dev'; ?>" class="btn btn-primary btn-large" type="" target="_blank"><span itemprop="name">Dorcas Chili</span></a>
-                        <i class="info">Scharfe Liköre</i>
+                        <i class="info">Hot Liquors</i>
                     </div>
                     <div>
                         <a href="http://app.<?php echo HOST; ?>.<?php echo TOPLEVEL; ?>" class="btn btn-large" type="">More...</a>
