@@ -73,6 +73,12 @@ i.info {
     font-style: normal;
     font-size: .8em;
 }
+.logo > img {
+    width: 68%;
+}
+.logo {
+    text-align: center;
+}
 
 /* Jumbotrons
 -------------------------------------------------- */

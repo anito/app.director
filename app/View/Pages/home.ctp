@@ -24,7 +24,9 @@ endif;
 <div itemscope itemtype="http://schema.org/SoftwareApplication" class="container">
     <header class="jumbotron masthead">
         <div class="">
-            <h1>WebPremiere</h1>
+            <div class="logo">
+                <img src="https://webpremiere.de/files/public-docs/logos/webpremiere-logo-1.svg">
+            </div>
             <p>
                 Pick a Site
             </p>
