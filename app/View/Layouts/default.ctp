@@ -26,7 +26,7 @@
 		<?php echo $title_for_layout; ?>
 	</title>
 	<?php
-		echo $this->Html->meta('icon');
+		echo $this->Html->meta('icon', "favicon.ico?v=".time());
         echo $this->Html->meta("keywords", "spine, spinejs, spine.js, javascript, application, sample, example, photo, album, gallery,twitter, bootstrap, html5, web, app, apps, image, upload, drag and drop");
         echo $this->Html->meta("description", "Photo Library, Photo Director, Sample Application made with Spine.js, Web App");
 
