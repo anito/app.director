@@ -33,7 +33,7 @@ endif;
             <hr>
             <div class="button-wrapper download-info flex flex-wrap">
                     <div>
-                        <a href="https://bretl.webpremiere.de" class="btn btn-secondary btn-large" type="" target="_blank"><span itemprop="name">Kfz-Service Bretl</span></a>
+                        <a href="https://bretl.webpremiere.de" class="btn btn-secondary btn-large" type="" target="_blank"><span itemprop="name">Traktoren Shop</span></a>
                         <i class="info">WooCommerce Online Shop</i>
                     </div>
                     <div>
