@@ -1,16 +1,16 @@
 <?php
 /**
- * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
- * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * CakePHP(tm) : Rapid Development Framework (https://cakephp.org)
+ * Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
  *
  * Licensed under The MIT License
  * For full copyright and license information, please see the LICENSE.txt
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- * @link          http://cakephp.org CakePHP(tm) Project
+ * @copyright     Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
+ * @link          https://cakephp.org CakePHP(tm) Project
  * @since         CakePHP(tm) v 1.2.0.5012
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
+ * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
 
 App::uses('AppShell', 'Console/Command');
@@ -19,7 +19,7 @@ App::uses('AppShell', 'Console/Command');
  * Provides a very basic 'interactive' console for CakePHP apps.
  *
  * @package       Cake.Console.Command
- * @deprecated Deprecated since version 2.4, will be removed in 3.0
+ * @deprecated 3.0.0 Deprecated since version 2.4, will be removed in 3.0
  */
 class ConsoleShell extends AppShell {
 
@@ -484,7 +484,7 @@ class ConsoleShell extends AppShell {
  * Tells if the specified model is included in the list of available models
  *
  * @param string $modelToCheck The model to check.
- * @return boolean true if is an available model, false otherwise
+ * @return bool true if is an available model, false otherwise
  */
 	protected function _isValidModel($modelToCheck) {
 		return in_array($modelToCheck, $this->models);
@@ -494,14 +494,14 @@ class ConsoleShell extends AppShell {
  * Reloads the routes configuration from app/Config/routes.php, and compiles
  * all routes found
  *
- * @return boolean True if config reload was a success, otherwise false
+ * @return bool True if config reload was a success, otherwise false
  */
 	protected function _loadRoutes() {
 		Router::reload();
 		extract(Router::getNamedExpressions());
 
 		//@codingStandardsIgnoreStart
-		if (!@include APP . 'Config' . DS . 'routes.php') {
+		if (!@include CONFIG . 'routes.php') {
 			//@codingStandardsIgnoreEnd
 			return false;
 		}

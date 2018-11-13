@@ -1,6 +1,6 @@
 <?php
 
-class SaltComponent extends Object {
+class SaltComponent extends CakeObject {
 
   var $controller = true;
 

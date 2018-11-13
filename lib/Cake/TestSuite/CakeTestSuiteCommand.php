@@ -2,21 +2,23 @@
 /**
  * TestRunner for CakePHP Test suite.
  *
- * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
- * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * CakePHP(tm) : Rapid Development Framework (https://cakephp.org)
+ * Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
  *
  * Licensed under The MIT License
  * For full copyright and license information, please see the LICENSE.txt
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- * @link          http://cakephp.org CakePHP(tm) Project
+ * @copyright     Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
+ * @link          https://cakephp.org CakePHP(tm) Project
  * @package       Cake.TestSuite
  * @since         CakePHP(tm) v 2.0
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
+ * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
 
-require_once 'PHPUnit/TextUI/Command.php';
+if (!class_exists('PHPUnit_TextUI_Command')) {
+	require_once 'PHPUnit/TextUI/Command.php';
+}
 
 App::uses('CakeTestRunner', 'TestSuite');
 App::uses('CakeTestLoader', 'TestSuite');
@@ -56,7 +58,7 @@ class CakeTestSuiteCommand extends PHPUnit_TextUI_Command {
  * Ugly hack to get around PHPUnit having a hard coded class name for the Runner. :(
  *
  * @param array $argv The command arguments
- * @param boolean $exit The exit mode.
+ * @param bool $exit The exit mode.
  * @return void
  */
 	public function run(array $argv, $exit = true) {

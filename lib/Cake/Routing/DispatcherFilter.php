@@ -1,17 +1,17 @@
 <?php
 /**
- * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
- * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * CakePHP(tm) : Rapid Development Framework (https://cakephp.org)
+ * Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
  *
  * Licensed under The MIT License
  * For full copyright and license information, please see the LICENSE.txt
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright	  Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- * @link		  http://cakephp.org CakePHP(tm) Project
+ * @copyright	  Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
+ * @link		  https://cakephp.org CakePHP(tm) Project
  * @package		  Cake.Routing
  * @since		  CakePHP(tm) v 2.2
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
+ * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
 
 App::uses('CakeEventListener', 'Event');
@@ -28,7 +28,7 @@ abstract class DispatcherFilter implements CakeEventListener {
 /**
  * Default priority for all methods in this filter
  *
- * @var integer
+ * @var int
  */
 	public $priority = 10;
 
@@ -78,7 +78,7 @@ abstract class DispatcherFilter implements CakeEventListener {
  *
  * @param CakeEvent $event container object having the `request`, `response` and `additionalParams`
  *	keys in the data property.
- * @return CakeResponse|boolean
+ * @return CakeResponse|bool
  */
 	public function beforeDispatch(CakeEvent $event) {
 	}

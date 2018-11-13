@@ -1,16 +1,16 @@
 <?php
 /**
- * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
- * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * CakePHP(tm) : Rapid Development Framework (https://cakephp.org)
+ * Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
  *
  * Licensed under The MIT License
  * For full copyright and license information, please see the LICENSE.txt
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- * @link          http://cakephp.org CakePHP Project
+ * @copyright     Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
+ * @link          https://cakephp.org CakePHP Project
  * @since         CakePHP(tm) v 1.2.0.5432
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
+ * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
 
 App::uses('Debugger', 'Utility');
@@ -156,6 +156,24 @@ class DebuggerTest extends CakeTestCase {
 	}
 
 /**
+ * test encodes error messages
+ *
+ * @return void
+ */
+	public function testOutputEncodeDescription() {
+		set_error_handler('Debugger::showError');
+		$this->_restoreError = true;
+
+		ob_start();
+		$a = array();
+		$b = $a['<script>alert(1)</script>'];
+		$result = ob_get_clean();
+
+		$this->assertNotContains('<script>alert(1)', $result);
+		$this->assertContains('&lt;script&gt;alert(1)', $result);
+	}
+
+/**
  * Tests that changes in output formats using Debugger::output() change the templates used.
  *
  * @return void
@@ -187,7 +205,7 @@ class DebuggerTest extends CakeTestCase {
 			'error' => array(),
 			'code' => array(), '8', '/code',
 			'file' => array(), 'preg:/[^<]+/', '/file',
-			'line' => array(), '' . (intval(__LINE__) - 7), '/line',
+			'line' => array(), '' . ((int)__LINE__ - 7), '/line',
 			'preg:/Undefined variable:\s+foo/',
 			'/error'
 		);
@@ -246,7 +264,7 @@ class DebuggerTest extends CakeTestCase {
 			'<error',
 			'<code', '8', '/code',
 			'<file', 'preg:/[^<]+/', '/file',
-			'<line', '' . (intval(__LINE__) - 7), '/line',
+			'<line', '' . ((int)__LINE__ - 7), '/line',
 			'preg:/Undefined variable:\s+foo/',
 			'/error'
 		);
@@ -516,8 +534,8 @@ TEXT;
 		Debugger::dump($var);
 		$result = ob_get_clean();
 
-		$open = php_sapi_name() === 'cli' ? "\n" : '<pre>';
-		$close = php_sapi_name() === 'cli' ? "\n" : '</pre>';
+		$open = PHP_SAPI === 'cli' ? "\n" : '<pre>';
+		$close = PHP_SAPI === 'cli' ? "\n" : '</pre>';
 		$expected = <<<TEXT
 {$open}array(
 	'People' => array(
@@ -540,8 +558,8 @@ TEXT;
 		Debugger::dump($var, 1);
 		$result = ob_get_clean();
 
-		$open = php_sapi_name() == 'cli' ? "\n" : '<pre>';
-		$close = php_sapi_name() == 'cli' ? "\n" : '</pre>';
+		$open = PHP_SAPI === 'cli' ? "\n" : '<pre>';
+		$close = PHP_SAPI === 'cli' ? "\n" : '</pre>';
 		$expected = <<<TEXT
 {$open}array(
 	'People' => array(

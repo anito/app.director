@@ -3,7 +3,7 @@
 App::uses('Folder', 'Utility');
 App::uses('File', 'Utility');
 
-class FileComponent extends Object {
+class FileComponent extends CakeObject {
 
   var $controller = true;
   var $dirTags = array(
@@ -663,7 +663,7 @@ class FileComponent extends Object {
         }
       }
 
-      if (eregi('\.jpg|\.jpeg', basename($path)) && is_callable('exif_read_data')) {
+      if (preg_match('/\.jpg|\.jpeg/', basename($path)) && is_callable('exif_read_data')) {
         $exif_data = exif_read_data($path, 0, true);
         $meta['Exif'] = $exif_data;
         if (isset($meta['Exif']['EXIF']['DateTimeDigitized'])) {

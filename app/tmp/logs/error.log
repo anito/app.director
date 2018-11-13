@@ -1,0 +1,12 @@
+2018-11-13 07:58:23 Error: [Error] Call to undefined function eregi()
+Request URL: /uploads/image
+Stack Trace:
+#0 /Library/Server/Web/Data/Sites/gap.webpremiere.dev/app/Config/bootstrap.php(286): isSwf('stamp-rugs-51_K...')
+#1 /Library/Server/Web/Data/Sites/gap.webpremiere.dev/app/Controller/Component/FileComponent.php(654): isNotImg('stamp-rugs-51_K...')
+#2 /Library/Server/Web/Data/Sites/gap.webpremiere.dev/app/Controller/UploadsController.php(68): FileComponent->imageMetadata('/Library/Server...')
+#3 [internal function]: UploadsController->image()
+#4 /Library/Server/Web/Data/Sites/gap.webpremiere.dev/lib/Cake/Controller/Controller.php(491): ReflectionMethod->invokeArgs(Object(UploadsController), Array)
+#5 /Library/Server/Web/Data/Sites/gap.webpremiere.dev/lib/Cake/Routing/Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#6 /Library/Server/Web/Data/Sites/gap.webpremiere.dev/lib/Cake/Routing/Dispatcher.php(167): Dispatcher->_invoke(Object(UploadsController), Object(CakeRequest))
+#7 /Library/Server/Web/Data/Sites/gap.webpremiere.dev/app/webroot/index.php(96): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#8 {main}

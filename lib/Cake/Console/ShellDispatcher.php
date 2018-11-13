@@ -2,17 +2,17 @@
 /**
  * ShellDispatcher file
  *
- * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
- * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * CakePHP(tm) : Rapid Development Framework (https://cakephp.org)
+ * Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
  *
  * Licensed under The MIT License
  * For full copyright and license information, please see the LICENSE.txt
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- * @link          http://cakephp.org CakePHP(tm) Project
+ * @copyright     Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
+ * @link          https://cakephp.org CakePHP(tm) Project
  * @since         CakePHP(tm) v 2.0
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
+ * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
 
 /**
@@ -43,7 +43,7 @@ class ShellDispatcher {
  * a status code of either 0 or 1 according to the result of the dispatch.
  *
  * @param array $args the argv from PHP
- * @param boolean $bootstrap Should the environment be bootstrapped.
+ * @param bool $bootstrap Should the environment be bootstrapped.
  */
 	public function __construct($args = array(), $bootstrap = true) {
 		set_time_limit(0);
@@ -106,7 +106,7 @@ class ShellDispatcher {
 			$message = "This file has been loaded incorrectly and cannot continue.\n" .
 				"Please make sure that " . DS . 'lib' . DS . 'Cake' . DS . "Console is in your system path,\n" .
 				"and check the cookbook for the correct usage of this command.\n" .
-				"(http://book.cakephp.org/)";
+				"(https://book.cakephp.org/)";
 			throw new CakeException($message);
 		}
 
@@ -116,7 +116,7 @@ class ShellDispatcher {
 /**
  * Initializes the environment and loads the CakePHP core.
  *
- * @return boolean Success.
+ * @return bool Success.
  */
 	protected function _bootstrap() {
 		if (!defined('ROOT')) {
@@ -129,15 +129,22 @@ class ShellDispatcher {
 			define('APP', $this->params['working'] . DS);
 		}
 		if (!defined('WWW_ROOT')) {
-			define('WWW_ROOT', APP . $this->params['webroot'] . DS);
+			if (!$this->_isAbsolutePath($this->params['webroot'])) {
+				$webroot = realpath(APP . $this->params['webroot']);
+			} else {
+				$webroot = $this->params['webroot'];
+			}
+			define('WWW_ROOT', $webroot . DS);
 		}
 		if (!defined('TMP') && !is_dir(APP . 'tmp')) {
 			define('TMP', CAKE_CORE_INCLUDE_PATH . DS . 'Cake' . DS . 'Console' . DS . 'Templates' . DS . 'skel' . DS . 'tmp' . DS);
 		}
+
+		// $boot is used by Cake/bootstrap.php file
 		$boot = file_exists(ROOT . DS . APP_DIR . DS . 'Config' . DS . 'bootstrap.php');
 		require CORE_PATH . 'Cake' . DS . 'bootstrap.php';
 
-		if (!file_exists(APP . 'Config' . DS . 'core.php')) {
+		if (!file_exists(CONFIG . 'core.php')) {
 			include_once CAKE_CORE_INCLUDE_PATH . DS . 'Cake' . DS . 'Console' . DS . 'Templates' . DS . 'skel' . DS . 'Config' . DS . 'core.php';
 			App::build();
 		}
@@ -177,12 +184,15 @@ class ShellDispatcher {
 		}
 		set_exception_handler($exception['consoleHandler']);
 		set_error_handler($error['consoleHandler'], Configure::read('Error.level'));
+
+		App::uses('Debugger', 'Utility');
+		Debugger::getInstance()->output('txt');
 	}
 
 /**
  * Dispatches a CLI request
  *
- * @return boolean
+ * @return bool
  * @throws MissingShellMethodException
  */
 	public function dispatch() {
@@ -247,6 +257,11 @@ class ShellDispatcher {
 		App::uses($class, $plugin . 'Console/Command');
 
 		if (!class_exists($class)) {
+			$plugin = Inflector::camelize($shell) . '.';
+			App::uses($class, $plugin . 'Console/Command');
+		}
+
+		if (!class_exists($class)) {
 			throw new MissingShellException(array(
 				'class' => $class
 			));
@@ -297,23 +312,43 @@ class ShellDispatcher {
 			}
 		}
 
-		if ($params['app'][0] === '/' || preg_match('/([a-z])(:)/i', $params['app'], $matches)) {
+		if ($this->_isAbsolutePath($params['app'])) {
 			$params['root'] = dirname($params['app']);
 		} elseif (strpos($params['app'], '/')) {
 			$params['root'] .= '/' . dirname($params['app']);
 		}
-
+		$isWindowsAppPath = $this->_isWindowsPath($params['app']);
 		$params['app'] = basename($params['app']);
 		$params['working'] = rtrim($params['root'], '/');
 		if (!$isWin || !preg_match('/^[A-Z]:$/i', $params['app'])) {
 			$params['working'] .= '/' . $params['app'];
 		}
 
-		if (!empty($matches[0]) || !empty($isWin)) {
+		if ($isWindowsAppPath || !empty($isWin)) {
 			$params = str_replace('/', '\\', $params);
 		}
 
 		$this->params = $params + $this->params;
+	}
+
+/**
+ * Checks whether the given path is absolute or relative.
+ *
+ * @param string $path absolute or relative path.
+ * @return bool
+ */
+	protected function _isAbsolutePath($path) {
+		return $path[0] === '/' || $this->_isWindowsPath($path);
+	}
+
+/**
+ * Checks whether the given path is Window OS path.
+ *
+ * @param string $path absolute path.
+ * @return bool
+ */
+	protected function _isWindowsPath($path) {
+		return preg_match('/([a-z])(:)/i', $path) == 1;
 	}
 
 /**
@@ -324,7 +359,7 @@ class ShellDispatcher {
  */
 	protected function _parsePaths($args) {
 		$parsed = array();
-		$keys = array('-working', '--working', '-app', '--app', '-root', '--root');
+		$keys = array('-working', '--working', '-app', '--app', '-root', '--root', '-webroot', '--webroot');
 		$args = (array)$args;
 		foreach ($keys as $key) {
 			while (($index = array_search($key, $args)) !== false) {
@@ -360,7 +395,7 @@ class ShellDispatcher {
 /**
  * Stop execution of the current script
  *
- * @param integer|string $status see http://php.net/exit for values
+ * @param int|string $status see http://php.net/exit for values
  * @return void
  */
 	protected function _stop($status = 0) {

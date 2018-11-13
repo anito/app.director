@@ -41,8 +41,8 @@ class UploadsController extends AppController {
         $this->log($the_files, LOG_DEBUG);
         foreach ($the_files as $key => $value) {
 
-          $the_file = str_replace(" ", "_", $the_files[$key]);
-          $the_file = ereg_replace("[^A-Za-z0-9._-]", "_", $the_file);
+          $the_file = str_replace(' ', '_', $the_files[$key]);
+          $the_file = preg_replace('/[^A-Za-z0-9._-]/', '_', $the_file);
           $the_temp = $formfiles['tmp_name'][$key];
 
           $ext = $file->returnExt($the_file);
@@ -79,7 +79,7 @@ class UploadsController extends AppController {
                   $focal = $file->parseMetaTags('exif:focal length', $meta);
                   $software = $file->parseMetaTags('exif:software', $meta);
 //                  $keywords = str_replace(' ', ',', urldecode($keywords));
-//                  $keywords = ereg_replace("[^,A-Za-z0-9._-]", "", $keywords);
+                  $keywords = preg_replace('/[^,A-Za-z0-9._-]/', '', $keywords);
 
                   $this->request->data['Photo']['id'] = $id;
                   $this->request->data['Photo']['user_id'] = $user_id;

@@ -1,6 +1,6 @@
 <?php
 
-class DarkroomComponent extends Object {
+class DarkroomComponent extends CakeObject {
 
   var $controller = true;
 

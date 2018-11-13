@@ -256,14 +256,14 @@ function computeSize($file, $new_w, $new_h, $scale) {
 }
 
 function allowableFile($fn) {
-  if (eregi('\.flv$|.\f4v$|\.mov$|\.mp4$|\.m4a$|\.m4v$|\.3gp$|\.3g2$|\.swf$|\.jpg$|\.jpeg$|\.gif$|\.png$', $fn)) {
+  if (preg_match('/\.flv$|.\f4v$|\.mov$|\.mp4$|\.m4a$|\.m4v$|\.3gp$|\.3g2$|\.swf$|\.jpg$|\.jpeg$|\.gif$|\.png$/', $fn)) {
     return true;
   }
   return false;
 }
 
 function isVideo($fn) {
-  if (eregi('\.flv$|\.f4v$|\.mov$|\.mp4$|\.m4a$|\.m4v$|\.3gp$|\.3g2$', $fn)) {
+  if (preg_match('/\.flv$|\.f4v$|\.mov$|\.mp4$|\.m4a$|\.m4v$|\.3gp$|\.3g2$/', $fn)) {
     return true;
   } else {
     return false;
@@ -271,7 +271,7 @@ function isVideo($fn) {
 }
 
 function isSwf($fn) {
-  if (eregi('\.swf$', $fn)) {
+  if (preg_match('/\.swf$/', $fn)) {
     return true;
   } else {
     return false;
