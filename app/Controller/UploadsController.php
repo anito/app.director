@@ -79,7 +79,7 @@ class UploadsController extends AppController {
                   $focal = $file->parseMetaTags('exif:focal length', $meta);
                   $software = $file->parseMetaTags('exif:software', $meta);
 //                  $keywords = str_replace(' ', ',', urldecode($keywords));
-                  $keywords = preg_replace('/[^,A-Za-z0-9._-]/', '', $keywords);
+//                  $keywords = preg_replace('/[^,A-Za-z0-9._-]/', '', $keywords);
 
                   $this->request->data['Photo']['id'] = $id;
                   $this->request->data['Photo']['user_id'] = $user_id;

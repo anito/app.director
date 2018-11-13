@@ -114,7 +114,8 @@ class KodaksController extends AppController {
                 copy($original, $path_to_cache);
             } else {
                 if (!defined('MAGICK_PATH')) {
-                    define('MAGICK_PATH_FINAL', 'convert');
+                    if (!defined('MAGICK_PATH_FINAL'))
+                        define('MAGICK_PATH_FINAL', 'convert');
                 } else if (strpos(strtolower(MAGICK_PATH), 'c:\\') !== false) {
                     define('MAGICK_PATH_FINAL', '"' . MAGICK_PATH . '"');
                 } else {
