@@ -41,16 +41,16 @@ endif;
                         <i class="info">Photo Manager</i>
                     </div>
                     <div>
-                        <a href="http://armyshop.<?php echo HOST; ?>.<?php echo TOPLEVEL; ?>/admin" class="btn btn-success btn-large" type="" target="_blank"><span itemprop="name">Shop Admin</span></a>
+                        <a href="https://armyshop.<?php echo HOST; ?>.<?php echo TOPLEVEL; ?>/admin" class="btn btn-success btn-large" type="" target="_blank"><span itemprop="name">Shop Admin</span></a>
                         <i class="info">Shop Admin for Sample Shop</i>
                     </div>
 
                     <div>
-                        <a href="http://ha-lehmann.<?php echo TOPLEVEL == "de" ? 'at' : 'dev'; ?>" class="btn btn-danger btn-large" type="" target="_blank"><span itemprop="name">Army Shop</span></a>
+                        <a href="https://ha-lehmann.<?php echo TOPLEVEL == "de" ? 'at' : 'dev'; ?>" class="btn btn-danger btn-large" type="" target="_blank"><span itemprop="name">Army Shop</span></a>
                         <i class="info">WooCommerce Online-Shop</i>
                     </div>
                     <div>
-                        <a href="http://armyshop.<?php echo HOST; ?>.<?php echo TOPLEVEL; ?>" class="btn btn-warning btn-large" type="" target="_blank"><span itemprop="name">Shop App</span></a>
+                        <a href="https://armyshop.<?php echo HOST; ?>.<?php echo TOPLEVEL; ?>" class="btn btn-warning btn-large" type="" target="_blank"><span itemprop="name">Shop App</span></a>
                         <i class="info">Sample Shop</i>
                     </div>
                     <div>
@@ -58,7 +58,7 @@ endif;
                         <i class="info">Hot Liquors</i>
                     </div>
                     <div>
-                        <a href="http://app.<?php echo HOST; ?>.<?php echo TOPLEVEL; ?>" class="btn btn-large" type="">More...</a>
+                        <a href="https://app.<?php echo HOST; ?>.<?php echo TOPLEVEL; ?>" class="btn btn-large" type="">More...</a>
                     </div>
             </div>
         </div>
@@ -67,6 +67,6 @@ endif;
 <footer class="footer">
     <div class="footer__bg_copyright"><a href="https://www.flickr.com/photos/95403249@N06/35456881653" target="_blank"><span class="title h3">Vestrahorn Islande</span><span class="author h2">von RUFF Etienne</span></a></div>
     <div class="footer__content">
-        <?php echo 'powered'; ?> <a href="/" target="_self"><img class="logo" src="https://webpremiere.de/files/public-docs/logos/webpremiere-logo-1.svg" alt="webPremiere"></a>
+        <?php echo 'powered'; ?> <a href="https://webpremiere.<?php echo TOPLEVEL; ?>" target="_self"><img class="logo" src="https://webpremiere.de/files/public-docs/logos/webpremiere-logo-1.svg" alt="webPremiere"></a>
     </div>
 </footer>
