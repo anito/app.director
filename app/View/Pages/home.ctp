@@ -54,7 +54,7 @@ endif;
                         <i class="info">Sample Shop</i>
                     </div>
                     <div>
-                        <a href="http://dorcas-chili.<?php echo TOPLEVEL == "de" ? 'de' : 'dev'; ?>" class="btn btn-primary btn-large" type="" target="_blank"><span itemprop="name">Dorcas Chili</span></a>
+                        <a href="https://dorcas-chili.<?php echo TOPLEVEL == "de" ? 'de' : 'dev'; ?>" class="btn btn-primary btn-large" type="" target="_blank"><span itemprop="name">Dorcas Chili</span></a>
                         <i class="info">Hot Liquors</i>
                     </div>
                     <div>
