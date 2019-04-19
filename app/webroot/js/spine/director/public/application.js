@@ -36762,8 +36762,6 @@ Released under the MIT License
 
   ToolbarView = require("controllers/toolbar_view");
 
-  LoginView = require("controllers/login_view");
-
   SidebarFlickr = require("controllers/sidebar_flickr");
 
   AlbumEditView = require("controllers/album_edit_view");
