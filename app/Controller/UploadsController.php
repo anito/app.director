@@ -8,8 +8,8 @@ class UploadsController extends AppController {
   public $uses = array('Photo');
 
   function beforeFilter() {
-    $this->disableCache();
-    
+    $this->response->disableCache();
+
     parent::beforeFilter();
   }
 
@@ -18,11 +18,11 @@ class UploadsController extends AppController {
     if($this->Auth->user()) {
 
       $user_id = $this->Auth->user('id');
-      
+
       App::import('Component', 'File');
-      
+
       $file = new FileComponent();
-      
+
       if (!is_dir(PHOTOS)) {
         $file->makeDir(PHOTOS);
       }
@@ -48,7 +48,7 @@ class UploadsController extends AppController {
           $ext = $file->returnExt($the_file);
 
           if (in_array($ext, array('jpg', 'jpeg', 'jpe', 'gif', 'png'))) {
-            
+
             if (is_uploaded_file($the_temp)) {
 
               $this->Photo->create();
@@ -66,7 +66,9 @@ class UploadsController extends AppController {
                   unlink($lg_temp);
 
                   list($meta, $captured) = $file->imageMetadata($lg_path);
+
                   $this->log($meta, LOG_DEBUG);
+
                   $exposure = $file->parseMetaTags('exif:exposure', $meta);
                   $iso = $file->parseMetaTags('exif:iso', $meta);
                   $longitude = $file->parseMetaTags('exif:longitude', $meta);
@@ -102,7 +104,7 @@ class UploadsController extends AppController {
           // append to array
           $photos[] = $this->request->data;
         }// foreach
-        
+
         if($this->Photo->saveAll($photos)) {
           $this->set('_serialize', $photos);
           $this->render(SIMPLE_JSON);

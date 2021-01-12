@@ -7,10 +7,11 @@ app/tmp/sessions/*
 app/tmp/logs/*
 app/tmp/tests/*
 uploads/photos/*
-/app/Config/database.php
-/app/webroot/js/spine/director/node_modules
+app/Config/database.php
+app/webroot/js/spine/director/node_modules
 *.graffle
-/app/webroot/js/spine/mobile/*
-/app/webroot/js/spine/myapp/*
-/app/webroot/js/spine/newapp/*
+app/webroot/js/spine/mobile/*
+app/webroot/js/spine/myapp/*
+app/webroot/js/spine/newapp/*
 node_modules
+app/webroot/js/spine/director/node_modules

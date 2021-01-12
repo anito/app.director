@@ -36,8 +36,6 @@ class PhotosController extends AppController {
                     $this->flash(__('Image saved.', true), array('action' => 'index'));
                     $this->set('_serialize', array('id' => $this->Photo->id));
                     $this->render(SIMPLE_JSON);
-                } else {
-                    
                 }
             }
         }
@@ -71,11 +69,13 @@ class PhotosController extends AppController {
             $this->flash(sprintf(__('Invalid image', true)), array('action' => 'index'));
         }
         if ($this->Photo->delete($id)) {
+
             // remove image from filesystem
             $this->remove($id);
+
             $this->set('_serialize', array('id' => $this->Photo->id));
             $this->render(SIMPLE_JSON);
-//      $this->flash(__('Image deleted', true), array('action' => 'index'));
+            $this->flash(__('Image deleted', true), array('action' => 'index'));
         } else {
             $this->flash(__('Image was not deleted', true), array('action' => 'index'));
             $this->redirect(array('action' => 'index'));
@@ -194,24 +194,6 @@ class PhotosController extends AppController {
         }
         $this->set('_serialize', $images);
         $this->render(SIMPLE_JSON);
-    }
-
-    ////
-    // Rotate image
-    ////
-    public function rotate_() {
-        $ids = explode(',', $this->data['rotate']['id']);
-        $degree = $this->data['rotate']['deg'];
-        $images = $this->Image->findAll(aa('Image.id', $ids));
-        foreach ($images as $image) {
-            // Paths
-            $path = ALBUMS . DS . 'album-' . $image['Album']['id'];
-            $lg_local = $path . DS . 'lg' . DS . $image['Image']['src'];
-            $lg_original = ensureOriginal($lg_local, $image['Album']['id']);
-            $this->Kodak->rotate($lg_original, $lg_local, $degree);
-            $this->Image->clearCaches($image['Image']['src'], $path);
-        }
-        $this->set('images', $images);
     }
 
     private function clearCaches($str, $path) {

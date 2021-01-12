@@ -55,7 +55,7 @@ class AppController extends Controller {
     }
 //    $this->log($this->Auth->user(), LOG_DEBUG);
   }
-  
+
   function object2array($obj) {
     $_arr = is_object($obj) ? get_object_vars($obj) : $obj;
     $arr = null;

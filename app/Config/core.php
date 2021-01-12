@@ -177,7 +177,7 @@
             'timeout' => 43200, // 30 days
             'cookieTimeout' => 43200 // 30 days
 	));
-        
+
 /**
  * The level of CakePHP security.
  */
@@ -228,7 +228,7 @@
 	Configure::write('Acl.database', 'default');
 
 /**
- * Uncomment this line and correct your server timezone to fix 
+ * Uncomment this line and correct your server timezone to fix
  * any date & time related errors.
  */
 	date_default_timezone_set('Europe/Berlin');

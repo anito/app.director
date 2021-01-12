@@ -133,6 +133,7 @@ define('BASE_URL', Configure::read('App.baseUrl'));
 define('WEB_URL', '/' . APP_DIR . '/' . WEBROOT_DIR);
 define('UPLOADS', ROOT . DS . 'uploads');
 define('PHOTOS', UPLOADS . DS . 'photos');
+define('IMPORTS', UPLOADS . DS . 'imports');
 if (!defined('TOPLEVEL')) {
   $a = explode('.', DIR_HOST);
   $last = count($a)-1;
@@ -152,9 +153,9 @@ if (!defined('SALT')) {
 if (!defined('MAGICK_PATH')) {
    define('MAGICK_PATH_FINAL', 'convert');
 } else if (strpos(strtolower(MAGICK_PATH), 'c:\\') !== false) {
-   define('MAGICK_PATH_FINAL', '"' . MAGICK_PATH . '"');	
+   define('MAGICK_PATH_FINAL', '"' . MAGICK_PATH . '"');
 } else {
-   define('MAGICK_PATH_FINAL', MAGICK_PATH);	
+   define('MAGICK_PATH_FINAL', MAGICK_PATH);
 }
 
 

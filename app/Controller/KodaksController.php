@@ -8,7 +8,7 @@ class KodaksController extends AppController {
 
     function beforeFilter() {
         define('USE_X_SEND', false);
-        $this->disableCache();
+        $this->response->disableCache();
         $this->Auth->allowedActions = array('develop');
         parent::beforeFilter();
     }

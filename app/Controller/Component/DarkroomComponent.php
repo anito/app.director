@@ -38,7 +38,7 @@ class DarkroomComponent extends CakeObject {
           return;
         }
         break;
-      case preg_match('/png/', $ext):
+      case preg_match('/png|PNG/', $ext):
         if (imagetypes() & IMG_PNG) {
           $src_img = imagecreatefrompng($name);
           $type = 'png';
